@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Deep Vein Idle 自给成长与职业助手
 // @namespace    local.deepvein.balanced
-// @version      0.4.4
-// @description  经验优先、自给赚钱、物资预算、打造强化与职业训练；默认暂停
+// @version      0.4.5
+// @description  经验优先、市场比价与按需采购、物资预算、打造强化与五种职业路线；默认暂停
 // @updateURL    https://raw.githubusercontent.com/ljyoukong-cpu/deepvein-idle-helper/main/deepvein-balanced.meta.js
 // @downloadURL  https://raw.githubusercontent.com/ljyoukong-cpu/deepvein-idle-helper/main/deepvein-balanced.user.js
 // @match        https://deepveinidle.com/*
@@ -14,7 +14,7 @@
 
 (function () {
 'use strict';
-const SCRIPT_VERSION="0.4.4";
+const SCRIPT_VERSION="0.4.5";
 const GAME_DATA={"client":"index-DeoJ7Jh9.js","sha256":"70ef13fc889e4339d7c93e1ed023bf526576d777fce7a8713aaa6aadb627e289","captured":"2026-09-28","compatibleClients":[{"client":"index-IFlmlYxK.js","sha256":"693f2d43a8e6878a2368507daf1f24a35d917e4d8787c65c22ba8ea9ab12583a"},{"client":"index-BLSaPO15.js","sha256":"8990f3fc177963fdc84cd0b2ec4105470fa71a9edbced5753f5843980bf78d98"}],"protocol":3,"skills":["mining","fishing","woodcutting","farming","thieving","cooking","smithing","fletching","herblore","crafting","enhancing","melee","ranged","magic","defence","hitpoints"],"xp":{"journeyLevel":99,"baseXp":100,"growth":1.12,"beyondStep":0.1,"beyondGrowth":1.145,"speedPerLevelAboveRequirement":0.005},"tickMs":600,"jobs":[{"id":1,"name":"Copper","skill":"mining","group":"Ore","levelReq":1,"baseTicks":5,"xp":2,"inputs":[],"output":{"itemId":1,"qty":1}},{"id":2,"name":"Tin","skill":"mining","group":"Ore","levelReq":1,"baseTicks":5,"xp":3,"inputs":[],"output":{"itemId":2,"qty":1}},{"id":3,"name":"Iron","skill":"mining","group":"Ore","levelReq":15,"baseTicks":6,"xp":5,"inputs":[],"output":{"itemId":3,"qty":1},"bonus":{"itemId":100,"chance":0.0005}},{"id":4,"name":"Silver","skill":"mining","group":"Ore","levelReq":30,"baseTicks":7,"xp":9,"inputs":[],"output":{"itemId":4,"qty":1},"bonus":{"itemId":100,"chance":0.001}},{"id":5,"name":"Coal","skill":"mining","group":"Ore","levelReq":40,"baseTicks":8,"xp":14,"inputs":[],"output":{"itemId":5,"qty":1},"bonus":{"itemId":100,"chance":0.001}},{"id":6,"name":"Gold","skill":"mining","group":"Ore","levelReq":55,"baseTicks":9,"xp":22,"inputs":[],"output":{"itemId":6,"qty":1},"bonus":{"itemId":100,"chance":0.002}},{"id":7,"name":"Cobalt","skill":"mining","group":"Ore","levelReq":65,"baseTicks":11,"xp":37,"inputs":[],"output":{"itemId":7,"qty":1},"bonus":{"itemId":100,"chance":0.003}},{"id":8,"name":"Meteoric","skill":"mining","group":"Ore","levelReq":85,"baseTicks":13,"xp":59,"inputs":[],"output":{"itemId":8,"qty":1},"bonus":{"itemId":100,"chance":0.005}},{"id":21,"name":"Shrimp","skill":"fishing","group":"Fish","levelReq":1,"baseTicks":5,"xp":2,"inputs":[],"output":{"itemId":20,"qty":1}},{"id":22,"name":"Sardine","skill":"fishing","group":"Fish","levelReq":5,"baseTicks":5,"xp":3,"inputs":[],"output":{"itemId":21,"qty":1}},{"id":23,"name":"Trout","skill":"fishing","group":"Fish","levelReq":20,"baseTicks":6,"xp":7,"inputs":[],"output":{"itemId":22,"qty":1}},{"id":24,"name":"Salmon","skill":"fishing","group":"Fish","levelReq":30,"baseTicks":7,"xp":11,"inputs":[],"output":{"itemId":23,"qty":1}},{"id":25,"name":"Tuna","skill":"fishing","group":"Fish","levelReq":45,"baseTicks":8,"xp":17,"inputs":[],"output":{"itemId":24,"qty":1}},{"id":26,"name":"Lobster","skill":"fishing","group":"Fish","levelReq":60,"baseTicks":10,"xp":28,"inputs":[],"output":{"itemId":25,"qty":1}},{"id":27,"name":"Swordfish","skill":"fishing","group":"Fish","levelReq":75,"baseTicks":11,"xp":44,"inputs":[],"output":{"itemId":26,"qty":1}},{"id":28,"name":"Shark","skill":"fishing","group":"Fish","levelReq":90,"baseTicks":13,"xp":60,"inputs":[],"output":{"itemId":27,"qty":1}},{"id":30,"name":"Tree","skill":"woodcutting","group":"Wood","levelReq":1,"baseTicks":5,"xp":3,"inputs":[],"output":{"itemId":10,"qty":1},"bonus":{"itemId":160,"chance":0.0125}},{"id":31,"name":"Oak","skill":"woodcutting","group":"Wood","levelReq":15,"baseTicks":6,"xp":7,"inputs":[],"output":{"itemId":11,"qty":1},"bonus":{"itemId":161,"chance":0.008333333333333333}},{"id":32,"name":"Willow","skill":"woodcutting","group":"Wood","levelReq":30,"baseTicks":7,"xp":11,"inputs":[],"output":{"itemId":12,"qty":1},"bonus":{"itemId":162,"chance":0.005555555555555556}},{"id":33,"name":"Maple","skill":"woodcutting","group":"Wood","levelReq":45,"baseTicks":8,"xp":18,"inputs":[],"output":{"itemId":13,"qty":1},"bonus":{"itemId":163,"chance":0.0038461538461538464}},{"id":34,"name":"Yew","skill":"woodcutting","group":"Wood","levelReq":60,"baseTicks":10,"xp":29,"inputs":[],"output":{"itemId":14,"qty":1},"bonus":{"itemId":164,"chance":0.002777777777777778}},{"id":35,"name":"Magic","skill":"woodcutting","group":"Wood","levelReq":75,"baseTicks":12,"xp":48,"inputs":[],"output":{"itemId":15,"qty":1},"bonus":{"itemId":165,"chance":0.0022222222222222222}},{"id":160,"name":"Potato","skill":"farming","group":"Crops","levelReq":1,"baseTicks":2,"xp":110,"inputs":[{"itemId":160,"qty":1}],"output":{"itemId":170,"qty":1},"grow":800},{"id":161,"name":"Glowcap","skill":"farming","group":"Crops","levelReq":15,"baseTicks":2,"xp":380,"inputs":[{"itemId":161,"qty":1}],"output":{"itemId":171,"qty":1},"grow":1500},{"id":162,"name":"Cave turnip","skill":"farming","group":"Crops","levelReq":30,"baseTicks":2,"xp":900,"inputs":[{"itemId":162,"qty":1}],"output":{"itemId":172,"qty":1},"grow":2500},{"id":163,"name":"Bitterroot","skill":"farming","group":"Crops","levelReq":45,"baseTicks":2,"xp":1900,"inputs":[{"itemId":163,"qty":1}],"output":{"itemId":173,"qty":1},"grow":4000},{"id":164,"name":"Voidmelon","skill":"farming","group":"Crops","levelReq":60,"baseTicks":2,"xp":3800,"inputs":[{"itemId":164,"qty":1}],"output":{"itemId":174,"qty":1},"grow":6000},{"id":165,"name":"Ember pepper","skill":"farming","group":"Crops","levelReq":75,"baseTicks":2,"xp":6500,"inputs":[{"itemId":165,"qty":1}],"output":{"itemId":175,"qty":1},"grow":9000},{"id":41,"name":"Bronze bar","skill":"smithing","group":"Bars","levelReq":1,"baseTicks":4,"xp":6,"inputs":[{"itemId":1,"qty":1},{"itemId":2,"qty":1}],"output":{"itemId":40,"qty":1}},{"id":42,"name":"Iron bar","skill":"smithing","group":"Bars","levelReq":15,"baseTicks":4,"xp":8,"inputs":[{"itemId":3,"qty":1}],"output":{"itemId":41,"qty":1}},{"id":43,"name":"Steel bar","skill":"smithing","group":"Bars","levelReq":30,"baseTicks":4,"xp":35,"inputs":[{"itemId":3,"qty":1},{"itemId":5,"qty":2}],"output":{"itemId":42,"qty":1}},{"id":44,"name":"Cobalt bar","skill":"smithing","group":"Bars","levelReq":60,"baseTicks":4,"xp":108,"inputs":[{"itemId":7,"qty":1},{"itemId":5,"qty":3}],"output":{"itemId":43,"qty":1}},{"id":45,"name":"Meteoric bar","skill":"smithing","group":"Bars","levelReq":85,"baseTicks":4,"xp":253,"inputs":[{"itemId":8,"qty":1},{"itemId":5,"qty":4}],"output":{"itemId":44,"qty":1}},{"id":51,"name":"Bronze pickaxe","skill":"smithing","group":"Pickaxes","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":2}],"output":{"itemId":80,"qty":1}},{"id":52,"name":"Iron pickaxe","skill":"smithing","group":"Pickaxes","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":2}],"output":{"itemId":81,"qty":1}},{"id":53,"name":"Steel pickaxe","skill":"smithing","group":"Pickaxes","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":2}],"output":{"itemId":82,"qty":1}},{"id":54,"name":"Cobalt pickaxe","skill":"smithing","group":"Pickaxes","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":2}],"output":{"itemId":83,"qty":1}},{"id":55,"name":"Meteoric pickaxe","skill":"smithing","group":"Pickaxes","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":2}],"output":{"itemId":84,"qty":1}},{"id":56,"name":"Bronze rod","skill":"fletching","group":"Rods","levelReq":1,"baseTicks":5,"xp":8,"inputs":[{"itemId":40,"qty":1},{"itemId":10,"qty":1}],"output":{"itemId":85,"qty":1}},{"id":57,"name":"Iron rod","skill":"fletching","group":"Rods","levelReq":15,"baseTicks":5,"xp":13,"inputs":[{"itemId":41,"qty":1},{"itemId":11,"qty":1}],"output":{"itemId":86,"qty":1}},{"id":58,"name":"Steel rod","skill":"fletching","group":"Rods","levelReq":30,"baseTicks":5,"xp":41,"inputs":[{"itemId":42,"qty":1},{"itemId":12,"qty":1}],"output":{"itemId":87,"qty":1}},{"id":59,"name":"Cobalt rod","skill":"fletching","group":"Rods","levelReq":60,"baseTicks":5,"xp":120,"inputs":[{"itemId":43,"qty":1},{"itemId":14,"qty":1}],"output":{"itemId":88,"qty":1}},{"id":60,"name":"Meteoric rod","skill":"fletching","group":"Rods","levelReq":85,"baseTicks":5,"xp":276,"inputs":[{"itemId":44,"qty":1},{"itemId":15,"qty":1}],"output":{"itemId":89,"qty":1}},{"id":308,"name":"Bronze pan","skill":"smithing","group":"Pans","levelReq":1,"baseTicks":5,"xp":8,"inputs":[{"itemId":40,"qty":1}],"output":{"itemId":360,"qty":1}},{"id":309,"name":"Iron pan","skill":"smithing","group":"Pans","levelReq":15,"baseTicks":5,"xp":13,"inputs":[{"itemId":41,"qty":1}],"output":{"itemId":361,"qty":1}},{"id":310,"name":"Steel pan","skill":"smithing","group":"Pans","levelReq":30,"baseTicks":5,"xp":41,"inputs":[{"itemId":42,"qty":1}],"output":{"itemId":362,"qty":1}},{"id":311,"name":"Cobalt pan","skill":"smithing","group":"Pans","levelReq":60,"baseTicks":5,"xp":120,"inputs":[{"itemId":43,"qty":1}],"output":{"itemId":363,"qty":1}},{"id":312,"name":"Meteoric pan","skill":"smithing","group":"Pans","levelReq":85,"baseTicks":5,"xp":276,"inputs":[{"itemId":44,"qty":1}],"output":{"itemId":364,"qty":1}},{"id":313,"name":"Bronze hammer","skill":"smithing","group":"Hammers","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":2}],"output":{"itemId":365,"qty":1}},{"id":314,"name":"Iron hammer","skill":"smithing","group":"Hammers","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":2}],"output":{"itemId":366,"qty":1}},{"id":315,"name":"Steel hammer","skill":"smithing","group":"Hammers","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":2}],"output":{"itemId":367,"qty":1}},{"id":316,"name":"Cobalt hammer","skill":"smithing","group":"Hammers","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":2}],"output":{"itemId":368,"qty":1}},{"id":317,"name":"Meteoric hammer","skill":"smithing","group":"Hammers","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":2}],"output":{"itemId":369,"qty":1}},{"id":318,"name":"Bronze knife","skill":"smithing","group":"Knives","levelReq":1,"baseTicks":5,"xp":8,"inputs":[{"itemId":40,"qty":1}],"output":{"itemId":370,"qty":1}},{"id":319,"name":"Iron knife","skill":"smithing","group":"Knives","levelReq":15,"baseTicks":5,"xp":13,"inputs":[{"itemId":41,"qty":1}],"output":{"itemId":371,"qty":1}},{"id":320,"name":"Steel knife","skill":"smithing","group":"Knives","levelReq":30,"baseTicks":5,"xp":41,"inputs":[{"itemId":42,"qty":1}],"output":{"itemId":372,"qty":1}},{"id":321,"name":"Cobalt knife","skill":"smithing","group":"Knives","levelReq":60,"baseTicks":5,"xp":120,"inputs":[{"itemId":43,"qty":1}],"output":{"itemId":373,"qty":1}},{"id":322,"name":"Meteoric knife","skill":"smithing","group":"Knives","levelReq":85,"baseTicks":5,"xp":276,"inputs":[{"itemId":44,"qty":1}],"output":{"itemId":374,"qty":1}},{"id":323,"name":"Bronze needle","skill":"crafting","group":"Needles","levelReq":1,"baseTicks":5,"xp":8,"inputs":[{"itemId":40,"qty":1}],"output":{"itemId":375,"qty":1}},{"id":324,"name":"Iron needle","skill":"crafting","group":"Needles","levelReq":15,"baseTicks":5,"xp":13,"inputs":[{"itemId":41,"qty":1}],"output":{"itemId":376,"qty":1}},{"id":325,"name":"Steel needle","skill":"crafting","group":"Needles","levelReq":30,"baseTicks":5,"xp":41,"inputs":[{"itemId":42,"qty":1}],"output":{"itemId":377,"qty":1}},{"id":326,"name":"Cobalt needle","skill":"crafting","group":"Needles","levelReq":60,"baseTicks":5,"xp":120,"inputs":[{"itemId":43,"qty":1}],"output":{"itemId":378,"qty":1}},{"id":327,"name":"Meteoric needle","skill":"crafting","group":"Needles","levelReq":85,"baseTicks":5,"xp":276,"inputs":[{"itemId":44,"qty":1}],"output":{"itemId":379,"qty":1}},{"id":328,"name":"Bronze mortar","skill":"crafting","group":"Mortars","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":2}],"output":{"itemId":380,"qty":1}},{"id":329,"name":"Iron mortar","skill":"crafting","group":"Mortars","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":2}],"output":{"itemId":381,"qty":1}},{"id":330,"name":"Steel mortar","skill":"crafting","group":"Mortars","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":2}],"output":{"itemId":382,"qty":1}},{"id":331,"name":"Cobalt mortar","skill":"crafting","group":"Mortars","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":2}],"output":{"itemId":383,"qty":1}},{"id":332,"name":"Meteoric mortar","skill":"crafting","group":"Mortars","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":2}],"output":{"itemId":384,"qty":1}},{"id":333,"name":"Bronze hoe","skill":"fletching","group":"Hoes","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":1},{"itemId":10,"qty":2}],"output":{"itemId":385,"qty":1}},{"id":334,"name":"Iron hoe","skill":"fletching","group":"Hoes","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":1},{"itemId":11,"qty":2}],"output":{"itemId":386,"qty":1}},{"id":335,"name":"Steel hoe","skill":"fletching","group":"Hoes","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":1},{"itemId":12,"qty":2}],"output":{"itemId":387,"qty":1}},{"id":336,"name":"Cobalt hoe","skill":"fletching","group":"Hoes","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":1},{"itemId":14,"qty":2}],"output":{"itemId":388,"qty":1}},{"id":337,"name":"Meteoric hoe","skill":"fletching","group":"Hoes","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":1},{"itemId":15,"qty":2}],"output":{"itemId":389,"qty":1}},{"id":46,"name":"Bronze axe","skill":"smithing","group":"Axes","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":2}],"output":{"itemId":90,"qty":1}},{"id":47,"name":"Iron axe","skill":"smithing","group":"Axes","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":2}],"output":{"itemId":91,"qty":1}},{"id":48,"name":"Steel axe","skill":"smithing","group":"Axes","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":2}],"output":{"itemId":92,"qty":1}},{"id":49,"name":"Cobalt axe","skill":"smithing","group":"Axes","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":2}],"output":{"itemId":93,"qty":1}},{"id":50,"name":"Meteoric axe","skill":"smithing","group":"Axes","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":2}],"output":{"itemId":94,"qty":1}},{"id":61,"name":"Cook shrimp","skill":"cooking","group":"Food","levelReq":1,"baseTicks":4,"xp":4,"inputs":[{"itemId":20,"qty":1}],"output":{"itemId":60,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":26}},{"id":62,"name":"Cook sardine","skill":"cooking","group":"Food","levelReq":5,"baseTicks":4,"xp":5,"inputs":[{"itemId":21,"qty":1}],"output":{"itemId":61,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":30}},{"id":63,"name":"Cook trout","skill":"cooking","group":"Food","levelReq":20,"baseTicks":4,"xp":10,"inputs":[{"itemId":22,"qty":1}],"output":{"itemId":62,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":45}},{"id":64,"name":"Cook salmon","skill":"cooking","group":"Food","levelReq":30,"baseTicks":4,"xp":14,"inputs":[{"itemId":23,"qty":1}],"output":{"itemId":63,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":55}},{"id":65,"name":"Cook tuna","skill":"cooking","group":"Food","levelReq":45,"baseTicks":4,"xp":22,"inputs":[{"itemId":24,"qty":1}],"output":{"itemId":64,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":70}},{"id":66,"name":"Cook lobster","skill":"cooking","group":"Food","levelReq":60,"baseTicks":4,"xp":36,"inputs":[{"itemId":25,"qty":1}],"output":{"itemId":65,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":85}},{"id":67,"name":"Cook swordfish","skill":"cooking","group":"Food","levelReq":75,"baseTicks":4,"xp":59,"inputs":[{"itemId":26,"qty":1}],"output":{"itemId":66,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":100}},{"id":68,"name":"Cook shark","skill":"cooking","group":"Food","levelReq":90,"baseTicks":4,"xp":92,"inputs":[{"itemId":27,"qty":1}],"output":{"itemId":67,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":115}},{"id":110,"name":"Bronze blade","skill":"smithing","group":"Weapons","levelReq":1,"baseTicks":5,"xp":8,"inputs":[{"itemId":40,"qty":1}],"output":{"itemId":110,"qty":1}},{"id":111,"name":"Iron blade","skill":"smithing","group":"Weapons","levelReq":15,"baseTicks":5,"xp":13,"inputs":[{"itemId":41,"qty":1}],"output":{"itemId":111,"qty":1}},{"id":112,"name":"Steel blade","skill":"smithing","group":"Weapons","levelReq":30,"baseTicks":5,"xp":41,"inputs":[{"itemId":42,"qty":1}],"output":{"itemId":112,"qty":1}},{"id":113,"name":"Cobalt blade","skill":"smithing","group":"Weapons","levelReq":60,"baseTicks":5,"xp":120,"inputs":[{"itemId":43,"qty":1}],"output":{"itemId":113,"qty":1}},{"id":114,"name":"Meteoric blade","skill":"smithing","group":"Weapons","levelReq":85,"baseTicks":5,"xp":276,"inputs":[{"itemId":44,"qty":1}],"output":{"itemId":114,"qty":1}},{"id":338,"name":"Bronze greatsword","skill":"smithing","group":"Two-handers","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":2}],"output":{"itemId":390,"qty":1}},{"id":339,"name":"Iron greatsword","skill":"smithing","group":"Two-handers","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":2}],"output":{"itemId":391,"qty":1}},{"id":340,"name":"Steel greatsword","skill":"smithing","group":"Two-handers","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":2}],"output":{"itemId":392,"qty":1}},{"id":341,"name":"Cobalt greatsword","skill":"smithing","group":"Two-handers","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":2}],"output":{"itemId":393,"qty":1}},{"id":342,"name":"Meteoric greatsword","skill":"smithing","group":"Two-handers","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":2}],"output":{"itemId":394,"qty":1}},{"id":343,"name":"Colossus greatsword","skill":"smithing","group":"Two-handers","levelReq":99,"baseTicks":6,"xp":1350,"inputs":[{"itemId":44,"qty":2},{"itemId":252,"qty":3}],"output":{"itemId":395,"qty":1}},{"id":115,"name":"Bronze shield","skill":"smithing","group":"Shields","levelReq":1,"baseTicks":5,"xp":25,"inputs":[{"itemId":40,"qty":3}],"output":{"itemId":115,"qty":1}},{"id":116,"name":"Iron shield","skill":"smithing","group":"Shields","levelReq":15,"baseTicks":5,"xp":40,"inputs":[{"itemId":41,"qty":3}],"output":{"itemId":116,"qty":1}},{"id":117,"name":"Steel shield","skill":"smithing","group":"Shields","levelReq":30,"baseTicks":5,"xp":124,"inputs":[{"itemId":42,"qty":3}],"output":{"itemId":117,"qty":1}},{"id":118,"name":"Cobalt shield","skill":"smithing","group":"Shields","levelReq":60,"baseTicks":5,"xp":360,"inputs":[{"itemId":43,"qty":3}],"output":{"itemId":118,"qty":1}},{"id":119,"name":"Meteoric shield","skill":"smithing","group":"Shields","levelReq":85,"baseTicks":5,"xp":828,"inputs":[{"itemId":44,"qty":3}],"output":{"itemId":119,"qty":1}},{"id":120,"name":"Bronze helm","skill":"smithing","group":"Helmets","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":2}],"output":{"itemId":120,"qty":1}},{"id":121,"name":"Iron helm","skill":"smithing","group":"Helmets","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":2}],"output":{"itemId":121,"qty":1}},{"id":122,"name":"Steel helm","skill":"smithing","group":"Helmets","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":2}],"output":{"itemId":122,"qty":1}},{"id":123,"name":"Cobalt helm","skill":"smithing","group":"Helmets","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":2}],"output":{"itemId":123,"qty":1}},{"id":124,"name":"Meteoric helm","skill":"smithing","group":"Helmets","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":2}],"output":{"itemId":124,"qty":1}},{"id":125,"name":"Bronze plate","skill":"smithing","group":"Bodies","levelReq":1,"baseTicks":5,"xp":42,"inputs":[{"itemId":40,"qty":5}],"output":{"itemId":125,"qty":1}},{"id":126,"name":"Iron plate","skill":"smithing","group":"Bodies","levelReq":15,"baseTicks":5,"xp":67,"inputs":[{"itemId":41,"qty":5}],"output":{"itemId":126,"qty":1}},{"id":127,"name":"Steel plate","skill":"smithing","group":"Bodies","levelReq":30,"baseTicks":5,"xp":207,"inputs":[{"itemId":42,"qty":5}],"output":{"itemId":127,"qty":1}},{"id":128,"name":"Cobalt plate","skill":"smithing","group":"Bodies","levelReq":60,"baseTicks":5,"xp":600,"inputs":[{"itemId":43,"qty":5}],"output":{"itemId":128,"qty":1}},{"id":129,"name":"Meteoric plate","skill":"smithing","group":"Bodies","levelReq":85,"baseTicks":5,"xp":1380,"inputs":[{"itemId":44,"qty":5}],"output":{"itemId":129,"qty":1}},{"id":130,"name":"Bronze greaves","skill":"smithing","group":"Legs","levelReq":1,"baseTicks":5,"xp":34,"inputs":[{"itemId":40,"qty":4}],"output":{"itemId":130,"qty":1}},{"id":131,"name":"Iron greaves","skill":"smithing","group":"Legs","levelReq":15,"baseTicks":5,"xp":53,"inputs":[{"itemId":41,"qty":4}],"output":{"itemId":131,"qty":1}},{"id":132,"name":"Steel greaves","skill":"smithing","group":"Legs","levelReq":30,"baseTicks":5,"xp":165,"inputs":[{"itemId":42,"qty":4}],"output":{"itemId":132,"qty":1}},{"id":133,"name":"Cobalt greaves","skill":"smithing","group":"Legs","levelReq":60,"baseTicks":5,"xp":480,"inputs":[{"itemId":43,"qty":4}],"output":{"itemId":133,"qty":1}},{"id":134,"name":"Meteoric greaves","skill":"smithing","group":"Legs","levelReq":85,"baseTicks":5,"xp":1104,"inputs":[{"itemId":44,"qty":4}],"output":{"itemId":134,"qty":1}},{"id":301,"name":"Colossus blade","skill":"smithing","group":"Weapons","levelReq":99,"baseTicks":6,"xp":1900,"inputs":[{"itemId":44,"qty":3},{"itemId":252,"qty":2}],"output":{"itemId":350,"qty":1}},{"id":302,"name":"Colossus shield","skill":"smithing","group":"Shields","levelReq":99,"baseTicks":6,"xp":1900,"inputs":[{"itemId":44,"qty":3},{"itemId":252,"qty":2}],"output":{"itemId":351,"qty":1}},{"id":303,"name":"Colossus helm","skill":"smithing","group":"Helmets","levelReq":99,"baseTicks":6,"xp":1250,"inputs":[{"itemId":44,"qty":2},{"itemId":252,"qty":1}],"output":{"itemId":352,"qty":1}},{"id":304,"name":"Colossus plate","skill":"smithing","group":"Bodies","levelReq":99,"baseTicks":6,"xp":3100,"inputs":[{"itemId":44,"qty":5},{"itemId":252,"qty":3}],"output":{"itemId":353,"qty":1}},{"id":305,"name":"Colossus greaves","skill":"smithing","group":"Legs","levelReq":99,"baseTicks":6,"xp":2500,"inputs":[{"itemId":44,"qty":4},{"itemId":252,"qty":2}],"output":{"itemId":354,"qty":1}},{"id":140,"name":"Shortbow","skill":"fletching","group":"Shortbows","levelReq":1,"baseTicks":5,"xp":5,"inputs":[{"itemId":10,"qty":1}],"output":{"itemId":140,"qty":1}},{"id":141,"name":"Oak shortbow","skill":"fletching","group":"Shortbows","levelReq":15,"baseTicks":5,"xp":11,"inputs":[{"itemId":11,"qty":1}],"output":{"itemId":141,"qty":1}},{"id":142,"name":"Willow shortbow","skill":"fletching","group":"Shortbows","levelReq":30,"baseTicks":5,"xp":17,"inputs":[{"itemId":12,"qty":1}],"output":{"itemId":142,"qty":1}},{"id":143,"name":"Maple shortbow","skill":"fletching","group":"Shortbows","levelReq":45,"baseTicks":5,"xp":27,"inputs":[{"itemId":13,"qty":1}],"output":{"itemId":143,"qty":1}},{"id":144,"name":"Yew shortbow","skill":"fletching","group":"Shortbows","levelReq":60,"baseTicks":5,"xp":43,"inputs":[{"itemId":14,"qty":1}],"output":{"itemId":144,"qty":1}},{"id":145,"name":"Magic shortbow","skill":"fletching","group":"Shortbows","levelReq":75,"baseTicks":5,"xp":70,"inputs":[{"itemId":15,"qty":1}],"output":{"itemId":145,"qty":1}},{"id":146,"name":"Longbow","skill":"fletching","group":"Longbows","levelReq":1,"baseTicks":5,"xp":10,"inputs":[{"itemId":10,"qty":2}],"output":{"itemId":146,"qty":1}},{"id":147,"name":"Oak longbow","skill":"fletching","group":"Longbows","levelReq":15,"baseTicks":5,"xp":22,"inputs":[{"itemId":11,"qty":2}],"output":{"itemId":147,"qty":1}},{"id":148,"name":"Willow longbow","skill":"fletching","group":"Longbows","levelReq":30,"baseTicks":5,"xp":34,"inputs":[{"itemId":12,"qty":2}],"output":{"itemId":148,"qty":1}},{"id":149,"name":"Maple longbow","skill":"fletching","group":"Longbows","levelReq":45,"baseTicks":5,"xp":54,"inputs":[{"itemId":13,"qty":2}],"output":{"itemId":149,"qty":1}},{"id":150,"name":"Yew longbow","skill":"fletching","group":"Longbows","levelReq":60,"baseTicks":5,"xp":86,"inputs":[{"itemId":14,"qty":2}],"output":{"itemId":150,"qty":1}},{"id":151,"name":"Magic longbow","skill":"fletching","group":"Longbows","levelReq":75,"baseTicks":5,"xp":140,"inputs":[{"itemId":15,"qty":2}],"output":{"itemId":151,"qty":1}},{"id":200,"name":"Staff","skill":"fletching","group":"Staffs","levelReq":1,"baseTicks":5,"xp":8,"inputs":[{"itemId":10,"qty":2}],"output":{"itemId":152,"qty":1}},{"id":201,"name":"Oak staff","skill":"fletching","group":"Staffs","levelReq":15,"baseTicks":5,"xp":22,"inputs":[{"itemId":11,"qty":2}],"output":{"itemId":153,"qty":1}},{"id":202,"name":"Willow staff","skill":"fletching","group":"Staffs","levelReq":30,"baseTicks":5,"xp":40,"inputs":[{"itemId":12,"qty":2}],"output":{"itemId":154,"qty":1}},{"id":203,"name":"Maple staff","skill":"fletching","group":"Staffs","levelReq":45,"baseTicks":5,"xp":65,"inputs":[{"itemId":13,"qty":2}],"output":{"itemId":155,"qty":1}},{"id":204,"name":"Yew staff","skill":"fletching","group":"Staffs","levelReq":60,"baseTicks":5,"xp":100,"inputs":[{"itemId":14,"qty":2}],"output":{"itemId":156,"qty":1}},{"id":205,"name":"Magic staff","skill":"fletching","group":"Staffs","levelReq":75,"baseTicks":5,"xp":150,"inputs":[{"itemId":15,"qty":2}],"output":{"itemId":157,"qty":1}},{"id":210,"name":"Sage","skill":"farming","group":"Herbs","levelReq":10,"baseTicks":2,"xp":260,"inputs":[{"itemId":190,"qty":1}],"output":{"itemId":193,"qty":1},"grow":1200},{"id":211,"name":"Nightshade","skill":"farming","group":"Herbs","levelReq":35,"baseTicks":2,"xp":1200,"inputs":[{"itemId":191,"qty":1}],"output":{"itemId":194,"qty":1},"grow":3000},{"id":212,"name":"Dragonleaf","skill":"farming","group":"Herbs","levelReq":65,"baseTicks":2,"xp":4600,"inputs":[{"itemId":192,"qty":1}],"output":{"itemId":195,"qty":1},"grow":7000},{"id":220,"name":"Gatherer's draught","skill":"herblore","group":"Potions","levelReq":1,"baseTicks":6,"xp":30,"inputs":[{"itemId":193,"qty":1},{"itemId":240,"qty":1}],"output":{"itemId":220,"qty":1}},{"id":225,"name":"Swift draught","skill":"herblore","group":"Potions","levelReq":20,"baseTicks":6,"xp":70,"inputs":[{"itemId":193,"qty":1},{"itemId":242,"qty":1}],"output":{"itemId":225,"qty":1}},{"id":226,"name":"Nourishing draught","skill":"herblore","group":"Potions","levelReq":50,"baseTicks":6,"xp":240,"inputs":[{"itemId":194,"qty":1},{"itemId":244,"qty":1}],"output":{"itemId":226,"qty":1}},{"id":227,"name":"Haste draught","skill":"herblore","group":"Potions","levelReq":70,"baseTicks":7,"xp":460,"inputs":[{"itemId":195,"qty":1},{"itemId":245,"qty":1}],"output":{"itemId":227,"qty":1}},{"id":221,"name":"Hunter's brew","skill":"herblore","group":"Potions","levelReq":35,"baseTicks":6,"xp":120,"inputs":[{"itemId":194,"qty":1},{"itemId":243,"qty":1}],"output":{"itemId":221,"qty":1}},{"id":222,"name":"Warrior's tonic","skill":"herblore","group":"Potions","levelReq":60,"baseTicks":6,"xp":300,"inputs":[{"itemId":195,"qty":1},{"itemId":244,"qty":1}],"output":{"itemId":222,"qty":1}},{"id":223,"name":"Elixir of the vein","skill":"herblore","group":"Potions","levelReq":80,"baseTicks":7,"xp":700,"inputs":[{"itemId":194,"qty":1},{"itemId":195,"qty":1},{"itemId":246,"qty":1}],"output":{"itemId":223,"qty":1}},{"id":224,"name":"Abyssal tonic","skill":"herblore","group":"Potions","levelReq":95,"baseTicks":7,"xp":1600,"inputs":[{"itemId":195,"qty":1},{"itemId":249,"qty":1}],"output":{"itemId":224,"qty":1}},{"id":230,"name":"Cut gem","skill":"crafting","group":"Gems","levelReq":1,"baseTicks":5,"xp":16,"inputs":[{"itemId":100,"qty":1}],"output":{"itemId":180,"qty":1}},{"id":231,"name":"Silver ring","skill":"crafting","group":"Rings","levelReq":20,"baseTicks":6,"xp":58,"inputs":[{"itemId":4,"qty":1},{"itemId":180,"qty":1}],"output":{"itemId":181,"qty":1}},{"id":232,"name":"Gold ring","skill":"crafting","group":"Rings","levelReq":45,"baseTicks":6,"xp":156,"inputs":[{"itemId":6,"qty":1},{"itemId":180,"qty":1}],"output":{"itemId":182,"qty":1}},{"id":233,"name":"Meteoric ring","skill":"crafting","group":"Rings","levelReq":75,"baseTicks":7,"xp":455,"inputs":[{"itemId":44,"qty":1},{"itemId":180,"qty":2}],"output":{"itemId":183,"qty":1}},{"id":307,"name":"Wyrm ring","skill":"crafting","group":"Rings","levelReq":95,"baseTicks":8,"xp":1200,"inputs":[{"itemId":356,"qty":1},{"itemId":180,"qty":2}],"output":{"itemId":358,"qty":1}},{"id":234,"name":"Silver amulet","skill":"crafting","group":"Amulets","levelReq":30,"baseTicks":6,"xp":84,"inputs":[{"itemId":4,"qty":1},{"itemId":180,"qty":1}],"output":{"itemId":184,"qty":1}},{"id":235,"name":"Gold amulet","skill":"crafting","group":"Amulets","levelReq":55,"baseTicks":6,"xp":221,"inputs":[{"itemId":6,"qty":1},{"itemId":180,"qty":1}],"output":{"itemId":185,"qty":1}},{"id":236,"name":"Meteoric amulet","skill":"crafting","group":"Amulets","levelReq":85,"baseTicks":7,"xp":618,"inputs":[{"itemId":44,"qty":1},{"itemId":180,"qty":2}],"output":{"itemId":186,"qty":1}},{"id":306,"name":"Leviathan amulet","skill":"crafting","group":"Amulets","levelReq":95,"baseTicks":8,"xp":1400,"inputs":[{"itemId":355,"qty":1},{"itemId":180,"qty":2}],"output":{"itemId":357,"qty":1}},{"id":260,"name":"Pelt coif","skill":"crafting","group":"Leather","levelReq":1,"baseTicks":6,"xp":8,"inputs":[{"itemId":240,"qty":2}],"output":{"itemId":260,"qty":1}},{"id":261,"name":"Pelt chaps","skill":"crafting","group":"Leather","levelReq":1,"baseTicks":6,"xp":12,"inputs":[{"itemId":240,"qty":3}],"output":{"itemId":262,"qty":1}},{"id":262,"name":"Pelt jerkin","skill":"crafting","group":"Leather","levelReq":1,"baseTicks":6,"xp":20,"inputs":[{"itemId":240,"qty":5}],"output":{"itemId":261,"qty":1}},{"id":263,"name":"Bogskin coif","skill":"crafting","group":"Leather","levelReq":15,"baseTicks":6,"xp":22,"inputs":[{"itemId":241,"qty":2}],"output":{"itemId":263,"qty":1}},{"id":264,"name":"Bogskin chaps","skill":"crafting","group":"Leather","levelReq":15,"baseTicks":6,"xp":33,"inputs":[{"itemId":241,"qty":3}],"output":{"itemId":265,"qty":1}},{"id":265,"name":"Bogskin jerkin","skill":"crafting","group":"Leather","levelReq":15,"baseTicks":6,"xp":55,"inputs":[{"itemId":241,"qty":5}],"output":{"itemId":264,"qty":1}},{"id":266,"name":"Chitin coif","skill":"crafting","group":"Leather","levelReq":30,"baseTicks":6,"xp":60,"inputs":[{"itemId":242,"qty":2}],"output":{"itemId":266,"qty":1}},{"id":267,"name":"Chitin chaps","skill":"crafting","group":"Leather","levelReq":30,"baseTicks":6,"xp":90,"inputs":[{"itemId":242,"qty":3}],"output":{"itemId":268,"qty":1}},{"id":268,"name":"Chitin jerkin","skill":"crafting","group":"Leather","levelReq":30,"baseTicks":6,"xp":150,"inputs":[{"itemId":242,"qty":5}],"output":{"itemId":267,"qty":1}},{"id":269,"name":"Fur coif","skill":"crafting","group":"Leather","levelReq":60,"baseTicks":7,"xp":180,"inputs":[{"itemId":245,"qty":2}],"output":{"itemId":269,"qty":1}},{"id":270,"name":"Fur chaps","skill":"crafting","group":"Leather","levelReq":60,"baseTicks":7,"xp":270,"inputs":[{"itemId":245,"qty":3}],"output":{"itemId":271,"qty":1}},{"id":271,"name":"Fur jerkin","skill":"crafting","group":"Leather","levelReq":60,"baseTicks":7,"xp":450,"inputs":[{"itemId":245,"qty":5}],"output":{"itemId":270,"qty":1}},{"id":272,"name":"Scale coif","skill":"crafting","group":"Leather","levelReq":85,"baseTicks":7,"xp":460,"inputs":[{"itemId":247,"qty":2}],"output":{"itemId":272,"qty":1}},{"id":273,"name":"Scale chaps","skill":"crafting","group":"Leather","levelReq":85,"baseTicks":7,"xp":690,"inputs":[{"itemId":247,"qty":3}],"output":{"itemId":274,"qty":1}},{"id":274,"name":"Scale jerkin","skill":"crafting","group":"Leather","levelReq":85,"baseTicks":7,"xp":1150,"inputs":[{"itemId":247,"qty":5}],"output":{"itemId":273,"qty":1}},{"id":289,"name":"Troll coif","skill":"crafting","group":"Leather","levelReq":95,"baseTicks":8,"xp":1250,"inputs":[{"itemId":248,"qty":2}],"output":{"itemId":338,"qty":1}},{"id":290,"name":"Troll chaps","skill":"crafting","group":"Leather","levelReq":95,"baseTicks":8,"xp":1900,"inputs":[{"itemId":248,"qty":3}],"output":{"itemId":340,"qty":1}},{"id":291,"name":"Troll jerkin","skill":"crafting","group":"Leather","levelReq":95,"baseTicks":8,"xp":3100,"inputs":[{"itemId":248,"qty":5}],"output":{"itemId":339,"qty":1}},{"id":292,"name":"Drake coif","skill":"crafting","group":"Leather","levelReq":99,"baseTicks":8,"xp":3300,"inputs":[{"itemId":251,"qty":2}],"output":{"itemId":341,"qty":1}},{"id":293,"name":"Drake chaps","skill":"crafting","group":"Leather","levelReq":99,"baseTicks":8,"xp":5000,"inputs":[{"itemId":251,"qty":3}],"output":{"itemId":343,"qty":1}},{"id":294,"name":"Drake jerkin","skill":"crafting","group":"Leather","levelReq":99,"baseTicks":8,"xp":8300,"inputs":[{"itemId":251,"qty":5}],"output":{"itemId":342,"qty":1}},{"id":240,"name":"Bread stall","skill":"thieving","group":"Stalls","levelReq":1,"baseTicks":6,"xp":8,"inputs":[],"output":{"itemId":200,"qty":6},"caught":{"chanceAtReq":0.25,"safeAtLevel":30,"stunTicks":8}},{"id":241,"name":"Silk stall","skill":"thieving","group":"Stalls","levelReq":25,"baseTicks":7,"xp":30,"inputs":[],"output":{"itemId":200,"qty":28},"caught":{"chanceAtReq":0.3,"safeAtLevel":60,"stunTicks":10},"bonus":{"itemId":191,"chance":0.03333333333333333}},{"id":242,"name":"Gem stall","skill":"thieving","group":"Stalls","levelReq":50,"baseTicks":8,"xp":80,"inputs":[],"output":{"itemId":200,"qty":90},"bonus":{"itemId":100,"chance":0.04},"caught":{"chanceAtReq":0.32,"safeAtLevel":85,"stunTicks":12}},{"id":243,"name":"Relic stall","skill":"thieving","group":"Stalls","levelReq":75,"baseTicks":9,"xp":200,"inputs":[],"output":{"itemId":200,"qty":260},"bonus":{"itemId":208,"chance":0.03},"caught":{"chanceAtReq":0.35,"safeAtLevel":110,"stunTicks":15}},{"id":244,"name":"Linen line","skill":"thieving","group":"Cloth","levelReq":1,"baseTicks":7,"xp":7,"inputs":[],"output":{"itemId":300,"qty":1},"caught":{"chanceAtReq":0.25,"safeAtLevel":30,"stunTicks":8}},{"id":245,"name":"Silk cart","skill":"thieving","group":"Cloth","levelReq":25,"baseTicks":8,"xp":26,"inputs":[],"output":{"itemId":301,"qty":1},"caught":{"chanceAtReq":0.3,"safeAtLevel":60,"stunTicks":10}},{"id":246,"name":"Gilded loom","skill":"thieving","group":"Cloth","levelReq":50,"baseTicks":9,"xp":70,"inputs":[],"output":{"itemId":302,"qty":1},"caught":{"chanceAtReq":0.32,"safeAtLevel":85,"stunTicks":12}},{"id":247,"name":"Reliquary vestry","skill":"thieving","group":"Cloth","levelReq":75,"baseTicks":10,"xp":175,"inputs":[],"output":{"itemId":303,"qty":1},"caught":{"chanceAtReq":0.35,"safeAtLevel":110,"stunTicks":15}},{"id":248,"name":"Homespun hood","skill":"crafting","group":"Cloth","levelReq":1,"baseTicks":6,"xp":9,"inputs":[{"itemId":300,"qty":2}],"output":{"itemId":304,"qty":1}},{"id":249,"name":"Homespun skirt","skill":"crafting","group":"Cloth","levelReq":1,"baseTicks":6,"xp":14,"inputs":[{"itemId":300,"qty":3}],"output":{"itemId":306,"qty":1}},{"id":250,"name":"Homespun robe","skill":"crafting","group":"Cloth","levelReq":1,"baseTicks":6,"xp":23,"inputs":[{"itemId":300,"qty":5}],"output":{"itemId":305,"qty":1}},{"id":251,"name":"Silk hood","skill":"crafting","group":"Cloth","levelReq":25,"baseTicks":6,"xp":50,"inputs":[{"itemId":301,"qty":2}],"output":{"itemId":307,"qty":1}},{"id":252,"name":"Silk skirt","skill":"crafting","group":"Cloth","levelReq":25,"baseTicks":6,"xp":75,"inputs":[{"itemId":301,"qty":3}],"output":{"itemId":309,"qty":1}},{"id":253,"name":"Silk robe","skill":"crafting","group":"Cloth","levelReq":25,"baseTicks":6,"xp":125,"inputs":[{"itemId":301,"qty":5}],"output":{"itemId":308,"qty":1}},{"id":254,"name":"Gilded hood","skill":"crafting","group":"Cloth","levelReq":50,"baseTicks":7,"xp":145,"inputs":[{"itemId":302,"qty":2}],"output":{"itemId":310,"qty":1}},{"id":255,"name":"Gilded skirt","skill":"crafting","group":"Cloth","levelReq":50,"baseTicks":7,"xp":215,"inputs":[{"itemId":302,"qty":3}],"output":{"itemId":312,"qty":1}},{"id":256,"name":"Gilded robe","skill":"crafting","group":"Cloth","levelReq":50,"baseTicks":7,"xp":360,"inputs":[{"itemId":302,"qty":5}],"output":{"itemId":311,"qty":1}},{"id":257,"name":"Voidweave hood","skill":"crafting","group":"Cloth","levelReq":75,"baseTicks":7,"xp":380,"inputs":[{"itemId":303,"qty":2}],"output":{"itemId":313,"qty":1}},{"id":258,"name":"Voidweave skirt","skill":"crafting","group":"Cloth","levelReq":75,"baseTicks":7,"xp":570,"inputs":[{"itemId":303,"qty":3}],"output":{"itemId":315,"qty":1}},{"id":259,"name":"Voidweave robe","skill":"crafting","group":"Cloth","levelReq":75,"baseTicks":7,"xp":950,"inputs":[{"itemId":303,"qty":5}],"output":{"itemId":314,"qty":1}},{"id":295,"name":"Wightweave hood","skill":"crafting","group":"Cloth","levelReq":90,"baseTicks":8,"xp":1000,"inputs":[{"itemId":303,"qty":2},{"itemId":250,"qty":1}],"output":{"itemId":344,"qty":1}},{"id":296,"name":"Wightweave skirt","skill":"crafting","group":"Cloth","levelReq":90,"baseTicks":8,"xp":1500,"inputs":[{"itemId":303,"qty":3},{"itemId":250,"qty":2}],"output":{"itemId":346,"qty":1}},{"id":297,"name":"Wightweave robe","skill":"crafting","group":"Cloth","levelReq":90,"baseTicks":8,"xp":2500,"inputs":[{"itemId":303,"qty":5},{"itemId":250,"qty":3}],"output":{"itemId":345,"qty":1}},{"id":275,"name":"Pelt gloves","skill":"crafting","group":"Gloves","levelReq":5,"baseTicks":6,"xp":10,"inputs":[{"itemId":240,"qty":4}],"output":{"itemId":323,"qty":1}},{"id":276,"name":"Bogskin gloves","skill":"crafting","group":"Gloves","levelReq":25,"baseTicks":6,"xp":28,"inputs":[{"itemId":241,"qty":2},{"itemId":202,"qty":1}],"output":{"itemId":324,"qty":1}},{"id":277,"name":"Chitin gloves","skill":"crafting","group":"Gloves","levelReq":45,"baseTicks":6,"xp":75,"inputs":[{"itemId":242,"qty":2},{"itemId":203,"qty":1}],"output":{"itemId":325,"qty":1}},{"id":278,"name":"Bone gloves","skill":"crafting","group":"Gloves","levelReq":65,"baseTicks":7,"xp":225,"inputs":[{"itemId":243,"qty":2},{"itemId":204,"qty":1}],"output":{"itemId":326,"qty":1}},{"id":280,"name":"Pelt quiver","skill":"fletching","group":"Quivers","levelReq":1,"baseTicks":5,"xp":14,"inputs":[{"itemId":240,"qty":2},{"itemId":10,"qty":1}],"output":{"itemId":329,"qty":1}},{"id":281,"name":"Bogskin quiver","skill":"fletching","group":"Quivers","levelReq":15,"baseTicks":5,"xp":34,"inputs":[{"itemId":241,"qty":2},{"itemId":11,"qty":1}],"output":{"itemId":330,"qty":1}},{"id":282,"name":"Chitin quiver","skill":"fletching","group":"Quivers","levelReq":30,"baseTicks":5,"xp":70,"inputs":[{"itemId":242,"qty":2},{"itemId":12,"qty":1}],"output":{"itemId":331,"qty":1}},{"id":283,"name":"Fur quiver","skill":"fletching","group":"Quivers","levelReq":60,"baseTicks":5,"xp":150,"inputs":[{"itemId":245,"qty":2},{"itemId":13,"qty":1}],"output":{"itemId":332,"qty":1}},{"id":284,"name":"Scale quiver","skill":"fletching","group":"Quivers","levelReq":85,"baseTicks":5,"xp":320,"inputs":[{"itemId":247,"qty":2},{"itemId":14,"qty":1}],"output":{"itemId":333,"qty":1}},{"id":298,"name":"Troll quiver","skill":"fletching","group":"Quivers","levelReq":95,"baseTicks":6,"xp":700,"inputs":[{"itemId":248,"qty":2},{"itemId":15,"qty":1}],"output":{"itemId":347,"qty":1}},{"id":299,"name":"Drake quiver","skill":"fletching","group":"Quivers","levelReq":99,"baseTicks":6,"xp":1400,"inputs":[{"itemId":251,"qty":2},{"itemId":15,"qty":2}],"output":{"itemId":348,"qty":1}},{"id":285,"name":"Linen grimoire","skill":"crafting","group":"Grimoires","levelReq":1,"baseTicks":6,"xp":16,"inputs":[{"itemId":300,"qty":3}],"output":{"itemId":334,"qty":1}},{"id":286,"name":"Silk grimoire","skill":"crafting","group":"Grimoires","levelReq":25,"baseTicks":6,"xp":85,"inputs":[{"itemId":301,"qty":3},{"itemId":241,"qty":1}],"output":{"itemId":335,"qty":1}},{"id":287,"name":"Gilded grimoire","skill":"crafting","group":"Grimoires","levelReq":50,"baseTicks":7,"xp":230,"inputs":[{"itemId":302,"qty":3},{"itemId":244,"qty":1}],"output":{"itemId":336,"qty":1}},{"id":288,"name":"Voidweave grimoire","skill":"crafting","group":"Grimoires","levelReq":75,"baseTicks":7,"xp":560,"inputs":[{"itemId":303,"qty":3},{"itemId":246,"qty":2}],"output":{"itemId":337,"qty":1}},{"id":300,"name":"Wightweave grimoire","skill":"crafting","group":"Grimoires","levelReq":90,"baseTicks":8,"xp":1200,"inputs":[{"itemId":303,"qty":3},{"itemId":250,"qty":2}],"output":{"itemId":349,"qty":1}},{"id":279,"name":"Scale gloves","skill":"crafting","group":"Gloves","levelReq":85,"baseTicks":7,"xp":575,"inputs":[{"itemId":247,"qty":2},{"itemId":206,"qty":1}],"output":{"itemId":327,"qty":1}}],"gear":[{"itemId":80,"slot":"pickaxe","bonus":0.08},{"itemId":81,"slot":"pickaxe","bonus":0.16},{"itemId":82,"slot":"pickaxe","bonus":0.25},{"itemId":83,"slot":"pickaxe","bonus":0.35},{"itemId":84,"slot":"pickaxe","bonus":0.5},{"itemId":85,"slot":"rod","bonus":0.08},{"itemId":86,"slot":"rod","bonus":0.16},{"itemId":87,"slot":"rod","bonus":0.25},{"itemId":88,"slot":"rod","bonus":0.35},{"itemId":89,"slot":"rod","bonus":0.5},{"itemId":90,"slot":"axe","bonus":0.08},{"itemId":91,"slot":"axe","bonus":0.16},{"itemId":92,"slot":"axe","bonus":0.25},{"itemId":93,"slot":"axe","bonus":0.35},{"itemId":94,"slot":"axe","bonus":0.5},{"itemId":323,"slot":"gloves","bonus":0.08},{"itemId":324,"slot":"gloves","bonus":0.16},{"itemId":325,"slot":"gloves","bonus":0.25},{"itemId":326,"slot":"gloves","bonus":0.35},{"itemId":327,"slot":"gloves","bonus":0.5},{"itemId":360,"slot":"pan","bonus":0.08},{"itemId":361,"slot":"pan","bonus":0.16},{"itemId":362,"slot":"pan","bonus":0.25},{"itemId":363,"slot":"pan","bonus":0.35},{"itemId":364,"slot":"pan","bonus":0.5},{"itemId":365,"slot":"hammer","bonus":0.08},{"itemId":366,"slot":"hammer","bonus":0.16},{"itemId":367,"slot":"hammer","bonus":0.25},{"itemId":368,"slot":"hammer","bonus":0.35},{"itemId":369,"slot":"hammer","bonus":0.5},{"itemId":370,"slot":"knife","bonus":0.08},{"itemId":371,"slot":"knife","bonus":0.16},{"itemId":372,"slot":"knife","bonus":0.25},{"itemId":373,"slot":"knife","bonus":0.35},{"itemId":374,"slot":"knife","bonus":0.5},{"itemId":375,"slot":"needle","bonus":0.08},{"itemId":376,"slot":"needle","bonus":0.16},{"itemId":377,"slot":"needle","bonus":0.25},{"itemId":378,"slot":"needle","bonus":0.35},{"itemId":379,"slot":"needle","bonus":0.5},{"itemId":380,"slot":"mortar","bonus":0.08},{"itemId":381,"slot":"mortar","bonus":0.16},{"itemId":382,"slot":"mortar","bonus":0.25},{"itemId":383,"slot":"mortar","bonus":0.35},{"itemId":384,"slot":"mortar","bonus":0.5},{"itemId":385,"slot":"hoe","bonus":0.08},{"itemId":386,"slot":"hoe","bonus":0.16},{"itemId":387,"slot":"hoe","bonus":0.25},{"itemId":388,"slot":"hoe","bonus":0.35},{"itemId":389,"slot":"hoe","bonus":0.5},{"itemId":328,"slot":"mount","bonus":0.12},{"itemId":110,"slot":"weapon","accuracy":6,"strength":5,"defence":0,"speed":4,"levelReq":1,"needs":"melee"},{"itemId":111,"slot":"weapon","accuracy":14,"strength":12,"defence":0,"speed":4,"levelReq":15,"needs":"melee"},{"itemId":112,"slot":"weapon","accuracy":24,"strength":21,"defence":0,"speed":4,"levelReq":30,"needs":"melee"},{"itemId":113,"slot":"weapon","accuracy":38,"strength":34,"defence":0,"speed":4,"levelReq":60,"needs":"melee"},{"itemId":114,"slot":"weapon","accuracy":56,"strength":50,"defence":0,"speed":4,"levelReq":85,"needs":"melee"},{"itemId":390,"slot":"weapon","accuracy":7,"strength":5,"defence":0,"speed":4,"twoHanded":true,"levelReq":1,"needs":"melee"},{"itemId":391,"slot":"weapon","accuracy":16,"strength":15,"defence":0,"speed":4,"twoHanded":true,"levelReq":15,"needs":"melee"},{"itemId":392,"slot":"weapon","accuracy":27,"strength":24,"defence":0,"speed":4,"twoHanded":true,"levelReq":30,"needs":"melee"},{"itemId":393,"slot":"weapon","accuracy":53,"strength":48,"defence":0,"speed":4,"twoHanded":true,"levelReq":60,"needs":"melee"},{"itemId":394,"slot":"weapon","accuracy":72,"strength":65,"defence":0,"speed":4,"twoHanded":true,"levelReq":85,"needs":"melee"},{"itemId":395,"slot":"weapon","accuracy":80,"strength":72,"defence":0,"speed":4,"twoHanded":true,"levelReq":99,"needs":"melee"},{"itemId":115,"slot":"shield","accuracy":0,"strength":3,"defence":4,"levelReq":1,"needs":"melee","style":"melee"},{"itemId":116,"slot":"shield","accuracy":0,"strength":9,"defence":9,"levelReq":15,"needs":"melee","style":"melee"},{"itemId":117,"slot":"shield","accuracy":0,"strength":14,"defence":16,"levelReq":30,"needs":"melee","style":"melee"},{"itemId":118,"slot":"shield","accuracy":0,"strength":35,"defence":25,"levelReq":60,"needs":"melee","style":"melee"},{"itemId":119,"slot":"shield","accuracy":0,"strength":43,"defence":37,"levelReq":85,"needs":"melee","style":"melee"},{"itemId":329,"slot":"shield","accuracy":2,"strength":1,"defence":0,"ranged":true,"levelReq":1,"needs":"ranged","style":"ranged"},{"itemId":330,"slot":"shield","accuracy":4,"strength":3,"defence":0,"ranged":true,"levelReq":15,"needs":"ranged","style":"ranged"},{"itemId":331,"slot":"shield","accuracy":7,"strength":5,"defence":0,"ranged":true,"levelReq":30,"needs":"ranged","style":"ranged"},{"itemId":332,"slot":"shield","accuracy":11,"strength":8,"defence":0,"ranged":true,"levelReq":60,"needs":"ranged","style":"ranged"},{"itemId":333,"slot":"shield","accuracy":16,"strength":12,"defence":0,"ranged":true,"levelReq":85,"needs":"ranged","style":"ranged"},{"itemId":347,"slot":"shield","accuracy":20,"strength":15,"defence":0,"ranged":true,"levelReq":95,"needs":"ranged","style":"ranged"},{"itemId":348,"slot":"shield","accuracy":24,"strength":18,"defence":0,"ranged":true,"levelReq":99,"needs":"ranged","style":"ranged"},{"itemId":334,"slot":"shield","accuracy":2,"strength":1,"defence":0,"magic":true,"levelReq":1,"needs":"magic","style":"magic"},{"itemId":335,"slot":"shield","accuracy":5,"strength":4,"defence":0,"magic":true,"levelReq":25,"needs":"magic","style":"magic"},{"itemId":336,"slot":"shield","accuracy":9,"strength":7,"defence":0,"magic":true,"levelReq":50,"needs":"magic","style":"magic"},{"itemId":337,"slot":"shield","accuracy":14,"strength":11,"defence":0,"magic":true,"levelReq":75,"needs":"magic","style":"magic"},{"itemId":349,"slot":"shield","accuracy":18,"strength":14,"defence":0,"magic":true,"levelReq":90,"needs":"magic","style":"magic"},{"itemId":120,"slot":"helmet","accuracy":1,"strength":0,"defence":3,"levelReq":1,"needs":"melee","style":"melee"},{"itemId":121,"slot":"helmet","accuracy":2,"strength":0,"defence":7,"levelReq":15,"needs":"melee","style":"melee"},{"itemId":122,"slot":"helmet","accuracy":4,"strength":0,"defence":12,"levelReq":30,"needs":"melee","style":"melee"},{"itemId":123,"slot":"helmet","accuracy":7,"strength":0,"defence":19,"levelReq":60,"needs":"melee","style":"melee"},{"itemId":124,"slot":"helmet","accuracy":10,"strength":0,"defence":28,"levelReq":85,"needs":"melee","style":"melee"},{"itemId":125,"slot":"body","accuracy":2,"strength":0,"defence":6,"levelReq":1,"needs":"melee","style":"melee"},{"itemId":126,"slot":"body","accuracy":5,"strength":0,"defence":14,"levelReq":15,"needs":"melee","style":"melee"},{"itemId":127,"slot":"body","accuracy":8,"strength":0,"defence":24,"levelReq":30,"needs":"melee","style":"melee"},{"itemId":128,"slot":"body","accuracy":13,"strength":0,"defence":38,"levelReq":60,"needs":"melee","style":"melee"},{"itemId":129,"slot":"body","accuracy":20,"strength":0,"defence":56,"levelReq":85,"needs":"melee","style":"melee"},{"itemId":130,"slot":"legs","accuracy":2,"strength":0,"defence":5,"levelReq":1,"needs":"melee","style":"melee"},{"itemId":131,"slot":"legs","accuracy":4,"strength":0,"defence":11,"levelReq":15,"needs":"melee","style":"melee"},{"itemId":132,"slot":"legs","accuracy":7,"strength":0,"defence":19,"levelReq":30,"needs":"melee","style":"melee"},{"itemId":133,"slot":"legs","accuracy":10,"strength":0,"defence":30,"levelReq":60,"needs":"melee","style":"melee"},{"itemId":134,"slot":"legs","accuracy":15,"strength":0,"defence":44,"levelReq":85,"needs":"melee","style":"melee"},{"itemId":350,"slot":"weapon","accuracy":70,"strength":63,"defence":0,"speed":4,"levelReq":99,"needs":"melee"},{"itemId":351,"slot":"shield","accuracy":0,"strength":43,"defence":46,"levelReq":99,"needs":"melee","style":"melee"},{"itemId":352,"slot":"helmet","accuracy":12,"strength":0,"defence":35,"levelReq":99,"needs":"melee","style":"melee"},{"itemId":353,"slot":"body","accuracy":24,"strength":0,"defence":70,"levelReq":99,"needs":"melee","style":"melee"},{"itemId":354,"slot":"legs","accuracy":19,"strength":0,"defence":55,"levelReq":99,"needs":"melee","style":"melee"},{"itemId":260,"slot":"helmet","accuracy":1,"strength":0,"defence":2,"levelReq":1,"needs":"ranged","style":"ranged"},{"itemId":261,"slot":"body","accuracy":2,"strength":0,"defence":4,"levelReq":1,"needs":"ranged","style":"ranged"},{"itemId":262,"slot":"legs","accuracy":2,"strength":0,"defence":3,"levelReq":1,"needs":"ranged","style":"ranged"},{"itemId":263,"slot":"helmet","accuracy":3,"strength":0,"defence":4,"levelReq":15,"needs":"ranged","style":"ranged"},{"itemId":264,"slot":"body","accuracy":5,"strength":0,"defence":8,"levelReq":15,"needs":"ranged","style":"ranged"},{"itemId":265,"slot":"legs","accuracy":4,"strength":0,"defence":7,"levelReq":15,"needs":"ranged","style":"ranged"},{"itemId":266,"slot":"helmet","accuracy":5,"strength":0,"defence":7,"levelReq":30,"needs":"ranged","style":"ranged"},{"itemId":267,"slot":"body","accuracy":8,"strength":0,"defence":14,"levelReq":30,"needs":"ranged","style":"ranged"},{"itemId":268,"slot":"legs","accuracy":6,"strength":0,"defence":11,"levelReq":30,"needs":"ranged","style":"ranged"},{"itemId":269,"slot":"helmet","accuracy":8,"strength":0,"defence":11,"levelReq":60,"needs":"ranged","style":"ranged"},{"itemId":270,"slot":"body","accuracy":13,"strength":0,"defence":23,"levelReq":60,"needs":"ranged","style":"ranged"},{"itemId":271,"slot":"legs","accuracy":10,"strength":0,"defence":18,"levelReq":60,"needs":"ranged","style":"ranged"},{"itemId":272,"slot":"helmet","accuracy":12,"strength":0,"defence":17,"levelReq":85,"needs":"ranged","style":"ranged"},{"itemId":273,"slot":"body","accuracy":20,"strength":0,"defence":34,"levelReq":85,"needs":"ranged","style":"ranged"},{"itemId":274,"slot":"legs","accuracy":15,"strength":0,"defence":26,"levelReq":85,"needs":"ranged","style":"ranged"},{"itemId":338,"slot":"helmet","accuracy":15,"strength":0,"defence":21,"levelReq":95,"needs":"ranged","style":"ranged"},{"itemId":339,"slot":"body","accuracy":25,"strength":0,"defence":42,"levelReq":95,"needs":"ranged","style":"ranged"},{"itemId":340,"slot":"legs","accuracy":19,"strength":0,"defence":32,"levelReq":95,"needs":"ranged","style":"ranged"},{"itemId":341,"slot":"helmet","accuracy":18,"strength":0,"defence":25,"levelReq":99,"needs":"ranged","style":"ranged"},{"itemId":342,"slot":"body","accuracy":30,"strength":0,"defence":50,"levelReq":99,"needs":"ranged","style":"ranged"},{"itemId":343,"slot":"legs","accuracy":22,"strength":0,"defence":38,"levelReq":99,"needs":"ranged","style":"ranged"},{"itemId":140,"slot":"weapon","accuracy":5,"strength":4,"defence":0,"speed":3,"ranged":true,"levelReq":1,"needs":"ranged"},{"itemId":141,"slot":"weapon","accuracy":12,"strength":10,"defence":0,"speed":3,"ranged":true,"levelReq":15,"needs":"ranged"},{"itemId":142,"slot":"weapon","accuracy":20,"strength":17,"defence":0,"speed":3,"ranged":true,"levelReq":30,"needs":"ranged"},{"itemId":143,"slot":"weapon","accuracy":30,"strength":26,"defence":0,"speed":3,"ranged":true,"levelReq":45,"needs":"ranged"},{"itemId":144,"slot":"weapon","accuracy":42,"strength":37,"defence":0,"speed":3,"ranged":true,"levelReq":60,"needs":"ranged"},{"itemId":145,"slot":"weapon","accuracy":56,"strength":50,"defence":0,"speed":3,"ranged":true,"levelReq":75,"needs":"ranged"},{"itemId":152,"slot":"weapon","accuracy":5,"strength":4,"defence":0,"speed":6,"magic":true,"levelReq":1,"needs":"magic"},{"itemId":153,"slot":"weapon","accuracy":12,"strength":10,"defence":0,"speed":6,"magic":true,"levelReq":15,"needs":"magic"},{"itemId":154,"slot":"weapon","accuracy":20,"strength":17,"defence":0,"speed":6,"magic":true,"levelReq":30,"needs":"magic"},{"itemId":155,"slot":"weapon","accuracy":30,"strength":26,"defence":0,"speed":6,"magic":true,"levelReq":45,"needs":"magic"},{"itemId":156,"slot":"weapon","accuracy":42,"strength":37,"defence":0,"speed":6,"magic":true,"levelReq":60,"needs":"magic"},{"itemId":157,"slot":"weapon","accuracy":56,"strength":50,"defence":0,"speed":6,"magic":true,"levelReq":75,"needs":"magic"},{"itemId":181,"slot":"ring","accuracy":4,"strength":2,"defence":0,"levelReq":20,"needs":"defence"},{"itemId":182,"slot":"ring","accuracy":9,"strength":5,"defence":0,"levelReq":45,"needs":"defence"},{"itemId":183,"slot":"ring","accuracy":16,"strength":9,"defence":0,"levelReq":75,"needs":"defence"},{"itemId":358,"slot":"ring","accuracy":22,"strength":13,"defence":0,"levelReq":95,"needs":"defence"},{"itemId":184,"slot":"amulet","accuracy":0,"strength":0,"defence":4,"luck":0.25,"levelReq":30,"needs":"none"},{"itemId":185,"slot":"amulet","accuracy":0,"strength":0,"defence":8,"luck":0.5,"levelReq":55,"needs":"none"},{"itemId":186,"slot":"amulet","accuracy":0,"strength":0,"defence":14,"luck":1,"levelReq":85,"needs":"none"},{"itemId":357,"slot":"amulet","accuracy":0,"strength":0,"defence":18,"luck":1.5,"levelReq":95,"needs":"none"},{"itemId":304,"slot":"helmet","accuracy":2,"strength":0,"defence":1,"levelReq":1,"needs":"magic","style":"magic"},{"itemId":305,"slot":"body","accuracy":3,"strength":0,"defence":2,"levelReq":1,"needs":"magic","style":"magic"},{"itemId":306,"slot":"legs","accuracy":2,"strength":0,"defence":1,"levelReq":1,"needs":"magic","style":"magic"},{"itemId":307,"slot":"helmet","accuracy":6,"strength":0,"defence":2,"levelReq":25,"needs":"magic","style":"magic"},{"itemId":308,"slot":"body","accuracy":10,"strength":0,"defence":5,"levelReq":25,"needs":"magic","style":"magic"},{"itemId":309,"slot":"legs","accuracy":8,"strength":0,"defence":4,"levelReq":25,"needs":"magic","style":"magic"},{"itemId":310,"slot":"helmet","accuracy":11,"strength":0,"defence":4,"levelReq":50,"needs":"magic","style":"magic"},{"itemId":311,"slot":"body","accuracy":18,"strength":0,"defence":9,"levelReq":50,"needs":"magic","style":"magic"},{"itemId":312,"slot":"legs","accuracy":14,"strength":0,"defence":7,"levelReq":50,"needs":"magic","style":"magic"},{"itemId":313,"slot":"helmet","accuracy":17,"strength":0,"defence":7,"levelReq":75,"needs":"magic","style":"magic"},{"itemId":314,"slot":"body","accuracy":28,"strength":0,"defence":14,"levelReq":75,"needs":"magic","style":"magic"},{"itemId":315,"slot":"legs","accuracy":22,"strength":0,"defence":11,"levelReq":75,"needs":"magic","style":"magic"},{"itemId":344,"slot":"helmet","accuracy":21,"strength":0,"defence":9,"levelReq":90,"needs":"magic","style":"magic"},{"itemId":345,"slot":"body","accuracy":35,"strength":0,"defence":17,"levelReq":90,"needs":"magic","style":"magic"},{"itemId":346,"slot":"legs","accuracy":27,"strength":0,"defence":14,"levelReq":90,"needs":"magic","style":"magic"},{"itemId":146,"slot":"weapon","accuracy":7,"strength":6,"defence":0,"speed":5,"ranged":true,"levelReq":1,"needs":"ranged"},{"itemId":147,"slot":"weapon","accuracy":15,"strength":13,"defence":0,"speed":5,"ranged":true,"levelReq":15,"needs":"ranged"},{"itemId":148,"slot":"weapon","accuracy":24,"strength":22,"defence":0,"speed":5,"ranged":true,"levelReq":30,"needs":"ranged"},{"itemId":149,"slot":"weapon","accuracy":36,"strength":33,"defence":0,"speed":5,"ranged":true,"levelReq":45,"needs":"ranged"},{"itemId":150,"slot":"weapon","accuracy":50,"strength":46,"defence":0,"speed":5,"ranged":true,"levelReq":60,"needs":"ranged"},{"itemId":151,"slot":"weapon","accuracy":66,"strength":62,"defence":0,"speed":5,"ranged":true,"levelReq":75,"needs":"ranged"}],"items":{"1":{"id":1,"name":"Copper","stackable":false,"value":3},"2":{"id":2,"name":"Tin","stackable":false,"value":4},"3":{"id":3,"name":"Iron","stackable":false,"value":12},"4":{"id":4,"name":"Silver","stackable":false,"value":40},"5":{"id":5,"name":"Coal","stackable":false,"value":55},"6":{"id":6,"name":"Gold","stackable":false,"value":140},"7":{"id":7,"name":"Cobalt","stackable":false,"value":380},"8":{"id":8,"name":"Meteoric","stackable":false,"value":900},"10":{"id":10,"name":"Logs","stackable":false,"value":3},"11":{"id":11,"name":"Oak logs","stackable":false,"value":15},"12":{"id":12,"name":"Willow logs","stackable":false,"value":45},"13":{"id":13,"name":"Maple logs","stackable":false,"value":100},"14":{"id":14,"name":"Yew logs","stackable":false,"value":240},"15":{"id":15,"name":"Magic logs","stackable":false,"value":600},"20":{"id":20,"name":"Shrimp","stackable":false,"value":4},"21":{"id":21,"name":"Sardine","stackable":false,"value":9},"22":{"id":22,"name":"Trout","stackable":false,"value":26},"23":{"id":23,"name":"Salmon","stackable":false,"value":48},"24":{"id":24,"name":"Tuna","stackable":false,"value":92},"25":{"id":25,"name":"Lobster","stackable":false,"value":175},"26":{"id":26,"name":"Swordfish","stackable":false,"value":330},"27":{"id":27,"name":"Shark","stackable":false,"value":780},"40":{"id":40,"name":"Bronze bar","stackable":false,"value":12},"41":{"id":41,"name":"Iron bar","stackable":false,"value":22},"42":{"id":42,"name":"Steel bar","stackable":false,"value":156},"43":{"id":43,"name":"Cobalt bar","stackable":false,"value":660},"44":{"id":44,"name":"Meteoric bar","stackable":false,"value":1527},"60":{"id":60,"name":"Cooked shrimp","stackable":false,"value":9,"heals":3},"61":{"id":61,"name":"Cooked sardine","stackable":false,"value":15,"heals":4},"62":{"id":62,"name":"Cooked trout","stackable":false,"value":44,"heals":7},"63":{"id":63,"name":"Cooked salmon","stackable":false,"value":82,"heals":9},"64":{"id":64,"name":"Cooked tuna","stackable":false,"value":150,"heals":12},"65":{"id":65,"name":"Cooked lobster","stackable":false,"value":290,"heals":16},"66":{"id":66,"name":"Cooked swordfish","stackable":false,"value":550,"heals":20},"67":{"id":67,"name":"Cooked shark","stackable":false,"value":1280,"heals":26},"70":{"id":70,"name":"Burnt food","stackable":true,"value":0},"80":{"id":80,"name":"Bronze pickaxe","stackable":false,"value":29},"81":{"id":81,"name":"Iron pickaxe","stackable":false,"value":54},"82":{"id":82,"name":"Steel pickaxe","stackable":false,"value":346},"83":{"id":83,"name":"Cobalt pickaxe","stackable":false,"value":1435},"84":{"id":84,"name":"Meteoric pickaxe","stackable":false,"value":3461},"85":{"id":85,"name":"Bronze rod","stackable":false,"value":20},"86":{"id":86,"name":"Iron rod","stackable":false,"value":47},"87":{"id":87,"name":"Steel rod","stackable":false,"value":235},"88":{"id":88,"name":"Cobalt rod","stackable":false,"value":1015},"89":{"id":89,"name":"Meteoric rod","stackable":false,"value":2534},"90":{"id":90,"name":"Bronze axe","stackable":false,"value":29},"91":{"id":91,"name":"Iron axe","stackable":false,"value":54},"92":{"id":92,"name":"Steel axe","stackable":false,"value":346},"93":{"id":93,"name":"Cobalt axe","stackable":false,"value":1435},"94":{"id":94,"name":"Meteoric axe","stackable":false,"value":3461},"100":{"id":100,"name":"Rough gem","stackable":true,"value":2500},"110":{"id":110,"name":"Bronze blade","stackable":false,"value":17},"111":{"id":111,"name":"Iron blade","stackable":false,"value":32},"112":{"id":112,"name":"Steel blade","stackable":false,"value":190},"113":{"id":113,"name":"Cobalt blade","stackable":false,"value":775},"114":{"id":114,"name":"Meteoric blade","stackable":false,"value":1934},"115":{"id":115,"name":"Bronze shield","stackable":false,"value":41},"116":{"id":116,"name":"Iron shield","stackable":false,"value":76},"117":{"id":117,"name":"Steel shield","stackable":false,"value":502},"118":{"id":118,"name":"Cobalt shield","stackable":false,"value":2095},"119":{"id":119,"name":"Meteoric shield","stackable":false,"value":4988},"120":{"id":120,"name":"Bronze helm","stackable":false,"value":29},"121":{"id":121,"name":"Iron helm","stackable":false,"value":54},"122":{"id":122,"name":"Steel helm","stackable":false,"value":346},"123":{"id":123,"name":"Cobalt helm","stackable":false,"value":1435},"124":{"id":124,"name":"Meteoric helm","stackable":false,"value":3461},"125":{"id":125,"name":"Bronze plate","stackable":false,"value":65},"126":{"id":126,"name":"Iron plate","stackable":false,"value":120},"127":{"id":127,"name":"Steel plate","stackable":false,"value":814},"128":{"id":128,"name":"Cobalt plate","stackable":false,"value":3415},"129":{"id":129,"name":"Meteoric plate","stackable":false,"value":8042},"130":{"id":130,"name":"Bronze greaves","stackable":false,"value":53},"131":{"id":131,"name":"Iron greaves","stackable":false,"value":98},"132":{"id":132,"name":"Steel greaves","stackable":false,"value":658},"133":{"id":133,"name":"Cobalt greaves","stackable":false,"value":2755},"134":{"id":134,"name":"Meteoric greaves","stackable":false,"value":6515},"140":{"id":140,"name":"Shortbow","stackable":false,"value":8},"141":{"id":141,"name":"Oak shortbow","stackable":false,"value":25},"142":{"id":142,"name":"Willow shortbow","stackable":false,"value":79},"143":{"id":143,"name":"Maple shortbow","stackable":false,"value":158},"144":{"id":144,"name":"Yew shortbow","stackable":false,"value":355},"145":{"id":145,"name":"Magic shortbow","stackable":false,"value":820},"146":{"id":146,"name":"Longbow","stackable":false,"value":11},"147":{"id":147,"name":"Oak longbow","stackable":false,"value":40},"148":{"id":148,"name":"Willow longbow","stackable":false,"value":124},"149":{"id":149,"name":"Maple longbow","stackable":false,"value":258},"150":{"id":150,"name":"Yew longbow","stackable":false,"value":595},"151":{"id":151,"name":"Magic longbow","stackable":false,"value":1420},"152":{"id":152,"name":"Staff","stackable":false,"value":11},"153":{"id":153,"name":"Oak staff","stackable":false,"value":40},"154":{"id":154,"name":"Willow staff","stackable":false,"value":124},"155":{"id":155,"name":"Maple staff","stackable":false,"value":258},"156":{"id":156,"name":"Yew staff","stackable":false,"value":595},"157":{"id":157,"name":"Magic staff","stackable":false,"value":1420},"160":{"id":160,"name":"Potato seed","stackable":true,"value":2},"161":{"id":161,"name":"Glowcap spore","stackable":true,"value":6},"162":{"id":162,"name":"Turnip seed","stackable":true,"value":14},"163":{"id":163,"name":"Bitterroot seed","stackable":true,"value":30},"164":{"id":164,"name":"Voidmelon seed","stackable":true,"value":60},"165":{"id":165,"name":"Pepper seed","stackable":true,"value":110},"170":{"id":170,"name":"Potato","stackable":false,"value":7,"heals":3},"171":{"id":171,"name":"Glowcap","stackable":false,"value":22,"heals":5},"172":{"id":172,"name":"Cave turnip","stackable":false,"value":55,"heals":7},"173":{"id":173,"name":"Bitterroot","stackable":false,"value":120,"heals":10},"174":{"id":174,"name":"Voidmelon","stackable":false,"value":260,"heals":14},"175":{"id":175,"name":"Ember pepper","stackable":false,"value":520,"heals":20},"180":{"id":180,"name":"Cut gem","stackable":true,"value":2505},"181":{"id":181,"name":"Silver ring","stackable":false,"value":2563},"182":{"id":182,"name":"Gold ring","stackable":false,"value":2703},"183":{"id":183,"name":"Meteoric ring","stackable":false,"value":6757},"184":{"id":184,"name":"Silver amulet","stackable":false,"value":2579},"185":{"id":185,"name":"Gold amulet","stackable":false,"value":2741},"186":{"id":186,"name":"Meteoric amulet","stackable":false,"value":6944},"190":{"id":190,"name":"Sage seed","stackable":true,"value":6},"191":{"id":191,"name":"Nightshade seed","stackable":true,"value":40},"192":{"id":192,"name":"Dragonleaf seed","stackable":true,"value":220},"193":{"id":193,"name":"Sage","stackable":true,"value":18},"194":{"id":194,"name":"Nightshade","stackable":true,"value":110},"195":{"id":195,"name":"Dragonleaf","stackable":true,"value":520},"200":{"id":200,"name":"Coins","stackable":true,"value":1},"201":{"id":201,"name":"Gnawed charm","stackable":true,"value":1500},"202":{"id":202,"name":"Bog pearl","stackable":true,"value":4000},"203":{"id":203,"name":"Dry sigil","stackable":true,"value":12000},"204":{"id":204,"name":"Cairn token","stackable":true,"value":40000},"205":{"id":205,"name":"Rime fang","stackable":true,"value":120000},"206":{"id":206,"name":"Ember heart","stackable":true,"value":350000},"207":{"id":207,"name":"Abyssal eye","stackable":true,"value":900000},"208":{"id":208,"name":"Voidshard","stackable":true,"value":1500},"209":{"id":209,"name":"Gravemaw skull","stackable":false,"value":250000},"210":{"id":210,"name":"Hollow crown","stackable":false,"value":1000000},"211":{"id":211,"name":"Riftborne heart","stackable":false,"value":4000000},"212":{"id":212,"name":"Colossus core","stackable":false,"value":15000000},"213":{"id":213,"name":"Wraith ash","stackable":true,"value":15000},"214":{"id":214,"name":"Stalker fang","stackable":true,"value":30000},"215":{"id":215,"name":"Troll tusk","stackable":true,"value":50000},"216":{"id":216,"name":"Wight crown","stackable":true,"value":120000},"217":{"id":217,"name":"Drake scale","stackable":true,"value":250000},"218":{"id":218,"name":"Colossus ember","stackable":true,"value":500000},"220":{"id":220,"name":"Gatherer's draught","stackable":true,"value":28},"221":{"id":221,"name":"Hunter's brew","stackable":true,"value":272},"222":{"id":222,"name":"Warrior's tonic","stackable":true,"value":835},"223":{"id":223,"name":"Elixir of the vein","stackable":true,"value":1643},"224":{"id":224,"name":"Abyssal tonic","stackable":true,"value":2103},"225":{"id":225,"name":"Swift draught","stackable":true,"value":96},"226":{"id":226,"name":"Nourishing draught","stackable":true,"value":387},"227":{"id":227,"name":"Haste draught","stackable":true,"value":1205},"240":{"id":240,"name":"Gnawer pelt","stackable":true,"value":5},"241":{"id":241,"name":"Bogling skin","stackable":true,"value":12},"242":{"id":242,"name":"Husk chitin","stackable":true,"value":60},"243":{"id":243,"name":"Cairn bone","stackable":true,"value":120},"244":{"id":244,"name":"Wraith dust","stackable":true,"value":200},"245":{"id":245,"name":"Rimewolf fur","stackable":true,"value":500},"246":{"id":246,"name":"Stalker claw","stackable":true,"value":700},"247":{"id":247,"name":"Ember scale","stackable":true,"value":1200},"248":{"id":248,"name":"Troll hide","stackable":true,"value":800},"249":{"id":249,"name":"Horror ichor","stackable":true,"value":1000},"250":{"id":250,"name":"Ice wight shard","stackable":true,"value":1500},"251":{"id":251,"name":"Drake hide","stackable":true,"value":2000},"252":{"id":252,"name":"Colossus chip","stackable":true,"value":3000},"260":{"id":260,"name":"Pelt coif","stackable":false,"value":15},"261":{"id":261,"name":"Pelt jerkin","stackable":false,"value":30},"262":{"id":262,"name":"Pelt chaps","stackable":false,"value":20},"263":{"id":263,"name":"Bogskin coif","stackable":false,"value":34},"264":{"id":264,"name":"Bogskin jerkin","stackable":false,"value":70},"265":{"id":265,"name":"Bogskin chaps","stackable":false,"value":46},"266":{"id":266,"name":"Chitin coif","stackable":false,"value":154},"267":{"id":267,"name":"Chitin jerkin","stackable":false,"value":334},"268":{"id":268,"name":"Chitin chaps","stackable":false,"value":214},"269":{"id":269,"name":"Fur coif","stackable":false,"value":1115},"270":{"id":270,"name":"Fur jerkin","stackable":false,"value":2615},"271":{"id":271,"name":"Fur chaps","stackable":false,"value":1615},"272":{"id":272,"name":"Scale coif","stackable":false,"value":2807},"273":{"id":273,"name":"Scale jerkin","stackable":false,"value":6407},"274":{"id":274,"name":"Scale chaps","stackable":false,"value":4007},"280":{"id":280,"name":"Gnawer pup","stackable":false,"value":0},"281":{"id":281,"name":"Bogling tadpole","stackable":false,"value":0},"282":{"id":282,"name":"Husk grub","stackable":false,"value":0},"283":{"id":283,"name":"Cairn wisp","stackable":false,"value":0},"284":{"id":284,"name":"Rimewolf cub","stackable":false,"value":0},"285":{"id":285,"name":"Emberkin spark","stackable":false,"value":0},"286":{"id":286,"name":"Horror spawn","stackable":false,"value":0},"287":{"id":287,"name":"Wraith mote","stackable":false,"value":0},"288":{"id":288,"name":"Stalker kit","stackable":false,"value":0},"289":{"id":289,"name":"Frost troll whelp","stackable":false,"value":0},"290":{"id":290,"name":"Ice wight shard-child","stackable":false,"value":0},"291":{"id":291,"name":"Ash drake hatchling","stackable":false,"value":0},"292":{"id":292,"name":"Cinder ember","stackable":false,"value":0},"293":{"id":293,"name":"Gem pack","stackable":true,"value":10},"294":{"id":294,"name":"Pouch of gems","stackable":true,"value":1200},"295":{"id":295,"name":"Chest of gems","stackable":true,"value":2600},"296":{"id":296,"name":"Vein of gems","stackable":true,"value":7000},"297":{"id":297,"name":"Hoard of gems","stackable":true,"value":15000},"300":{"id":300,"name":"Homespun bolt","stackable":true,"value":12},"301":{"id":301,"name":"Silk bolt","stackable":true,"value":70},"302":{"id":302,"name":"Gilded bolt","stackable":true,"value":260},"303":{"id":303,"name":"Voidweave bolt","stackable":true,"value":900},"304":{"id":304,"name":"Homespun hood","stackable":false,"value":29},"305":{"id":305,"name":"Homespun robe","stackable":false,"value":65},"306":{"id":306,"name":"Homespun skirt","stackable":false,"value":41},"307":{"id":307,"name":"Silk hood","stackable":false,"value":166},"308":{"id":308,"name":"Silk robe","stackable":false,"value":376},"309":{"id":309,"name":"Silk skirt","stackable":false,"value":236},"310":{"id":310,"name":"Gilded hood","stackable":false,"value":597},"311":{"id":311,"name":"Gilded robe","stackable":false,"value":1377},"312":{"id":312,"name":"Gilded skirt","stackable":false,"value":857},"313":{"id":313,"name":"Voidweave hood","stackable":false,"value":2020},"314":{"id":314,"name":"Voidweave robe","stackable":false,"value":4720},"315":{"id":315,"name":"Voidweave skirt","stackable":false,"value":2920},"316":{"id":316,"name":"Rock mite nymph","stackable":false,"value":0},"317":{"id":317,"name":"Fen lurker spawn","stackable":false,"value":0},"318":{"id":318,"name":"Grave beetle grub","stackable":false,"value":0},"319":{"id":319,"name":"Sump crawler hatchling","stackable":false,"value":0},"320":{"id":320,"name":"Stone eater pebble","stackable":false,"value":0},"321":{"id":321,"name":"Barrow pup","stackable":false,"value":0},"322":{"id":322,"name":"Chalk wightling","stackable":false,"value":0},"323":{"id":323,"name":"Pelt gloves","stackable":false,"value":75},"324":{"id":324,"name":"Bogskin gloves","stackable":false,"value":4000},"325":{"id":325,"name":"Chitin gloves","stackable":false,"value":12000},"326":{"id":326,"name":"Bone gloves","stackable":false,"value":40000},"327":{"id":327,"name":"Scale gloves","stackable":false,"value":350000},"328":{"id":328,"name":"Horse","stackable":false,"value":10000},"329":{"id":329,"name":"Pelt quiver","stackable":false,"value":18},"330":{"id":330,"name":"Bogskin quiver","stackable":false,"value":49},"331":{"id":331,"name":"Chitin quiver","stackable":false,"value":199},"332":{"id":332,"name":"Fur quiver","stackable":false,"value":1215},"333":{"id":333,"name":"Scale quiver","stackable":false,"value":3047},"334":{"id":334,"name":"Linen grimoire","stackable":false,"value":41},"335":{"id":335,"name":"Silk grimoire","stackable":false,"value":248},"336":{"id":336,"name":"Gilded grimoire","stackable":false,"value":1057},"337":{"id":337,"name":"Voidweave grimoire","stackable":false,"value":4320},"338":{"id":338,"name":"Troll coif","stackable":false,"value":2183},"339":{"id":339,"name":"Troll jerkin","stackable":false,"value":4583},"340":{"id":340,"name":"Troll chaps","stackable":false,"value":2983},"341":{"id":341,"name":"Drake coif","stackable":false,"value":4650},"342":{"id":342,"name":"Drake jerkin","stackable":false,"value":10650},"343":{"id":343,"name":"Drake chaps","stackable":false,"value":6650},"344":{"id":344,"name":"Wightweave hood","stackable":false,"value":3800},"345":{"id":345,"name":"Wightweave robe","stackable":false,"value":9500},"346":{"id":346,"name":"Wightweave skirt","stackable":false,"value":6200},"347":{"id":347,"name":"Troll quiver","stackable":false,"value":2783},"348":{"id":348,"name":"Drake quiver","stackable":false,"value":5850},"349":{"id":349,"name":"Wightweave grimoire","stackable":false,"value":6200},"350":{"id":350,"name":"Colossus blade","stackable":false,"value":11231},"351":{"id":351,"name":"Colossus shield","stackable":false,"value":11231},"352":{"id":352,"name":"Colossus helm","stackable":false,"value":6704},"353":{"id":353,"name":"Colossus plate","stackable":false,"value":17285},"354":{"id":354,"name":"Colossus greaves","stackable":false,"value":12758},"355":{"id":355,"name":"Leviathan scale","stackable":true,"value":20000},"356":{"id":356,"name":"Wyrm ember","stackable":true,"value":20000},"357":{"id":357,"name":"Leviathan amulet","stackable":false,"value":25593},"358":{"id":358,"name":"Wyrm ring","stackable":false,"value":25593},"359":{"id":359,"name":"Protection scroll","stackable":true,"value":10},"360":{"id":360,"name":"Bronze pan","stackable":false,"value":17},"361":{"id":361,"name":"Iron pan","stackable":false,"value":32},"362":{"id":362,"name":"Steel pan","stackable":false,"value":190},"363":{"id":363,"name":"Cobalt pan","stackable":false,"value":775},"364":{"id":364,"name":"Meteoric pan","stackable":false,"value":1934},"365":{"id":365,"name":"Bronze hammer","stackable":false,"value":29},"366":{"id":366,"name":"Iron hammer","stackable":false,"value":54},"367":{"id":367,"name":"Steel hammer","stackable":false,"value":346},"368":{"id":368,"name":"Cobalt hammer","stackable":false,"value":1435},"369":{"id":369,"name":"Meteoric hammer","stackable":false,"value":3461},"370":{"id":370,"name":"Bronze knife","stackable":false,"value":17},"371":{"id":371,"name":"Iron knife","stackable":false,"value":32},"372":{"id":372,"name":"Steel knife","stackable":false,"value":190},"373":{"id":373,"name":"Cobalt knife","stackable":false,"value":775},"374":{"id":374,"name":"Meteoric knife","stackable":false,"value":1934},"375":{"id":375,"name":"Bronze needle","stackable":false,"value":17},"376":{"id":376,"name":"Iron needle","stackable":false,"value":32},"377":{"id":377,"name":"Steel needle","stackable":false,"value":190},"378":{"id":378,"name":"Cobalt needle","stackable":false,"value":775},"379":{"id":379,"name":"Meteoric needle","stackable":false,"value":1934},"380":{"id":380,"name":"Bronze mortar","stackable":false,"value":29},"381":{"id":381,"name":"Iron mortar","stackable":false,"value":54},"382":{"id":382,"name":"Steel mortar","stackable":false,"value":346},"383":{"id":383,"name":"Cobalt mortar","stackable":false,"value":1435},"384":{"id":384,"name":"Meteoric mortar","stackable":false,"value":3461},"385":{"id":385,"name":"Bronze hoe","stackable":false,"value":23},"386":{"id":386,"name":"Iron hoe","stackable":false,"value":62},"387":{"id":387,"name":"Steel hoe","stackable":false,"value":280},"388":{"id":388,"name":"Cobalt hoe","stackable":false,"value":1255},"389":{"id":389,"name":"Meteoric hoe","stackable":false,"value":3134},"390":{"id":390,"name":"Bronze greatsword","stackable":false,"value":29},"391":{"id":391,"name":"Iron greatsword","stackable":false,"value":54},"392":{"id":392,"name":"Steel greatsword","stackable":false,"value":346},"393":{"id":393,"name":"Cobalt greatsword","stackable":false,"value":1435},"394":{"id":394,"name":"Meteoric greatsword","stackable":false,"value":3461},"395":{"id":395,"name":"Colossus greatsword","stackable":false,"value":12704}},"toolSkills":{"pickaxe":"mining","rod":"fishing","axe":"woodcutting","gloves":"thieving","pan":"cooking","hammer":"smithing","knife":"fletching","needle":"crafting","mortar":"herblore","hoe":"farming"},"rarityMultipliers":[1,1.3,1.6,2.2,3],"enhanceScale":0.06,"sites":[{"id":1,"x":187,"y":78,"kind":"rock","jobIds":[1]},{"id":2,"x":194,"y":91,"kind":"rock","jobIds":[2]},{"id":3,"x":200,"y":60,"kind":"rock","jobIds":[1]},{"id":4,"x":196,"y":62,"kind":"rock","jobIds":[1]},{"id":5,"x":200,"y":56,"kind":"rock","jobIds":[2]},{"id":6,"x":192,"y":63,"kind":"rock","jobIds":[2]},{"id":7,"x":196,"y":57,"kind":"rock","jobIds":[3]},{"id":8,"x":200,"y":52,"kind":"rock","jobIds":[3]},{"id":9,"x":204,"y":55,"kind":"rock","jobIds":[3]},{"id":10,"x":200,"y":45,"kind":"rock","jobIds":[4]},{"id":11,"x":196,"y":49,"kind":"rock","jobIds":[4]},{"id":12,"x":204,"y":49,"kind":"rock","jobIds":[4]},{"id":13,"x":198,"y":37,"kind":"rock","jobIds":[5]},{"id":14,"x":202,"y":40,"kind":"rock","jobIds":[5]},{"id":15,"x":197,"y":41,"kind":"rock","jobIds":[5]},{"id":16,"x":194,"y":37,"kind":"rock","jobIds":[6]},{"id":17,"x":190,"y":41,"kind":"rock","jobIds":[6]},{"id":18,"x":186,"y":45,"kind":"rock","jobIds":[6]},{"id":19,"x":190,"y":33,"kind":"rock","jobIds":[7]},{"id":20,"x":186,"y":37,"kind":"rock","jobIds":[7]},{"id":21,"x":182,"y":41,"kind":"rock","jobIds":[7]},{"id":22,"x":181,"y":35,"kind":"rock","jobIds":[8]},{"id":23,"x":177,"y":39,"kind":"rock","jobIds":[8]},{"id":24,"x":185,"y":33,"kind":"rock","jobIds":[8]},{"id":25,"x":214,"y":83,"kind":"fishing","jobIds":[21]},{"id":26,"x":216,"y":79,"kind":"fishing","jobIds":[21]},{"id":27,"x":214,"y":89,"kind":"fishing","jobIds":[22]},{"id":28,"x":208,"y":65,"kind":"fishing","jobIds":[22]},{"id":29,"x":218,"y":75,"kind":"fishing","jobIds":[23]},{"id":30,"x":205,"y":60,"kind":"fishing","jobIds":[23]},{"id":31,"x":212,"y":67,"kind":"fishing","jobIds":[24]},{"id":32,"x":217,"y":93,"kind":"fishing","jobIds":[24]},{"id":33,"x":216,"y":69,"kind":"fishing","jobIds":[25]},{"id":34,"x":230,"y":82,"kind":"fishing","jobIds":[25]},{"id":35,"x":220,"y":71,"kind":"fishing","jobIds":[26]},{"id":36,"x":205,"y":54,"kind":"fishing","jobIds":[26]},{"id":37,"x":168,"y":80,"kind":"fishing","jobIds":[27]},{"id":38,"x":171,"y":87,"kind":"fishing","jobIds":[27]},{"id":39,"x":221,"y":95,"kind":"fishing","jobIds":[28]},{"id":40,"x":173,"y":91,"kind":"fishing","jobIds":[28]},{"id":42,"x":197,"y":85,"kind":"furnace","jobIds":[41,42,43,44,45]},{"id":43,"x":204,"y":86,"kind":"anvil","jobIds":[51,52,53,54,55,56,57,58,59,60,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,46,47,48,49,50,110,111,112,113,114,338,339,340,341,342,343,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,301,302,303,304,305,140,141,142,143,144,145,146,147,148,149,150,151,200,201,202,203,204,205,230,231,232,233,307,234,235,236,306,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,289,290,291,292,293,294,248,249,250,251,252,253,254,255,256,257,258,259,295,296,297,275,276,277,278,280,281,282,283,284,298,299,285,286,287,288,300,279]},{"id":44,"x":202,"y":83,"kind":"fire","jobIds":[61,62,63,64,65,66,67,68,220,225,226,227,221,222,223,224]},{"id":46,"x":113,"y":177,"kind":"furnace","jobIds":[41,42,43,44,45]},{"id":47,"x":113,"y":180,"kind":"anvil","jobIds":[51,52,53,54,55,56,57,58,59,60,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,46,47,48,49,50,110,111,112,113,114,338,339,340,341,342,343,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,301,302,303,304,305,140,141,142,143,144,145,146,147,148,149,150,151,200,201,202,203,204,205,230,231,232,233,307,234,235,236,306,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,289,290,291,292,293,294,248,249,250,251,252,253,254,255,256,257,258,259,295,296,297,275,276,277,278,280,281,282,283,284,298,299,285,286,287,288,300,279]},{"id":48,"x":110,"y":179,"kind":"fire","jobIds":[61,62,63,64,65,66,67,68,220,225,226,227,221,222,223,224]},{"id":56,"x":172,"y":39,"kind":"tree","jobIds":[30]},{"id":57,"x":167,"y":43,"kind":"tree","jobIds":[30]},{"id":58,"x":174,"y":34,"kind":"tree","jobIds":[30]},{"id":59,"x":174,"y":29,"kind":"tree","jobIds":[31]},{"id":60,"x":169,"y":34,"kind":"tree","jobIds":[31]},{"id":61,"x":162,"y":41,"kind":"tree","jobIds":[31]},{"id":62,"x":171,"y":23,"kind":"tree","jobIds":[32]},{"id":63,"x":166,"y":28,"kind":"tree","jobIds":[32]},{"id":64,"x":161,"y":33,"kind":"tree","jobIds":[32]},{"id":65,"x":168,"y":18,"kind":"tree","jobIds":[33]},{"id":66,"x":163,"y":23,"kind":"tree","jobIds":[33]},{"id":67,"x":158,"y":28,"kind":"tree","jobIds":[33]},{"id":68,"x":161,"y":16,"kind":"tree","jobIds":[34]},{"id":69,"x":156,"y":21,"kind":"tree","jobIds":[34]},{"id":70,"x":151,"y":26,"kind":"tree","jobIds":[34]},{"id":71,"x":151,"y":18,"kind":"tree","jobIds":[35]},{"id":72,"x":146,"y":25,"kind":"tree","jobIds":[35]},{"id":73,"x":156,"y":16,"kind":"tree","jobIds":[35]},{"id":74,"x":207,"y":93,"kind":"field","jobIds":[160,161,162,163,164,165,210,211,212]},{"id":75,"x":209,"y":93,"kind":"field","jobIds":[160,161,162,163,164,165,210,211,212]},{"id":76,"x":211,"y":93,"kind":"field","jobIds":[160,161,162,163,164,165,210,211,212]},{"id":77,"x":207,"y":97,"kind":"field","jobIds":[160,161,162,163,164,165,210,211,212]},{"id":78,"x":209,"y":97,"kind":"field","jobIds":[160,161,162,163,164,165,210,211,212]},{"id":79,"x":211,"y":97,"kind":"field","jobIds":[160,161,162,163,164,165,210,211,212]},{"id":80,"x":196,"y":77,"kind":"stall","jobIds":[240]},{"id":81,"x":198,"y":77,"kind":"stall","jobIds":[241]},{"id":82,"x":200,"y":77,"kind":"stall","jobIds":[242]},{"id":83,"x":202,"y":77,"kind":"stall","jobIds":[243]},{"id":84,"x":115,"y":179,"kind":"stall","jobIds":[240]},{"id":85,"x":115,"y":181,"kind":"stall","jobIds":[241]},{"id":86,"x":112,"y":182,"kind":"stall","jobIds":[242]},{"id":87,"x":116,"y":171,"kind":"stall","jobIds":[243]},{"id":359,"x":199,"y":86,"kind":"stall","jobIds":[244]},{"id":360,"x":195,"y":83,"kind":"stall","jobIds":[245]},{"id":361,"x":201,"y":87,"kind":"stall","jobIds":[246]},{"id":362,"x":195,"y":88,"kind":"stall","jobIds":[247]},{"id":363,"x":104,"y":180,"kind":"stall","jobIds":[244]},{"id":364,"x":114,"y":170,"kind":"stall","jobIds":[245]},{"id":365,"x":117,"y":173,"kind":"stall","jobIds":[246]},{"id":366,"x":117,"y":181,"kind":"stall","jobIds":[247]}],"banks":[{"id":1,"x":200,"y":82,"approach":{"x":200,"y":83}},{"id":2,"x":110,"y":177,"approach":{"x":110,"y":178}}],"zones":[{"id":1,"name":"The Warrens","monsterId":1,"population":10,"x":191,"y":133,"width":12,"height":12},{"id":2,"name":"Mirefen","monsterId":2,"population":10,"x":204,"y":147,"width":12,"height":12},{"id":3,"name":"Dust Hollow","monsterId":3,"population":10,"x":242,"y":58,"width":12,"height":12},{"id":4,"name":"The Cairns","monsterId":4,"population":12,"x":128,"y":185,"width":13,"height":13},{"id":5,"name":"Frostmarch","monsterId":5,"population":10,"x":224,"y":167,"width":12,"height":12},{"id":6,"name":"Cinder Reach","monsterId":6,"population":12,"x":80,"y":22,"width":13,"height":13},{"id":7,"name":"The Deep","monsterId":7,"population":10,"x":67,"y":9,"width":12,"height":12},{"id":8,"name":"Sunscar Dunes","monsterId":8,"population":10,"x":175,"y":209,"width":11,"height":11},{"id":9,"name":"The Glass Flats","monsterId":9,"population":12,"x":92,"y":51,"width":12,"height":12},{"id":10,"name":"Frostwild Hollow","monsterId":10,"population":12,"x":12,"y":128,"width":12,"height":12},{"id":11,"name":"Rimeholt","monsterId":11,"population":12,"x":14,"y":100,"width":12,"height":12},{"id":12,"name":"Ashfall","monsterId":12,"population":12,"x":61,"y":38,"width":12,"height":12},{"id":13,"name":"The Cinder Throne","monsterId":13,"population":12,"x":47,"y":23,"width":12,"height":12},{"id":14,"name":"The Scree","monsterId":14,"population":12,"x":229,"y":104,"width":12,"height":12},{"id":15,"name":"Sallow Reach","monsterId":15,"population":14,"x":148,"y":185,"width":13,"height":13},{"id":16,"name":"The Boneyard","monsterId":16,"population":10,"x":49,"y":160,"width":11,"height":11},{"id":17,"name":"Sunken Row","monsterId":17,"population":12,"x":168,"y":174,"width":12,"height":12},{"id":18,"name":"Gritmaw","monsterId":18,"population":14,"x":64,"y":198,"width":13,"height":13},{"id":19,"name":"Hollowbarrow","monsterId":19,"population":12,"x":81,"y":106,"width":12,"height":12},{"id":20,"name":"The Chalk Steps","monsterId":20,"population":14,"x":214,"y":11,"width":13,"height":13}],"monsters":[{"id":1,"name":"Gnawer","level":2,"hp":8,"maxHit":1,"attack":1,"defence":1,"speed":4,"xp":8,"gold":[1,2],"bonus":{"itemId":201,"chance":0.0004},"drop":240},{"id":2,"name":"Bogling","level":8,"hp":18,"maxHit":3,"attack":8,"defence":6,"speed":4,"xp":22,"gold":[2,4],"bonus":{"itemId":202,"chance":0.0006},"drop":241},{"id":3,"name":"Husk","level":20,"hp":40,"maxHit":6,"attack":20,"defence":18,"speed":4,"xp":60,"gold":[17,32],"bonus":{"itemId":203,"chance":0.0008},"drop":242},{"id":4,"name":"Cairn wight","level":40,"hp":75,"maxHit":10,"attack":40,"defence":38,"speed":4,"xp":165,"gold":[117,217],"bonus":{"itemId":204,"chance":0.001},"drop":243},{"id":5,"name":"Rimewolf","level":60,"hp":120,"maxHit":15,"attack":62,"defence":58,"speed":4,"xp":380,"gold":[369,685],"bonus":{"itemId":205,"chance":0.0014},"drop":245},{"id":6,"name":"Emberkin","level":80,"hp":180,"maxHit":22,"attack":85,"defence":80,"speed":5,"xp":780,"gold":[837,1554],"bonus":{"itemId":206,"chance":0.002},"drop":247},{"id":7,"name":"Deep horror","level":95,"hp":260,"maxHit":30,"attack":100,"defence":96,"speed":5,"xp":1500,"gold":[1365,2535],"bonus":{"itemId":207,"chance":0.003},"drop":249},{"id":8,"name":"Sand wraith","level":50,"hp":95,"maxHit":12,"attack":50,"defence":48,"speed":4,"xp":250,"gold":[220,409],"bonus":{"itemId":213,"chance":0.0012},"drop":244},{"id":9,"name":"Dune stalker","level":70,"hp":150,"maxHit":18,"attack":72,"defence":68,"speed":4,"xp":550,"gold":[572,1063],"bonus":{"itemId":214,"chance":0.0016},"drop":246},{"id":10,"name":"Frost troll","level":85,"hp":210,"maxHit":25,"attack":90,"defence":84,"speed":5,"xp":1000,"gold":[994,1847],"bonus":{"itemId":215,"chance":0.0022},"drop":248},{"id":11,"name":"Ice wight","level":105,"hp":300,"maxHit":34,"attack":112,"defence":106,"speed":5,"xp":2000,"gold":[1815,3371],"bonus":{"itemId":216,"chance":0.003},"drop":250},{"id":12,"name":"Ash drake","level":120,"hp":360,"maxHit":40,"attack":128,"defence":120,"speed":5,"xp":2800,"gold":[2655,4932],"bonus":{"itemId":217,"chance":0.0035},"drop":251},{"id":13,"name":"Cinder colossus","level":140,"hp":440,"maxHit":48,"attack":150,"defence":140,"speed":6,"xp":4000,"gold":[4120,7651],"bonus":{"itemId":218,"chance":0.004},"drop":252},{"id":14,"name":"Rock mite","level":3,"hp":10,"maxHit":1,"attack":3,"defence":2,"speed":4,"xp":11,"gold":[1,2],"bonus":{"itemId":201,"chance":0.0004},"drop":240},{"id":15,"name":"Fen lurker","level":5,"hp":13,"maxHit":2,"attack":5,"defence":4,"speed":4,"xp":15,"gold":[1,2],"bonus":{"itemId":201,"chance":0.0005},"drop":240},{"id":16,"name":"Grave beetle","level":12,"hp":26,"maxHit":4,"attack":12,"defence":10,"speed":4,"xp":34,"gold":[4,9],"bonus":{"itemId":202,"chance":0.0006},"drop":241},{"id":17,"name":"Sump crawler","level":16,"hp":33,"maxHit":5,"attack":16,"defence":14,"speed":4,"xp":46,"gold":[9,18],"bonus":{"itemId":202,"chance":0.0007},"drop":241},{"id":18,"name":"Stone eater","level":22,"hp":44,"maxHit":6,"attack":22,"defence":20,"speed":4,"xp":70,"gold":[22,41],"bonus":{"itemId":203,"chance":0.0008},"drop":242},{"id":19,"name":"Barrow hound","level":26,"hp":51,"maxHit":7,"attack":26,"defence":24,"speed":4,"xp":91,"gold":[35,65],"bonus":{"itemId":203,"chance":0.0009},"drop":242},{"id":20,"name":"Chalk wight","level":32,"hp":61,"maxHit":8,"attack":32,"defence":30,"speed":4,"xp":122,"gold":[62,116],"bonus":{"itemId":203,"chance":0.001},"drop":242}],"farmUnlocks":[1,1,15,30,45,60],"farmWaterTrim":20,"plusScale":10000,"rarityScale":1000,"rarityXp":[1,1.5,3,8,25],"rarityChance":{"legendary":0.000006666666666666667,"epic":0.000125,"rare":0.0025,"uncommon":0.025},"toolLuck":[0,0.25,0.75,2,5],"enhanceGold":[100,300,1000,3000,8000,20000],"enhanceThresholds":[15,30,50,75,90],"enhanceShards":3,"shardId":208,"coinId":200,"formulaBaseline":"index-BH7O_PDX.js","foodHealingMultipliers":[1,1.2,1.5,2,3]};
 /* Acorn
 MIT License
@@ -6304,6 +6304,39 @@ const parsePublicClient=(()=>{const exports={},module={exports};
 }));
 
 return exports.parse;})();
+const PROFESSIONS={magic:'法师',melee:'单手战士',melee_twohand:'双手战士',ranged:'短弓游侠',ranged_long:'长弓游侠'};
+
+const professionSkill=profession=>profession==='melee_twohand'?'melee':profession==='ranged_long'?'ranged':profession;
+const starterWeapon=profession=>({magic:152,melee:110,melee_twohand:390,ranged:140,ranged_long:146})[profession];
+
+function matchesProfessionWeapon(gear,profession) {
+  if (!gear||gear.slot!=='weapon'||gear.needs!==professionSkill(profession)) return false;
+  if (gear.needs==='melee') return !!gear.twoHanded===(profession==='melee_twohand');
+  if (gear.needs==='ranged') return gear.speed===(profession==='ranged_long'?5:3);
+  return true;
+}
+
+function finishTaskReason(data,p) {
+  const route=p.route,job=data.jobs.find(j=>j.id===route?.jobId);
+  if (!job||job.grow||route.errand||!route.phase||route.phase==='toBank'||route.limit===0) return null;
+  const base=id=>id%data.plusScale%data.rarityScale;
+  const used=p.pack.reduce((n,i)=>n+(data.items[base(i.itemId)]?.stackable?1:i.qty),0);
+  const free=28+Math.max(0,p.perks?.pockets??0)-used;
+  const output=data.items[job.output.itemId];
+  if (['mining','fishing','woodcutting'].includes(job.skill)&&!job.inputs.length&&!output?.stackable) {
+    return free>=job.output.qty?'继续当前采集，背包满或本批完成后再切换任务':null;
+  }
+  if (!['smithing','cooking','fletching','herblore','crafting'].includes(job.skill)||!(route.limit>0)||route.rarity>0||p.workRarity>0) return null;
+  let freed=0;
+  for (const input of job.inputs) {
+    const count=p.pack.filter(i=>i.itemId===input.itemId).reduce((n,i)=>n+i.qty,0);
+    if (count<input.qty) return null;
+    freed+=data.items[input.itemId]?.stackable?Number(count===input.qty):input.qty;
+  }
+  const extra=output?.stackable?Number(!p.pack.some(i=>i.itemId===job.output.itemId)):job.output.qty;
+  return free+freed>=extra?'完成背包中已备材料的当前批次，再切换任务':null;
+}
+
 // Expected base rates from the reviewed client. House, potion, mastery, event
 // and guild modifiers are omitted; these estimates are not measured XP/hour.
 function workEstimate(data, job, skillLevel, options={}) {
@@ -6497,10 +6530,11 @@ function createStrategy(data, planner) {
       luck:(data.toolLuck[Math.floor((p.equipment[slot]??0)%data.plusScale/data.rarityScale)]??0)+
         (planner.equipmentStats(p.equipment.amulet)?.luck??0)}),lv);
   }
-  function combatOptions(p,style='magic') {
+  function combatOptions(p,profession='magic') {
+    const style=professionSkill(profession);
     const lv=planner.levels(p), gear=Object.values(p.equipment).map(planner.equipmentStats).filter(Boolean);
     const w=planner.equipmentStats(p.equipment.weapon);
-    if (w?.needs!==style) return [];
+    if (!matchesProfessionWeapon(w,profession)) return [];
     const stat=k=>gear.reduce((n,g)=>n+(k==='defence'||!g.style||g.style===style?1:-1)*(g[k]??0),0);
     return data.monsters.filter(m=>m.maxHit<lv.hitpoints/3&&
       lv.hitpoints/((10+m.attack)/(20+m.attack+lv.defence+stat('defence'))*(1+m.maxHit)/2)>=6)
@@ -6608,7 +6642,11 @@ function createStrategy(data, planner) {
       return true;
     }
     let ok=false;
-    if (root?.monsterId) {
+    if (root?.itemId!=null) {
+      // Quote an additional missing quantity, while still using owned inputs.
+      stock[root.itemId]=0;
+      ok=supply(root.itemId,amount,[]);
+    } else if (root?.monsterId) {
       const c=combatOptions(p,style).find(c=>c.monster.id===root.monsterId);
       ok=!!c&&fight(c,amount);
     } else if (root) ok=work(root,amount,[root.output.itemId]);
@@ -6617,6 +6655,7 @@ function createStrategy(data, planner) {
       budget:{coins:Math.max(0,-coins),items:budget},recipes,supplyRecipes,unlocks};
   }
   function candidates(p,style='magic',deferred={}) {
+    const skill=professionSkill(style);
     const lv=planner.levels(p), candidates=[];
     for (const job of jobs.filter(j=>!j.grow&&!deferred[j.skill]&&j.levelReq<=lv[j.skill]&&siteAt(p,j))) {
       const e=estimateWork(p,job,lv);
@@ -6633,22 +6672,23 @@ function createStrategy(data, planner) {
         budget:routeEstimate(p,job,50,{style}).budget,target:lv[job.skill]+1,stage:lv[job.skill]+1});
     }
     let fighter=p,preparation={seconds:0,xp:0,coins:0,budget:{coins:0,items:{}}};
-    if (planner.equipmentStats(p.equipment.weapon)?.needs!==style) {
-      const starter={magic:152,melee:110,ranged:140}[style];
+    if (!matchesProfessionWeapon(planner.equipmentStats(p.equipment.weapon),style)) {
+      const starter=starterWeapon(style);
       const recipe=jobs.find(j=>j.output.itemId===starter);
       preparation=planner.count(p,starter)>0?preparation:routeEstimate(p,recipe,1,{style});
       fighter={...p,equipment:{...p.equipment,weapon:starter}};
+      if (planner.equipmentStats(starter)?.twoHanded) fighter.equipment.shield=null;
     }
-    if (!deferred[style]&&Number.isFinite(preparation.seconds)) for (const c of combatOptions(fighter,style)) {
+    if (!deferred[skill]&&Number.isFinite(preparation.seconds)) for (const c of combatOptions(fighter,style)) {
       const supplies=combatSupplies(data,planner,fighter,c,{zone:c.zone,monster:c.monster,
         foodItemId:0,horizon:Math.max(1,horizon-preparation.seconds),supplyCost:id=>supplyCost(fighter,id)});
       if (!supplies.sustainable||supplies.horizonKills<1) continue;
       const estimate=routeEstimate(fighter,{monsterId:c.monster.id},Math.max(1,Math.floor(supplies.horizonKills)),{style});
       estimate.seconds+=preparation.seconds;estimate.xp+=preparation.xp;estimate.coins+=preparation.coins;
       estimate.rate={xp:estimate.xp/estimate.seconds,coins:estimate.coins/estimate.seconds};
-      if (Number.isFinite(estimate.seconds)) candidates.push({skill:style,monsterId:c.monster.id,
+      if (Number.isFinite(estimate.seconds)) candidates.push({skill,monsterId:c.monster.id,
         estimate,rate:estimate.rate,horizon,budget:routeEstimate(fighter,{monsterId:c.monster.id},20,{style}).budget,
-        recipes:estimate.recipes,target:lv[style]+1,stage:lv[style]+1});
+        recipes:estimate.recipes,target:lv[skill]+1,stage:lv[skill]+1});
     }
     return candidates.sort((a,b)=>b.rate.xp-a.rate.xp||b.rate.coins-a.rate.coins||a.recipeId-b.recipeId);
   }
@@ -6679,7 +6719,6 @@ const NAMES = {
   cooking:'烹饪', smithing:'锻造', fletching:'箭术制作', herblore:'炼药', crafting:'制作',
   enhancing:'强化', melee:'近战', ranged:'远程', magic:'魔法', defence:'防御', hitpoints:'生命'
 };
-const PROFESSIONS = {magic:'法师',melee:'战士',ranged:'游侠'};
 
 function createPlanner(data) {
   const {jobs, sites, banks, monsters, zones} = data;
@@ -6729,6 +6768,15 @@ function createPlanner(data) {
   const blocked = reason => ({intent:null,label:'需要处理',reason,blocked:true});
   const bankAction = (p,intent,label) => nearBank(p) ? action(intent,label) :
     action({t:'walk',...nearestBank(p).approach},'前往仓库',label);
+  function gatheringDeparture(p,job) {
+    if(!['mining','fishing','woodcutting'].includes(job.skill)||job.inputs.length||data.items[job.output.itemId]?.stackable)return null;
+    // Native setRoute only checks whether one more output fits, not whether old cargo was banked.
+    const cargo=p.pack.some(i=>i.qty>0&&(nearBank(p)||
+      base(i.itemId)!==job.output.itemId&&!data.items[base(i.itemId)]?.stackable));
+    if(!cargo)return null;
+    if(nearBank(p)&&(p.route||p.path?.length))return action({t:'clearRoute'},'采集出发前整理背包','先停止旧路线，再把旧物资存仓');
+    return bankAction(p,{t:'deposit'},'采集出发前存仓，腾出整包空间');
+  }
   const farmFields = p => sites.filter(s=>s.kind==='field').sort((a,b)=>a.id-b.id)
     .slice(0,data.farmUnlocks.filter(n=>level(p.skills.farming)>=n).length);
   function farmPlots(p) {
@@ -6786,6 +6834,8 @@ function createPlanner(data) {
     if (farmSearch&&p.lastTick-farmSearch.started>farmSearch.maxTicks) {
       farmRetryAt=p.lastTick+Math.min(farmSearch.job.grow,600000/data.tickMs);farmSearch=null;
     }
+    if(!urgentHarvest&&finishTaskReason(data,p))
+      return deferFarm('先完成当前采集背包或制作批次，再合并收菜、补种及采种准备');
     // Recycled seeds only sustain existing plots. Fill empty fields with owned
     // seeds before investing in another crop; expansion needs independent seeds.
     const owned=eligible.filter(j=>hasSeed(p,j)).sort(rank);
@@ -6876,6 +6926,8 @@ function createPlanner(data) {
           const site=sites.filter(s=>s.jobIds.includes(source.id)).sort((a,b)=>distance(p,a)-distance(p,b))[0];
           if (site) {
             if (p.route?.jobId===source.id) return {...wait(`继续自采 ${job.name} 种子，获得后补种／换种`),farmJobId:job.id};
+            const departure=gatheringDeparture(p,source);
+            if(departure)return {...departure,farmJobId:job.id};
             return {...action({t:'setRoute',jobId:source.id,siteId:site.id,onFull:'bank',limit:50,rarity:0},
               `为${expansion?'空田':'升级作物'}补种子 · ${job.name}`,`从 ${source.name} 自采；本轮最多 ${Math.ceil(farmSearch.maxTicks*data.tickMs/60000)} 分钟，超时先继续其他任务`),farmJobId:job.id};
           }
@@ -6884,7 +6936,7 @@ function createPlanner(data) {
     }
     return null;
   }
-  const trainedSkills = (style='magic') => data.skills.filter(s=>!attacks.includes(s)||s===style);
+  const trainedSkills = (style='magic') => data.skills.filter(s=>!attacks.includes(s)||s===professionSkill(style));
   const balancedChooseGoal = (p,served={},deferred={},style='magic') => {
     const lv = levels(p);
     const eligible=trainedSkills(style).filter(s=>!deferred[s]);
@@ -6896,7 +6948,8 @@ function createPlanner(data) {
     return skill ? {skill,target:Math.min(stage,lv[skill]+1),stage} : null;
   };
 
-  function plan(p, goal, style='magic') {
+  function plan(p, goal, profession='magic') {
+    const style=professionSkill(profession);
     const lv = levels(p);
     const unlocked = j => lv[j.skill]>=j.levelReq;
     const made = id => jobs.filter(j=>j.output.itemId===id);
@@ -6959,7 +7012,13 @@ function createPlanner(data) {
         const improvement=upgrade(job.skill);
         if (improvement) return improvement;
       }
-      const quantity = Math.max(1,Math.min(50,Math.ceil(amount)));
+      let quantity = Math.max(1,Math.min(50,Math.ceil(amount)));
+      if (['mining','fishing','woodcutting'].includes(job.skill)&&!job.inputs.length&&!data.items[job.output.itemId]?.stackable) {
+        const departure=gatheringDeparture(p,job);
+        if(departure)return departure;
+        const used=p.pack.reduce((n,i)=>n+(data.items[base(i.itemId)]?.stackable?1:i.qty),0);
+        quantity=Math.min(50,Math.max(quantity,Math.ceil((28+(p.perks?.pockets??0)-used)/job.output.qty)));
+      }
       const materialBatch = job.grow ? 1 : quantity;
       for (const ingredient of job.inputs) {
         if (job.grow && (held(p).some(id=>base(id)===ingredient.itemId&&count(p,id)>0) ||
@@ -7007,6 +7066,9 @@ function createPlanner(data) {
           .sort((a,b)=>b.output.qty/jobTime(b)-a.output.qty/jobTime(a))[0];
         return batch(job,Math.ceil((quantity-p.coins)/job.output.qty),next);
       }
+      const acquisitionGoal=goal.upgrade?.xpRate>0?{...goal,rate:{xp:goal.upgrade.xpRate}}:goal;
+      const purchase=api.marketPurchase?.(p,id,Math.max(0,quantity-count(p,id)),acquisitionGoal,profession);
+      if (purchase) return purchase;
       if (id===data.shardId) return fight(style,id,false);
       const producers = made(id).sort((a,b)=>a.levelReq-b.levelReq);
       const available=producers.filter(unlocked).sort((a,b)=>{
@@ -7020,7 +7082,7 @@ function createPlanner(data) {
       const source = jobs.filter(j=>j.bonus?.itemId===id&&unlocked(j))
         .sort((a,b)=>jobTime(a)/a.bonus.chance-jobTime(b)/b.bonus.chance)[0];
       if (source) return batch(source,50,next);
-      return blocked(id===190 ? '缺少贤者种子：公开数据仅列出商人来源；零购买模式暂缓炼药，保留其他技能训练' :
+      return blocked(id===190 ? '缺少贤者种子：暂无已核实且合算的采购或自给来源，先继续其他技能' :
         `没有已知的自给来源：${name(id)}，暂缓此技能`);
     }
     function equip(itemId) {
@@ -7047,7 +7109,7 @@ function createPlanner(data) {
         if (p.equipment[slot]===id) delete goal.upgrade;
         else {
           const result=count(p,id)>0?equip(id):need(id,1);
-          result.reason=`完成自制升级 ${name(id)}：${result.reason||result.label}`;
+          result.reason=`完成装备升级 ${name(id)}：${result.reason||result.label}`;
           return result;
         }
       }
@@ -7055,11 +7117,11 @@ function createPlanner(data) {
       const slots=combat?['weapon','helmet','body','legs','shield','ring','amulet']:
         Object.keys(data.toolSkills).filter(slot=>data.toolSkills[slot]===skill);
       for (const slot of slots) {
-        if (slot==='shield'&&equipmentStats(p.equipment.weapon??0)?.twoHanded) continue;
+        if (slot==='shield'&&(profession==='melee_twohand'||equipmentStats(p.equipment.weapon??0)?.twoHanded)) continue;
         const matches=id=>{
           const g=gear.get(base(id));
           return g?.slot===slot&&canWear(id)&&
-            (slot!=='weapon'||g.needs===skill)&&(!g.style||g.style===skill);
+            (slot!=='weapon'||matchesProfessionWeapon(g,profession))&&(!g.style||g.style===skill);
         };
         const owned=held(p).filter(matches);
         const craftable=data.gear.filter(g=>matches(g.itemId)&&made(g.itemId).length&&selfSupply(g.itemId)).map(g=>g.itemId);
@@ -7077,9 +7139,9 @@ function createPlanner(data) {
         if (owned.includes(best)) {
           const result=equip(best);result.investment=investment;return result;
         }
-        goal.upgrade={id:best,slot};
+        goal.upgrade={id:best,slot,xpRate:investment.after};
         const result=need(best,1);
-        result.reason=`自制升级 ${name(best)}，预计 ${Math.ceil(investment.payback/60)} 分钟回本：${result.reason||result.label}`;
+        result.reason=`装备升级 ${name(best)}，自制预计 ${Math.ceil(investment.payback/60)} 分钟回本：${result.reason||result.label}`;
         result.investment=investment;
         return result;
       }
@@ -7090,25 +7152,25 @@ function createPlanner(data) {
       // Native equipping a two-handed weapon removes the shield.
       if (slot==='weapon'&&equipmentStats(id)?.twoHanded) next.equipment.shield=null;
       const horizon=goal.horizon??strategy.horizon;
-      const preparation=owned?0:recipe?strategy.routeEstimate(p,recipe,1,{style}):{seconds:Infinity,xp:0};
+      const preparation=owned?0:recipe?strategy.routeEstimate(p,recipe,1,{style:profession}):{seconds:Infinity,xp:0};
       const bank=nearestBank(p),equipmentTrip=nearBank(p)||p.pack.some(i=>i.itemId===id)?0:2*distance(p,bank)*data.tickMs/1000;
       const cost=(owned?0:preparation.seconds)+equipmentTrip+data.tickMs/1000;
       let before=0,after=0;
       if (attacks.includes(skill)) {
-        const oldOptions=strategy.combatOptions(p,skill),newOptions=strategy.combatOptions(next,skill);
+        const oldOptions=strategy.combatOptions(p,profession),newOptions=strategy.combatOptions(next,profession);
         // A missing profession weapon is an enabling investment, not a return
         // percentage against an unrelated combat style.
-        if (!oldOptions.length&&newOptions.length) return {affordable:Number.isFinite(cost)&&cost<=horizon,seconds:cost,payback:cost};
         for (const c of oldOptions) {
-          const old=strategy.routeEstimate(p,{monsterId:c.monster.id},20,{style:skill});
+          const old=strategy.routeEstimate(p,{monsterId:c.monster.id},20,{style:profession});
           before=Math.max(before,c.xp*20/old.seconds);
         }
         for (const c of newOptions) {
-          const upgraded=strategy.routeEstimate(next,{monsterId:c.monster.id},20,{style:skill});
+          const upgraded=strategy.routeEstimate(next,{monsterId:c.monster.id},20,{style:profession});
           // Equipment should improve combat progress and survival. Crediting
           // more cooking XP for eating more food would reward weaker gear.
           after=Math.max(after,c.xp*20/upgraded.seconds);
         }
+        if (!oldOptions.length&&newOptions.length) return {affordable:Number.isFinite(cost)&&cost<=horizon,seconds:cost,payback:cost,before,after};
       } else {
         const task=jobs.find(j=>j.id===goal.recipes?.[skill])??jobs.filter(j=>j.skill===skill&&unlocked(j)&&!j.grow)
           .sort((a,b)=>jobEstimate(b).xp/jobEstimate(b).seconds-jobEstimate(a).xp/jobEstimate(a).seconds)[0];
@@ -7126,7 +7188,7 @@ function createPlanner(data) {
       }
       const weapons = held(p).filter(id=>{
         const g=gear.get(base(id));
-        return g?.slot==='weapon'&&g.needs===style&&canWear(id);
+        return matchesProfessionWeapon(g,profession)&&canWear(id);
       });
       const weaponScore = id => {
         return gearScore(id,style);
@@ -7136,7 +7198,7 @@ function createPlanner(data) {
       // its decision instead of immediately overriding it with a raw stat sort.
       const weapon=weapons.includes(p.equipment.weapon)?p.equipment.weapon:weapons[0];
       if (weapon===undefined) {
-        const starter={melee:110,ranged:140,magic:152}[style];
+        const starter=starterWeapon(profession);
         return need(starter,1);
       }
       if (p.equipment.weapon!==weapon) return equip(weapon);
@@ -7196,14 +7258,14 @@ function createPlanner(data) {
       goal.budget??={coins:0,items:{}};goal.budget.items??={};
       goal.budget.items[supplies.foodItemId]=Math.max(goal.budget.items[supplies.foodItemId]??0,supplies.reserve);
       const preparation=goal.foodPreparation;
-      if (preparation&&(preparation.playerId!==p.id||preparation.style!==style||
+      if (preparation&&(preparation.playerId!==p.id||preparation.style!==profession||
         preparation.monsterId!==selected.monsterId||preparation.itemId!==supplies.foodItemId||
         count(p,preparation.itemId)>=preparation.target||
         p.route?.zoneId===selected.zone.id&&supplies.currentFood>0)) delete goal.foodPreparation;
       // Once replenishment starts, finish that batch. Stopping at one carry
       // load makes the first bite trigger the same preparation all over again.
       if (!goal.foodPreparation&&supplies.needFood>0) goal.foodPreparation={
-        playerId:p.id,style,monsterId:selected.monsterId,itemId:supplies.foodItemId,target:supplies.reserve};
+        playerId:p.id,style:profession,monsterId:selected.monsterId,itemId:supplies.foodItemId,target:supplies.reserve};
       if (goal.foodPreparation) {
         const {itemId,target}=goal.foodPreparation;
         goal.budget.items[itemId]=Math.max(goal.budget.items[itemId]??0,target);
@@ -7226,7 +7288,7 @@ function createPlanner(data) {
         `${NAMES[style]}经验 ${selected.mainXpPerMinute.toFixed(0)}/分，总经验 ${selected.xpPerMinute.toFixed(0)}/分，金币 ${selected.coinsPerMinute.toFixed(1)}/分。`+
         `${style==='magic'?`法术按防御的一半计算：${selected.effectiveDefence}。`:''}`+
         `已计入自制食物和往返补给的估算；${supplies.reason}未计药水、住宅、精通等加成。`;
-      const result=p.route?.zoneId===selected.zone.id && combatStyle()===style?wait(reason):
+      const result=p.route?.zoneId===selected.zone.id && combatStyle()===style&&matchesProfessionWeapon(w,profession)?wait(reason):
         action({t:'fight',zoneId:selected.zone.id,limit:0},`${NAMES[style]} · ${selected.name}`,reason);
       if (!result.intent) result.label=`继续${NAMES[style]} · ${selected.name}`;
       return {...result,combat:selected};
@@ -7247,7 +7309,7 @@ function createPlanner(data) {
         `消耗 ${gold} 金币、${shards} 碎片；仅使用仓库中的普通备用镐`);
     }
     if (!goal) return blocked('参与训练的技能已达到数据表的等级上限');
-    if (!trainedSkills(style).includes(goal.skill)) return blocked(`${PROFESSIONS[style]}模式不训练${NAMES[goal.skill]}`);
+    if (!trainedSkills(profession).includes(goal.skill)) return blocked(`${PROFESSIONS[profession]}模式不训练${NAMES[goal.skill]}`);
     if (Object.values(p.overflow??{}).some(n=>n>0)) return blocked('仓库已有溢出物品，请整理后继续');
     if (goal.professionOnly) {
       const result=upgrade(style);
@@ -7264,7 +7326,13 @@ function createPlanner(data) {
     return result;
   }
   function professionUpgrade(p,style='magic',investmentGoal=null) {
-    const goal=investmentGoal??{skill:style,target:level(p.skills[style])+1,horizon:1800,professionOnly:true};
+    const skill=professionSkill(style);
+    const goal=investmentGoal??{skill,target:level(p.skills[skill])+1,horizon:1800,professionOnly:true};
+    return plan(p,goal,style);
+  }
+  function planAtBoundary(p,goal,style='magic') {
+    const reason=finishTaskReason(data,p);
+    if (reason) return wait(reason);
     return plan(p,goal,style);
   }
   function farmStatus(p) {
@@ -7283,20 +7351,25 @@ function createPlanner(data) {
     else if (!empty&&plots.every(f=>f.job.id===best.id)) reason=`${best.name} 已种满；收获后种子循环使用`;
     else {
       const source=jobs.find(j=>j.bonus?.itemId===best.inputs[0].itemId);
-      reason=`已解锁 ${best.name}，缺种子；`+(!source?'未找到自给来源，零购买模式保留现有作物':
+      reason=`已解锁 ${best.name}，缺种子；`+(!source?'未找到已核实的采种路线，暂时保留现有作物':
         level(p.skills[source.skill])<source.levelReq?`自采需${NAMES[source.skill]} ${source.levelReq} 级（当前 ${level(p.skills[source.skill])}）`:
         `将分批从 ${source.name} 自采，补齐空田后逐步换种`);
     }
     return {fields:fields.length,empty,planted:plots.length,crop:best.name,reason};
   }
-  const api={level,levels,thresholds,trainedSkills,balancedChooseGoal,plan,count,base,nearBank,equipmentStats,farmPlots,harvest,professionUpgrade,farmStatus};
+  const api={level,levels,thresholds,trainedSkills,balancedChooseGoal,plan:planAtBoundary,count,base,nearBank,equipmentStats,farmPlots,harvest,professionUpgrade,farmStatus,
+    taskBoundary:p=>!finishTaskReason(data,p)};
   const strategy=createStrategy(data,api);
   return Object.assign(api,{chooseGoal:strategy.chooseGoal,routeEstimate:strategy.routeEstimate,
-    candidates:strategy.candidates,setMeasurements:strategy.setMeasurements});
+    candidates:strategy.candidates,setMeasurements:strategy.setMeasurements,
+    acquireEstimate:(p,id,qty,style='magic')=>strategy.routeEstimate(p,{itemId:id},qty,{style}),
+    coinRate:p=>Math.max(0,...jobs.filter(j=>j.output.itemId===data.coinId&&!j.inputs.length&&level(p.skills[j.skill])>=j.levelReq)
+      .map(j=>{const e=strategy.estimateWork(p,j);return e.coins/e.seconds;}))});
 }
 
 // Read-only budgets and quotes; economy.js turns verified surplus into actions.
 // Vendor, storage and worn-enhancement rules checked in index-DeoJ7Jh9.js.
+
 function inventoryBudget(data, planner, p, goal=null) {
   const levels=planner.levels(p), items={...goal?.budget?.items};
   const capacity=p.unlimitedBank||(p.brews?.blessing??0)>p.lastTick?Infinity:
@@ -7339,7 +7412,7 @@ function enhanceQuote(data, planner, p, itemId) {
 }
 
 function reviewInventory(data, planner, p, goal=null, style='magic',budget=inventoryBudget(data,planner,p,goal)) {
-  const lv=planner.levels(p);
+  const lv=planner.levels(p),combatSkill=professionSkill(style);
   const name=id=>`${data.items[planner.base(id)]?.name??`物品 ${id}`}`+
     (id===planner.base(id)?'':`（品质 ${Math.floor(id%data.plusScale/data.rarityScale)}，+${Math.floor(id/data.plusScale)}）`);
   const seeds=new Set(data.jobs.filter(j=>j.grow).flatMap(j=>j.inputs.map(i=>i.itemId)));
@@ -7364,15 +7437,16 @@ function reviewInventory(data, planner, p, goal=null, style='magic',budget=inven
   const lockedVariants=new Set([...locked].filter(Number.isFinite).map(id=>id%data.plusScale));
   const requirement=g=>g.levelReq??data.jobs.find(j=>j.output.itemId===planner.base(g.itemId))?.levelReq??1;
   const wearable=g=>lv[g.needs??data.toolSkills[g.slot]]>=requirement(g)||g.needs==='none';
-  const relevant=g=>Object.hasOwn(data.toolSkills,g.slot)||(!g.style||g.style===style)&&
-    (g.slot!=='weapon'||g.needs===style);
+  const relevant=g=>Object.hasOwn(data.toolSkills,g.slot)||(!g.style||g.style===combatSkill)&&
+    (g.slot!=='weapon'||matchesProfessionWeapon(g,style))&&
+    (g.slot!=='shield'||style!=='melee_twohand');
   const heldGear=[...stock.keys()].map(id=>planner.equipmentStats(id)).filter(Boolean);
   const selfSource=(id,trail=[])=>!trail.includes(id)&&(id===data.coinId||data.jobs.some(j=>
     j.output.itemId===id&&lv[j.skill]>=j.levelReq&&j.inputs.every(i=>selfSource(i.itemId,[...trail,id]))));
   function dominated(g) {
     return heldGear.some(h=>h.itemId!==g.itemId&&h.slot===g.slot&&relevant(h)&&
       (g.slot!=='weapon'||h.needs===g.needs)&&
-      (h.style??style)===(g.style??style)&&!!h.twoHanded===!!g.twoHanded&&
+      (h.style??combatSkill)===(g.style??combatSkill)&&!!h.twoHanded===!!g.twoHanded&&
       (wearable(h)||requirement(h)<=requirement(g))&&
       ['bonus','accuracy','strength','defence','luck'].every(k=>(h[k]??0)>=(g[k]??0))&&
       (h.speed??0)<=(g.speed??0)&&
@@ -7384,7 +7458,7 @@ function reviewInventory(data, planner, p, goal=null, style='magic',budget=inven
     let keep=total,reason='用途未完全覆盖，先保留',category='保留';
     if(locked.has(id)||lockedVariants.has(id%data.plusScale))reason='装备方案／当前打造或强化目标';
     else if(id!==base)reason='稀有或已强化物品，避免按普通商人底价处理';
-    else if(seeds.has(base))reason='种子用于持续补种，零购买模式不清理';
+    else if(seeds.has(base))reason='种子用于持续补种，不作为普通盈余出售';
     else if(base===data.shardId||base===359)reason='强化材料／保护卷轴，留给有收益的升级';
     else if(potions.has(base))reason='药水用途尚未进入计划，保留';
     else if(data.items[base]?.heals) {keep=Math.min(total,budget.items[base]??50);reason='保留至少三趟战斗食物及当前计划需要量';}
@@ -7451,21 +7525,25 @@ function createEconomy(data,planner) {
     action({t:'walk',...bankFor(p).approach},'整理库存 · 前往仓库',reason||label);
   function investment(p,goal,style,reserve,includeUnfunded=false) {
     if(p.enhance)return null;
-    const lv=planner.levels(p);
+    const lv=planner.levels(p),combatSkill=professionSkill(style);
+    const relevant=gear=>(!gear.style||gear.style===combatSkill)&&
+      (gear.slot!=='weapon'||matchesProfessionWeapon(gear,style))&&
+      (gear.slot!=='shield'||style!=='melee_twohand');
     const job=data.jobs.find(j=>j.id===(goal?.recipeId??goal?.recipes?.[goal?.skill]??p.route?.jobId));
     const monster=data.monsters.find(m=>m.id===(goal?.monsterId??data.zones.find(z=>z.id===p.route?.zoneId)?.monsterId));
     const stats=(equipment)=>{
-      const gear=Object.values(equipment).filter(Number.isFinite).map(planner.equipmentStats).filter(Boolean);
+      const gear=Object.entries(equipment).filter(([slot,id])=>Number.isFinite(id)&&
+        (slot!=='shield'||style!=='melee_twohand')).map(([,id])=>planner.equipmentStats(id)).filter(Boolean);
       const weapon=planner.equipmentStats(equipment.weapon);
-      const sum=k=>gear.reduce((n,g)=>n+(k==='defence'||!g.style||g.style===style?1:-1)*(g[k]??0),0);
-      return {style,level:lv[style],accuracy:sum('accuracy'),strength:sum('strength'),
+      const sum=k=>gear.reduce((n,g)=>n+(k==='defence'||!g.style||g.style===combatSkill?1:-1)*(g[k]??0),0);
+      return {style:combatSkill,level:lv[combatSkill],accuracy:sum('accuracy'),strength:sum('strength'),
         defence:sum('defence'),defenceLevel:lv.defence,speed:weapon?.speed??5,twoHanded:weapon?.twoHanded};
     };
     const candidates=[];
     for(const [slot,id]of Object.entries(p.equipment)) {
       const gear=planner.equipmentStats(id);
       if(!gear||Math.floor(id/data.plusScale)!==0||slot==='hoe'||slot==='mount')continue;
-      if(gear.style&&gear.style!==style||slot==='weapon'&&gear.needs!==style)continue;
+      if(!relevant(gear))continue;
       if(goal?.upgrade?.slot===slot)continue;
       if(p.id===lastPlayer&&style===lastStyle&&investmentGoal?.upgrade?.slot===slot)continue;
       const quote=enhanceQuote(data,planner,p,id),next=planner.equipmentStats(id+data.plusScale);
@@ -7490,15 +7568,15 @@ function createEconomy(data,planner) {
         // Count only guaranteed coins and reduced food use; rare drops stay protected.
         coinGain=(after.coins-after.damage*healValue)/after.seconds-
           (before.coins-before.damage*healValue)/before.seconds;
-        xpRate=before.xp/before.seconds;xpGain=after.xp/after.seconds-xpRate;skill=style;
+        xpRate=before.xp/before.seconds;xpGain=after.xp/after.seconds-xpRate;skill=combatSkill;
       }
       if(!(coinGain>0)||xpGain<0)continue;
       // Shards have an opportunity cost even when already owned. Pay back within
       // the current planning window, or before the next equipment tier arrives.
       let horizon=goal?.horizon??1800;
       const currentRequirement=gear.levelReq??data.jobs.find(j=>j.output.itemId===planner.base(id))?.levelReq??1;
-      const nextRequirement=data.gear.filter(g=>g.slot===slot&&(!g.style||g.style===style)&&
-        (slot!=='weapon'||g.needs===style)).map(g=>g.levelReq??data.jobs.find(j=>j.output.itemId===g.itemId)?.levelReq??1)
+      const nextRequirement=data.gear.filter(g=>g.slot===slot&&relevant(g))
+        .map(g=>g.levelReq??data.jobs.find(j=>j.output.itemId===g.itemId)?.levelReq??1)
         .filter(n=>n>Math.max(lv[skill]??1,currentRequirement)).sort((a,b)=>a-b)[0];
       if(nextRequirement&&xpRate>0)horizon=Math.min(horizon,
         (planner.thresholds[nextRequirement]-p.skills[skill])/xpRate);
@@ -7530,6 +7608,7 @@ function createEconomy(data,planner) {
     const blockedPack=capacity.freeSlots<=0&&p.pack.some(i=>(p.bank[i.itemId]??0)<=0);
     const overflow=Object.values(p.overflow??{}).some(n=>n>0)||blockedPack;
     if(p.route?.errand&&!overflow)return null;
+    if(!overflow&&p.coins>=capacity.coins&&finishTaskReason(data,p))return null;
     if(!overflow&&planner.professionUpgrade&&p.lastTick>=gearDeferredUntil) {
       const gearPlan=planner.professionUpgrade(p,style,investmentGoal);
       investmentGoal=gearPlan?.investmentGoal??null;
@@ -7568,9 +7647,12 @@ function createEconomy(data,planner) {
       // the inventory delta used to acknowledge an irreversible sale.
       if(row&&planner.nearBank(p)&&(p.route||p.path?.length))return action(
         {t:'clearRoute'},'出售前停止路线并确认库存','下一份状态重新计算可卖数量，出售完成后继续收益规划');
-      if(row)return atBank(p,{t:'marketDump',itemId:row.itemId,qty:row.sellFromBank,floor:row.vendorUnit},
-        `出售盈余 · ${row.name} × ${row.sellFromBank}`,
-        `${row.reason}；保留 ${row.keep}，预计收入 ${row.sellFromBank*row.vendorUnit} 金币`);
+      if(row) {
+        const sale=atBank(p,{t:'marketDump',itemId:row.itemId,qty:row.sellFromBank,floor:row.vendorUnit},
+          `出售盈余 · ${row.name} × ${row.sellFromBank}`,
+          `${row.reason}；保留 ${row.keep}，系统回收收入 ${row.sellFromBank*row.vendorUnit} 金币`);
+        return sale.intent.t==='marketDump'?planner.marketSale?.(p,sale,protection,style)??sale:sale;
+      }
       const deposit=rows.find(i=>i.pack>0&&((p.bank[i.itemId]??0)>0||reserve.freeSlots>0));
       if(deposit)return atBank(p,{t:'depositItem',itemId:deposit.itemId,qty:deposit.pack},
         `存入待售物品 · ${deposit.name}`,'只存入已确认可处理的普通物品，再按最新库存计算卖出量');
@@ -7597,6 +7679,256 @@ function createEconomy(data,planner) {
     return null;
   }
   return {maintenance,budget,review,investment,investmentBudget};
+}
+
+
+// Limit orders can rest after a partial fill. Track only orders we submitted;
+// inventory removed into escrow is not evidence of a sale or realized income.
+function createMarket(data,planner,{now=Date.now,storage=null}={}) {
+  const key='deepvein-market-v1',ttl=15000,waitMs=4000,coolMs=30000;
+  let saved={players:{}};
+  try {const value=JSON.parse(storage?.getItem(key)??'null');if(value?.players)saved=value;} catch {}
+  let playerId=null,state=null,orders=[],ordersKnown=false,revision=0,taxBp=200,snapshotTick=-Infinity;
+  let quotes=new Map(),requests=new Map(),cooldowns=new Map(),lastQuery=-Infinity,lastSync=-Infinity;
+  let need=null,recentOwned=[],status='按盈余及当前缺口比价';
+  const persist=()=>{try {storage?.setItem(key,JSON.stringify(saved));} catch {}};
+  const quantity=(p,id)=>(p.bank[id]??0)+(p.overflow?.[id]??0)+
+    p.pack.filter(i=>i.itemId===id).reduce((n,i)=>n+i.qty,0);
+  const valid=n=>Number.isSafeInteger(n)&&n>0;
+  const tradable=id=>valid(id)&&id===planner.base(id)&&data.items[id]&&id!==data.coinId&&
+    ![294,295,296,297].includes(id)&&(data.items[id].value>0||id===70);
+  const action=(intent,label,reason='')=>({intent,label,reason});
+  const wait=reason=>({...action(null,'市场比价',reason),marketWaiting:true});
+  const natural=p=>!p.route||p.route.phase==='toBank';
+  const matching=(order,intent)=>order.itemId===intent.itemId&&
+    order.side===(intent.t==='marketBuy'?'buy':'sell')&&order.price===intent.price&&
+    order.qtyTotal===intent.qty;
+  const ownMatch=(order,owned)=>order.id===owned.id&&order.itemId===owned.itemId&&
+    order.side===owned.side&&order.price===owned.price&&order.qtyTotal===owned.qtyTotal;
+  function select(p) {
+    if(playerId===p.id)return;
+    playerId=p.id;state=saved.players[playerId]??={owned:{},attempt:null,income:0,spent:0,fillKeys:[]};
+    orders=[];ordersKnown=false;revision=0;quotes=new Map();requests=new Map();cooldowns=new Map();
+    lastQuery=-Infinity;lastSync=-Infinity;need=null;recentOwned=[];snapshotTick=-Infinity;taxBp=200;
+    if(state.attempt)state.attempt.revision=-1;
+  }
+  function receive(frame) {
+    if(!Array.isArray(frame?.m))return;
+    const fillOccurrences=new Map();
+    for(const message of frame.m) {
+      if((message.t==='welcome'||message.t==='snapshot')&&message.you?.id!=null) {
+        const p=message.you;
+        if(!Number.isFinite(frame.tick)||!Number.isFinite(p.lastTick)||!Number.isFinite(p.coins)||
+          !Number.isFinite(p.x)||!Number.isFinite(p.y)||!p.bank||typeof p.bank!=='object'||!Array.isArray(p.pack))continue;
+        if(playerId===p.id&&frame.tick<snapshotTick)continue;
+        select(message.you);
+        snapshotTick=frame.tick;
+        if(Number.isFinite(message.marketTaxBp))taxBp=Math.max(0,Math.min(10000,message.marketTaxBp));
+        if(Array.isArray(message.orders)) {
+          orders=message.orders.filter(o=>valid(o.id)&&valid(o.itemId)&&valid(o.price)&&valid(o.qtyTotal)&&
+            valid(o.qtyRemaining)&&['buy','sell'].includes(o.side));
+          ordersKnown=true;revision++;
+          for(const [id,owned]of Object.entries(state.owned)) {
+            if(!orders.some(o=>ownMatch(o,owned))) {
+              recentOwned.push({...owned,removedAt:now()});delete state.owned[id];
+            }
+          }
+          persist();
+        }
+      } else if(message.t==='marketDepth'&&requests.has(message.itemId)&&!(frame.tick<snapshotTick)) {
+        const rows=list=>(Array.isArray(list)?list:[]).filter(r=>valid(r.price)&&r.price<=1e9&&valid(r.qty));
+        quotes.set(message.itemId,{at:now(),bids:rows(message.bids),asks:rows(message.asks),
+          trades:rows(message.trades).filter(r=>Number.isFinite(r.tick))});
+        requests.delete(message.itemId);
+      } else if(message.t==='marketFilled'&&state&&valid(message.qty)&&Number.isFinite(message.coins)) {
+        const signature=JSON.stringify(message),occurrence=fillOccurrences.get(signature)??0;
+        fillOccurrences.set(signature,occurrence+1);
+        const intent=state.attempt?.intent;
+        const pending=intent&&intent.itemId===message.itemId&&
+          (intent.t==='marketBuy'?'buy':intent.t==='marketSell'?'sell':null)===message.side;
+        recentOwned=recentOwned.filter(o=>now()-o.removedAt<ttl);
+        const owned=[...Object.values(state.owned),...recentOwned]
+          .filter(o=>o.itemId===message.itemId&&o.side===message.side);
+        const other=orders.some(o=>o.itemId===message.itemId&&o.side===message.side&&
+          !state.owned[o.id]&&!pending);
+        if((pending||owned.length===1)&&!other) {
+          // The reviewed envelope has only tick, optional command ack a, and m;
+          // there is no fill id. Preserve equal legs within one frame, while an
+          // exact replay is ignored. Identical separate frames with the same
+          // tick/ack remain ambiguous, so we conservatively do not count twice.
+          const fillKey=JSON.stringify([frame.tick,frame.a??null,message,occurrence]);
+          if(state.fillKeys.includes(fillKey))continue;
+          state.fillKeys.push(fillKey);state.fillKeys=state.fillKeys.slice(-50);
+          if(message.side==='sell')state.income+=Math.max(0,message.coins-(message.tax??0));
+          else state.spent+=Math.max(0,message.coins);
+          if(pending)state.attempt.filled=Math.min(intent.qty,(state.attempt.filled??0)+message.qty);
+          persist();
+        }
+      }
+    }
+  }
+  function query(p) {
+    select(p);
+    if((!ordersKnown||state.attempt)&&now()-lastSync>=5000) {
+      lastSync=now();return {t:'resync'};
+    }
+    if(state.attempt||now()-lastQuery<1500)return null;
+    for(const [itemId,request]of requests)if(request.sentAt==null&&now()-request.at<waitMs) {
+      request.sentAt=now();lastQuery=now();return {t:'marketDepth',itemId};
+    }
+    return null;
+  }
+  function quote(id) {
+    if((cooldowns.get(id)??0)>now())return {fallback:true};
+    const current=quotes.get(id);
+    if(current&&now()-current.at<ttl)return current;
+    if(!requests.has(id))requests.set(id,{at:now(),sentAt:null});
+    if(now()-requests.get(id).at>=waitMs) {
+      requests.delete(id);cooldowns.set(id,now()+coolMs);return {fallback:true};
+    }
+    return {waiting:true};
+  }
+  function atBank(p,intent,label,critical=false) {
+    if(!critical&&!natural(p))return action(null,'市场交易待返仓','先完成当前任务，再处理盈余订单');
+    if(!planner.nearBank(p)) {
+      const distance=b=>Math.max(Math.abs(p.x-b.x),Math.abs(p.y-b.y));
+      const bank=[...data.banks].sort((a,b)=>distance(a)-distance(b))[0];
+      return action({t:'walk',...bank.approach},'市场交易 · 前往仓库',label);
+    }
+    if(p.route||p.path?.length)return action({t:'clearRoute'},'交易前停止路线并确认库存',label);
+    return action(intent,label);
+  }
+  function slots(p) {
+    return ordersKnown&&orders.length<(p.marketOrderSlots??10)&&Object.keys(state.owned).length<3;
+  }
+  const hasOrder=id=>orders.some(o=>o.itemId===id);
+  function sale(p,vendorPlan,goal=null,profession='magic') {
+    select(p);
+    const intent=vendorPlan?.intent;
+    if(intent?.t!=='marketDump'||!tradable(intent.itemId))return vendorPlan;
+    const id=intent.itemId;
+    if(state.attempt)return state.attempt.intent.itemId===id?
+      action(null,'交易结果待确认','先同步之前提交的交易；继续其他自给任务'):vendorPlan;
+    if(!slots(p)||hasOrder(id)||(cooldowns.get(id)??0)>now())return vendorPlan;
+    const book=quote(id);
+    if(book.waiting)return wait('正在查询买单与税后收益，短暂未响应后改用系统回收');
+    if(book.fallback)return vendorPlan;
+    const safeQty=Math.min(intent.qty,p.bank[id]??0,1000000);
+    const net=(price,qty)=>price*qty-Math.floor(price*qty*taxBp/10000);
+    const bid=[...book.bids].sort((a,b)=>b.price-a.price).find(row=>
+      net(row.price,Math.min(safeQty,row.qty))>intent.floor*Math.min(safeQty,row.qty));
+    if(bid&&safeQty>0) {
+      status='优先成交税后高于系统回收的买单';
+      return atBank(p,{t:'marketSell',itemId:id,qty:Math.min(safeQty,bid.qty),price:bid.price},
+        `市场出售 · ${data.items[id].name}，单价 ${bid.price}`);
+    }
+    const prices=[...book.asks.map(row=>row.price),...book.trades.filter(row=>
+      row.tick<=p.lastTick&&(p.lastTick-row.tick)*data.tickMs<=600000).map(row=>row.price)];
+    const price=prices.length?Math.min(...prices):0,qty=Math.min(safeQty,100);
+    if(qty>0&&price>0&&net(price,qty)>intent.floor*qty) {
+      status='按可见报价少量挂卖，10 分钟未成交撤回';
+      return atBank(p,{t:'marketSell',itemId:id,qty,price},
+        `市场限时挂卖 · ${data.items[id].name} × ${qty}`,false);
+    }
+    return vendorPlan;
+  }
+  function purchase(p,itemId,qty,goal=null,profession='magic') {
+    select(p);
+    if(!tradable(itemId)||!valid(qty)||state.attempt)return null;
+    need={itemId,qty,at:now()};
+    const listed=orders.find(o=>o.itemId===itemId&&o.side==='sell'&&state.owned[o.id]);
+    if(listed)return atBank(p,{t:'marketCancel',orderId:listed.id},'撤回自有挂单 · 当前制作需要',true);
+    if(!slots(p)||hasOrder(itemId)||(cooldowns.get(itemId)??0)>now())return null;
+    const book=quote(itemId);
+    if(book.waiting)return wait('查询当前缺口的卖盘，比较采购筹币时间与自制经验');
+    if(book.fallback)return null;
+    const ask=[...book.asks].sort((a,b)=>a.price-b.price)[0];if(!ask)return null;
+    const available=Math.max(0,p.coins-(goal?.budget?.coins??0));
+    const amount=Math.min(qty,ask.qty,Math.floor(available/ask.price),1000000);if(amount<1)return null;
+    const rate=planner.coinRate?.(p),cost=amount*ask.price;
+    if(!(rate>0)||!Number.isFinite(rate))return null;
+    const bankDistance=Math.min(...data.banks.map(b=>Math.max(Math.abs(p.x-b.approach.x),Math.abs(p.y-b.approach.y))));
+    const seconds=cost/rate+2*bankDistance*data.tickMs/1000;
+    const self=planner.acquireEstimate?.(p,itemId,amount,profession);
+    if(!self||seconds>(goal?.horizon??1800))return null;
+    const job=data.jobs.find(j=>j.id===(goal?.recipeId??goal?.recipes?.[goal?.skill]));
+    const tool=job&&Object.entries(data.toolSkills).find(([,skill])=>skill===job.skill)?.[0];
+    const work=job&&workEstimate(data,job,planner.levels(p)[job.skill],
+      {toolBonus:planner.equipmentStats(p.equipment[tool])?.bonus??0,quick:p.perks?.quick??0,hands:p.perks?.hands??0});
+    const xpRate=goal?.rate?.xp??(work?work.xp/work.seconds:0);
+    // Buying saves time but sacrifices the experience self-production earns.
+    if((self.xp??0)>0&&!(xpRate>0))return null;
+    if(Number.isFinite(self.seconds)&&!(seconds+(xpRate>0?(self.xp??0)/xpRate:0)<self.seconds))return null;
+    status=`按当前缺口采购，预计筹币及往返 ${Math.ceil(seconds)} 秒`;
+    return atBank(p,{t:'marketBuy',itemId,qty:amount,price:ask.price},
+      `按需采购 · ${data.items[itemId].name} × ${amount}`,true);
+  }
+  function issued(before,intent) {
+    select(before);
+    if(!['marketBuy','marketSell','marketCancel'].includes(intent.t)||state.attempt)return;
+    state.attempt={intent:{...intent},at:now(),baselineIds:orders.map(o=>o.id),revision,
+      cancelledOrder:intent.t==='marketCancel'?state.owned[intent.orderId]:null,
+      before:{id:before.id,coins:before.coins,quantity:intent.itemId?quantity(before,intent.itemId):0},filled:0};
+    persist();
+  }
+  function confirmed(before,p,intent) {
+    select(p);const attempt=state.attempt;
+    if(!attempt||JSON.stringify(attempt.intent)!==JSON.stringify(intent))return false;
+    if(intent.t==='marketCancel')return ordersKnown&&revision>attempt.revision&&
+      !orders.some(o=>o.id===intent.orderId);
+    const fresh=ordersKnown&&revision>attempt.revision;
+    if(fresh&&orders.filter(o=>!attempt.baselineIds.includes(o.id)&&matching(o,intent)).length===1)return true;
+    if((attempt.filled??0)>=intent.qty)return true;
+    return fresh&&intent.t==='marketBuy'&&quantity(p,intent.itemId)-attempt.before.quantity>=intent.qty&&
+      p.coins<attempt.before.coins;
+  }
+  function settled(p,intent) {
+    select(p);const attempt=state.attempt;
+    if(!attempt||!confirmed(null,p,intent))return;
+    if(intent.t==='marketCancel') {
+      const owned=state.owned[intent.orderId]??attempt.cancelledOrder;
+      if(owned)cooldowns.set(owned.itemId,now()+coolMs);
+      delete state.owned[intent.orderId];
+    } else {
+      const created=orders.filter(o=>!attempt.baselineIds.includes(o.id)&&matching(o,intent));
+      if(created.length===1)state.owned[created[0].id]={...created[0],at:attempt.at};
+      quotes.delete(intent.itemId);requests.delete(intent.itemId);
+    }
+    state.attempt=null;persist();
+  }
+  function next(p,goal=null) {
+    select(p);
+    if(state.attempt) {
+      if(confirmed(null,p,state.attempt.intent))settled(p,state.attempt.intent);
+      else {status='交易结果待确认，暂不重发；继续自给';return null;}
+    }
+    if(!ordersKnown)return null;
+    for(const owned of Object.values(state.owned)) {
+      const order=orders.find(o=>ownMatch(o,owned));if(!order)continue;
+      if((cooldowns.get(order.itemId)??0)>now())continue;
+      const needed=(goal?.budget?.items?.[order.itemId]??0)>quantity(p,order.itemId)||
+        (need?.itemId===order.itemId&&now()-need.at<ttl);
+      if(order.side==='buy'||needed||now()-owned.at>=600000) {
+        return atBank(p,{t:'marketCancel',orderId:order.id},order.side==='buy'?
+          '撤销采购余单，释放剩余金币':needed?'撤回自有挂单 · 当前计划需要':'撤回超时挂单，重新评估盈余',
+          order.side==='buy'||needed);
+      }
+    }
+    return null;
+  }
+  function rejected(code) {
+    const known=['not-at-bank','price-changed','not-tradable','too-many-orders','cannot-afford',
+      'below-floor','nothing-to-sell','no-such-order','storage-full','bank-full','pack-full',
+      'nothing-to-deposit','nothing-to-withdraw','nothing-to-eat','cannot-enhance','cannot-fight',
+      'cannot-set-route','cannot-wield','cannot-equip','level-too-low'];
+    if(!state?.attempt||!known.includes(code))return;
+    const intent=state.attempt.intent,owned=state.owned[intent.orderId];
+    const id=intent.itemId??owned?.itemId;
+    if(id!=null){cooldowns.set(id,now()+coolMs);quotes.delete(id);requests.delete(id);}
+    state.attempt=null;status='市场暂不可用，短暂冷却后再比价';persist();
+  }
+  const summary=()=>`${status}；成交净收入 ${state?.income??0}，采购支出 ${state?.spent??0}，自有挂单 ${Object.keys(state?.owned??{}).length}`;
+  return {receive,next,sale,purchase,query,issued,confirmed,settled,rejected,summary};
 }
 
 function measurementKeys(data,p,level) {
@@ -7670,10 +8002,12 @@ class Telemetry {
 
 
 // State-dependent refusals in the reviewed client sr() message table. Unknown
-// codes and price changes remain a stop, not an invitation to replay a command.
+// codes remain a stop, not an invitation to replay a command.
 const STATE_REFUSALS=new Set(['not-at-bank','bank-full','storage-full','pack-full',
   'nothing-to-sell','nothing-to-deposit','nothing-to-withdraw','nothing-to-eat','cannot-afford',
   'cannot-enhance','cannot-fight','cannot-set-route','cannot-wield','cannot-equip','level-too-low']);
+const MARKET_ACTIONS=new Set(['marketBuy','marketSell','marketCancel']);
+const MARKET_REFUSALS=new Set([...STATE_REFUSALS,'not-tradable','too-many-orders','price-changed','below-floor','no-such-order']);
 const ROUTE_STOPS=new Set(['noMaterials','storageFull','unreachable','levelTooLow','noSuchSite']);
 const quantity=(p,id)=>(p.bank[id]??0)+(p.overflow?.[id]??0)+p.pack.filter(i=>i.itemId===id).reduce((n,i)=>n+i.qty,0);
 
@@ -7753,6 +8087,7 @@ class Trainer {
   }
   receive(frame) {
     if (!frame || !Array.isArray(frame.m)) return;
+    this.market?.receive(frame);
     const sequence=this.snapshotSequence;
     for (const message of frame.m) {
       if (message.t==='welcome') {
@@ -7788,12 +8123,18 @@ class Trainer {
           this.pending.position=position;
         }
         if (!this.active&&first) this.message=this.compatible?'已同步，可开始收益规划':'游戏协议版本不匹配';
-        if (this.pending && acknowledged(this.pending.before,this.player,this.pending.intent)) {
+        if (this.pending && (MARKET_ACTIONS.has(this.pending.intent.t)?
+          this.market?.confirmed(this.pending.before,this.player,this.pending.intent):
+          acknowledged(this.pending.before,this.player,this.pending.intent))) {
           const before=this.pending.before;
           if(this.pending.intent.t!=='clearRoute'&&(before.x!==this.player.x||before.y!==this.player.y||
             before.coins!==this.player.coins||JSON.stringify(before.equipment)!==JSON.stringify(this.player.equipment)||
             this.data.skills.some(s=>before.skills[s]!==this.player.skills[s])||
             JSON.stringify(before.pack)!==JSON.stringify(this.player.pack)))this.failures=[];
+          if(MARKET_ACTIONS.has(this.pending.intent.t)) {
+            this.market.settled(this.player,this.pending.intent);
+            if(this.pending.intent.t==='marketBuy'){this.goal=null;this.plan=null;}
+          }
           this.log(`已确认：${this.pending.label}`); this.pending=null;this.resolution=null;
         }
         if(this.pending&&['setRoute','fight'].includes(this.pending.intent.t)&&
@@ -7811,7 +8152,10 @@ class Trainer {
       }
       if (!this.active&&!this.recovery) continue;
       if (message.t==='error') {
-        if(this.active&&this.pending&&STATE_REFUSALS.has(message.code))this.checkCommand(`服务器状态已变化：${message.code}`,message.code);
+        if(this.active&&this.pending&&MARKET_ACTIONS.has(this.pending.intent.t)&&MARKET_REFUSALS.has(message.code)) {
+          this.market?.rejected(message.code);
+          this.checkCommand(`市场状态已变化：${message.code}`,message.code);
+        } else if(this.active&&this.pending&&STATE_REFUSALS.has(message.code))this.checkCommand(`服务器状态已变化：${message.code}`,message.code);
         else this.pause(`服务器拒绝操作：${String(message.code).slice(0,100)}`);
       }
       if (message.t==='batch' && message.e?.some(e=>e.kind==='died')) this.pause('检测到角色死亡，请检查战斗配置后再继续');
@@ -7853,13 +8197,14 @@ class Trainer {
     this.plan=plan;const {intent,label}=plan;
     this.pending={intent,label,before:this.player,sentAt:this.now()};
     this.nextAction=this.now()+4000;this.log(`执行：${label}`);this.telemetry.command(intent);
+    if(MARKET_ACTIONS.has(intent.t))this.market?.issued(this.player,intent);
     this.send(intent);this.nextSync=Math.min(this.nextSync,this.now()+2000);
   }
   watchProgress(p) {
     if(!p.route&&!p.path?.length){this.progress=null;this.stallCheck=null;return false;}
     const job=this.data.jobs.find(j=>j.id===p.route?.jobId);
     const signature=JSON.stringify([p.x,p.y,p.path,p.route,p.activity,p.actionIndex,p.attemptTicks,p.foeHp,
-      p.foeTicks,p.workJobId,p.workSiteId,p.stunUntil,job?p.skills[job.skill]:[p.skills[this.style],p.skills.defence],
+      p.foeTicks,p.workJobId,p.workSiteId,p.stunUntil,job?p.skills[job.skill]:[p.skills[professionSkill(this.style)],p.skills.defence],
       p.route?.errand?p.plots:null]);
     const routeKey=`${p.route?.jobId??''}:${p.route?.zoneId??''}`;
     if(!this.progress||this.progress.signature!==signature){
@@ -7903,21 +8248,38 @@ class Trainer {
     }
     if(this.resolution&&this.snapshotSequence>this.resolution.sequence){
       const pending=this.pending,reason=this.resolution.reason,code=this.resolution.code;
-      if(pending&&!code&&['enhance','marketDump','eat'].includes(pending.intent.t)&&
-        (this.player.coins!==pending.before.coins||quantity(this.player,pending.intent.itemId)!==quantity(pending.before,pending.intent.itemId)||
-          pending.intent.t==='eat'&&this.player.hp!==pending.before.hp))
-        return this.pause('消耗型操作结果不明确，已暂停以防重复消耗');
-      if(!this.fault(reason,`${pending?.intent.t}:${code??'timeout'}`))return;
-      if(this.goal&&(code?.startsWith('cannot-')||code==='level-too-low')){
-        this.deferred[this.goal.skill]=now+300000;this.blockedReasons[this.goal.skill]=reason;
+      if(pending&&MARKET_ACTIONS.has(pending.intent.t)) {
+        // The market ledger retains an ambiguous attempt across disconnects and
+        // reloads. Resume self-supply without replaying that transaction.
+        this.pending=null;this.resolution=null;this.goal=null;this.plan=null;this.nextAction=now+1000;
+        this.log(code?'市场操作未成交，冷却后重新比价；继续常规规划':'交易结果仍待核实，暂停新交易并继续自给任务');
+      } else {
+        if(pending&&!code&&['enhance','marketDump','eat'].includes(pending.intent.t)&&
+          (this.player.coins!==pending.before.coins||quantity(this.player,pending.intent.itemId)!==quantity(pending.before,pending.intent.itemId)||
+            pending.intent.t==='eat'&&this.player.hp!==pending.before.hp))
+          return this.pause('消耗型操作结果不明确，已暂停以防重复消耗');
+        if(!this.fault(reason,`${pending?.intent.t}:${code??'timeout'}`))return;
+        if(this.goal&&(code?.startsWith('cannot-')||code==='level-too-low')){
+          this.deferred[this.goal.skill]=now+300000;this.blockedReasons[this.goal.skill]=reason;
+        }
+        this.pending=null;this.resolution=null;this.goal=null;this.plan=null;this.nextAction=now+1000;
+        this.log('已取得新状态，重新选择可执行任务');
       }
-      this.pending=null;this.resolution=null;this.goal=null;this.plan=null;this.nextAction=now+1000;
-      this.log('已取得新状态，重新选择可执行任务');
+    }
+    if(this.compatible&&!this.awaitInitial&&(ready||this.snapshotSequence>this.syncAfter)) {
+      const query=this.market?.query(this.player);
+      if(query&&!(query.t==='resync'&&this.lastSync===now)) {
+        if(query.t==='resync')this.lastSync=now;
+        this.send(query);
+      }
     }
     if ((!ready&&this.snapshotSequence<=this.syncAfter)||this.awaitInitial||this.pending||now<this.nextAction) return;
     const p=this.player;
+    const marketPlan=this.market?.next(p,this.goal,this.style);
+    if(marketPlan?.intent)return this.issue(marketPlan);
     const maintenance=this.planner.maintenance?.(p,this.goal,this.style);
     if(maintenance?.intent)return this.issue(maintenance);
+    if(maintenance?.marketWaiting){this.message=maintenance.reason??maintenance.label;return;}
     if(maintenance?.capacityLimited||maintenance?.priorityGear){
       if(!this.watchProgress(p))this.message=maintenance.reason??maintenance.label;
       return;
@@ -7929,7 +8291,8 @@ class Trainer {
       this.message='正在收获补种，完成后继续原任务'; return;
     }
     for (const [skill,until] of Object.entries(this.deferred)) if (until<=now) delete this.deferred[skill];
-    if (this.goal && (this.planner.level(p.skills[this.goal.skill])>=this.goal.target || now-this.goalSince>600000)) {
+    if (this.goal && (!this.planner.taskBoundary||this.planner.taskBoundary(p)) &&
+      (this.planner.level(p.skills[this.goal.skill])>=this.goal.target || now-this.goalSince>600000)) {
       this.served[this.goal.skill]=++this.sequence;
       // Allow other skills a turn after a long ingredient-gathering slice.
       if (now-this.goalSince>600000&&!this.goal.rate) this.deferred[this.goal.skill]=now+120000;
@@ -8120,6 +8483,17 @@ async function refreshGameData(data,sources,pageUrl,{fetch:request,parse,storage
 }
 
 function validateIntent(data,p,intent) {
+  if (['marketDepth','marketBook','marketBuy','marketSell'].includes(intent.t)) {
+    const known=Number.isSafeInteger(intent.itemId)&&intent.itemId>0&&
+      Object.hasOwn(data.items,intent.itemId%data.plusScale%data.rarityScale);
+    if (['marketDepth','marketBook'].includes(intent.t)) return known;
+    return known&&Number.isInteger(intent.qty)&&intent.qty>0&&intent.qty<=1000000&&
+      Number.isInteger(intent.price)&&intent.price>0&&intent.price<=1000000000&&
+      Number.isSafeInteger(intent.qty*intent.price);
+  }
+  if (intent.t==='marketBooks') return Array.isArray(intent.itemIds)&&intent.itemIds.length>0&&intent.itemIds.length<=64&&
+    intent.itemIds.every(itemId=>validateIntent(data,p,{t:'marketBook',itemId}));
+  if (intent.t==='marketCancel') return Number.isSafeInteger(intent.orderId)&&intent.orderId>0;
   if(intent.t==='setRoute') {
     const job=data.jobs.find(j=>j.id===intent.jobId),site=data.sites.find(s=>s.id===intent.siteId);
     return !!job&&!!site&&site.jobIds.includes(job.id)&&Number.isInteger(intent.limit)&&intent.limit>=0;
@@ -8147,6 +8521,9 @@ function validateIntent(data,p,intent) {
   let economy=createEconomy(GAME_DATA,planner);
   planner.maintenance=(...args)=>economy.maintenance(...args);
   planner.investmentBudget=(...args)=>economy.investmentBudget(...args);
+  const market=createMarket(GAME_DATA,planner,{now:()=>Date.now(),storage:localStorage});
+  planner.marketSale=(...args)=>market.sale(...args);
+  planner.marketPurchase=(...args)=>market.purchase(...args);
   const NativeWebSocket=window.WebSocket;
   let socket=null, panel=null, rendered='', checking=false, startCheck=0, compatibilityMessage='', pumping=false;
   const owner=crypto.randomUUID();
@@ -8156,21 +8533,27 @@ function validateIntent(data,p,intent) {
   const metricsKey='deepvein-trainer-metrics-v1';
   let metricsPlayer=null,lastMetricsSave=0,dataCheck=null;
   let dataReady=[...document.scripts].some(s=>new URL(s.src||location.href,location.href).pathname===`/assets/${GAME_DATA.client}`);
-  const allowed=new Set(['resync','setRoute','fight','walk','wear','equipFromBank','deposit',
-    'eatAt','eat','chooseFood','carryFood','enhance','clearRoute','marketDump','depositItem']);
+  const readOnly=new Set(['resync','marketDepth','marketBook','marketBooks']);
+  const allowed=new Set([...readOnly,'setRoute','fight','walk','wear','equipFromBank','deposit',
+    'eatAt','eat','chooseFood','carryFood','enhance','clearRoute','marketDump','depositItem','marketBuy','marketSell','marketCancel']);
   const trainer=new Trainer(GAME_DATA,planner,intent=>{
     if (!allowed.has(intent.t)) throw new Error('未支持的操作');
     if (!validateIntent(GAME_DATA,trainer.player,intent)) throw new Error('计划涉及未知物品或任务，等待数据核对');
     if (!socket||socket.readyState!==NativeWebSocket.OPEN) throw new Error('游戏连接已断开');
     NativeWebSocket.prototype.send.call(socket,JSON.stringify(intent));
   });
+  trainer.market=market;
   async function prepareData() {
     if(dataCheck)return dataCheck;
     dataCheck=(async()=>{
       const result=await refreshGameData(GAME_DATA,[...document.scripts].map(s=>s.src),location.href,
         {fetch:(...args)=>fetch(...args),parse:parsePublicClient,storage:localStorage});
       if(result.updated) {
-        Object.assign(GAME_DATA,result.data);Object.assign(planner,createPlanner(GAME_DATA));
+        Object.assign(GAME_DATA,result.data);
+        const refreshed=createPlanner(GAME_DATA);
+        refreshed.marketSale=planner.marketSale;refreshed.marketPurchase=planner.marketPurchase;
+        refreshed.investmentBudget=planner.investmentBudget;
+        Object.assign(planner,refreshed);
         trainer.telemetry.level=planner.level;trainer.telemetry.rates={};trainer.telemetry.previous=null;
         economy=createEconomy(GAME_DATA,planner);planner.maintenance=(...args)=>economy.maintenance(...args);
         planner.investmentBudget=(...args)=>economy.investmentBudget(...args);
@@ -8259,7 +8642,7 @@ function validateIntent(data,p,intent) {
       if (this===socket&&(trainer.active||trainer.recovery)&&typeof raw==='string') {
         try {
           const type=JSON.parse(raw).t;
-          if ((allowed.has(type)&&type!=='resync')||['clearRoute','stopEnhance','queue','unqueue','unwear','gearSetApply','portal','setAside','skip','startQueued','goQuest'].includes(type)) {
+          if ((allowed.has(type)&&!readOnly.has(type))||['clearRoute','stopEnhance','queue','unqueue','unwear','gearSetApply','portal','setAside','skip','startQueued','goQuest'].includes(type)) {
             trainer.pause('检测到手动操作，已暂停调度'); releaseLease();
             saveRun();
           }
@@ -8287,23 +8670,24 @@ function validateIntent(data,p,intent) {
       .levels span{display:flex;justify-content:space-between}.low{color:#99d7b6}.excluded{color:#89939c}details{margin-top:10px}summary{cursor:pointer;color:#aeb9c2;font-size:12px}
       ol{padding-left:18px;max-height:140px;overflow:auto;font-size:11px;color:#b3c0ca}li{margin:5px 0}
       [data-inventory],[data-enhancement]{white-space:pre-wrap;font:inherit;font-size:11px;line-height:1.6;max-height:260px;overflow:auto;color:#b3c0ca}
-      [data-metrics],[data-farm]{white-space:pre-line}
+      [data-metrics],[data-farm],[data-market]{white-space:pre-line}
     </style><section aria-label="自给成长与职业助手">
       <header><strong>自给成长 · 职业专精</strong><button data-fold aria-label="收起面板">−</button></header>
-      <div class="body"><label>战斗职业<select data-profession aria-label="战斗职业"><option value="magic">法师</option><option value="melee">战士</option><option value="ranged">游侠</option></select></label>
+      <div class="body"><label>战斗职业<select data-profession aria-label="战斗职业">${Object.entries(PROFESSIONS).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label>
       <p data-profession-info class="muted"></p><p data-status>等待游戏状态…</p><p data-goal></p><p data-task></p><p data-reason class="muted"></p><p data-farm class="muted"></p>
       <div class="buttons"><button data-start>开始</button><button data-pause disabled>暂停调度</button></div>
-      <p class="muted">自给自足 · 自动打造换装 · 不购买物品<br>开始后断线／本页刷新自动恢复；暂停会取消自动恢复。保持电脑运行和标签页打开。</p>
+      <p class="muted">经验优先 · 自动打造换装 · 比价出售与必要采购<br>开始后断线／本页刷新自动恢复；暂停会取消自动恢复。保持电脑运行和标签页打开。</p>
       <div class="levels"></div><p data-blocked class="muted" style="margin-top:8px"></p><details><summary>最近操作</summary><ol></ol></details>
       <details><summary>自动物资与强化预算</summary>
       <p class="muted">运行时保留计划用料、关键种子和装备，出售明确盈余普通物品；按收益与预算决定安全强化。</p>
       <p class="muted">售价有最低报价保护；未知物品和稀有装备保留。</p>
       <pre data-inventory></pre><p class="muted">已装备物品下一次强化：属性为基础估算；高阶强化失败可能回到 +0。</p>
       <pre data-enhancement></pre></details>
+      <details><summary>市场比价与采购</summary><p data-market class="muted"></p></details>
       <details><summary>实际运行收益</summary><p data-metrics class="muted"></p>
       <button data-export>导出运行记录</button><p class="muted">只统计已观察到的在线区间；断线离线奖励不用于估算战斗效率。</p></details>
       <p data-client class="muted" style="margin-top:8px"></p>
-      <p class="muted" style="margin:10px 0 0">经验优先 · 自给预算 · v${SCRIPT_VERSION}</p></div>
+      <p class="muted" style="margin:10px 0 0">经验优先 · 物资预算 · v${SCRIPT_VERSION}</p></div>
     </section>`;
     document.body.append(host);
     panel.querySelector('[data-profession]').onchange=event=>{
@@ -8338,7 +8722,7 @@ function validateIntent(data,p,intent) {
     panel.querySelector('[data-export]').onclick=()=>{
       const report={version:SCRIPT_VERSION,exportedAt:new Date().toISOString(),client:GAME_DATA.client,
         profession:trainer.style,metrics:trainer.telemetry.summary(),history:trainer.history,
-        goal:trainer.goal,blocked:trainer.blockedReasons};
+        goal:trainer.goal,blocked:trainer.blockedReasons,market:market.summary()};
       const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));
       const link=document.createElement('a');link.href=url;link.download='deepvein-run-report.json';link.click();
       URL.revokeObjectURL(url);
@@ -8353,23 +8737,25 @@ function validateIntent(data,p,intent) {
     const p=trainer.player, lv=p?planner.levels(p):null;
     const review=p?economy.review(p,trainer.goal,trainer.style):null;
     const metrics=trainer.telemetry.summary();
+    const marketText=market.summary();
     const crops=p?planner.farmPlots(p):[], ready=crops.filter(c=>c.readyAt<=p.lastTick).length;
     const farming=p?planner.farmStatus(p):null;
     const farmText=farming?`农田：已解锁 ${farming.fields} 块 · ${ready} 块成熟 · ${crops.length-ready} 块生长 · ${farming.empty} 块待种`+
       (crops.length&&!ready?` · 最近约 ${Math.max(1,Math.ceil((Math.min(...crops.map(c=>c.readyAt))-p.lastTick)*GAME_DATA.tickMs/60000))} 分钟成熟`:'')+
       `\n${farming.reason??''}`:'';
-    const signature=JSON.stringify([review,metrics,farmText,checking,compatibilityMessage,trainer.style,trainer.active,trainer.message,trainer.goal,trainer.plan?.label,trainer.plan?.reason,lv,trainer.history,trainer.blockedReasons]);
+    const signature=JSON.stringify([review,metrics,farmText,marketText,checking,compatibilityMessage,trainer.style,trainer.active,trainer.message,trainer.goal,trainer.plan?.label,trainer.plan?.reason,lv,trainer.history,trainer.blockedReasons]);
     if (signature===rendered) return;
     rendered=signature;
     const trained=planner.trainedSkills(trainer.style);
     panel.querySelector('[data-profession]').value=trainer.style;
-    panel.querySelector('[data-profession-info]').textContent=`主修${NAMES[trainer.style]} · 防御／生命随战斗提升；按总经验与供给收益选任务`;
+    panel.querySelector('[data-profession-info]').textContent=`${PROFESSIONS[trainer.style]}路线 · 主修${NAMES[professionSkill(trainer.style)]} · 防御／生命随战斗提升；按总经验与供给收益选任务`;
     panel.querySelector('[data-status]').textContent=trainer.message;
     panel.querySelector('[data-goal]').textContent=trainer.goal ?
       `当前：${NAMES[trainer.goal.skill]} · ${trainer.goal.reason??`目标 ${trainer.goal.target} 级`}` : '比较经验、金币、供料和装备投入，选择可持续路线';
     panel.querySelector('[data-task]').textContent=trainer.plan?.label??'';
     panel.querySelector('[data-reason]').textContent=trainer.plan?.reason??'';
     panel.querySelector('[data-farm]').textContent=farmText;
+    panel.querySelector('[data-market]').textContent=marketText;
     panel.querySelector('[data-metrics]').textContent=`累计经验 ${Math.round(metrics.totalXp)} · 净金币 ${Math.round(metrics.netCoins)}\n`+
       `观测经验 ${Math.round(metrics.xpPerHour)}/时 · 净金币 ${Math.round(metrics.coinsPerHour)}/时\n`+
       `工作 ${Math.round(metrics.activeSeconds/60)} 分钟 · 空闲 ${Math.round(metrics.idleSeconds/60)} 分钟`;
