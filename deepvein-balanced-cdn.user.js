@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Deep Vein Idle 自给成长与职业助手
 // @namespace    local.deepvein.balanced
-// @version      0.5.17
+// @version      0.5.18
 // @description  均衡、经验、主业与收菜Boss辅助四模式；自动换装、原生队列保留、任务与市场比价；默认暂停
 // @updateURL    https://gcore.jsdelivr.net/gh/ljyoukong-cpu/deepvein-idle-helper@main/deepvein-balanced-cdn.meta.js
 // @downloadURL  https://gcore.jsdelivr.net/gh/ljyoukong-cpu/deepvein-idle-helper@main/deepvein-balanced-cdn.user.js
@@ -14,7 +14,7 @@
 
 (function () {
 'use strict';
-const SCRIPT_VERSION="0.5.17";
+const SCRIPT_VERSION="0.5.18";
 const SCRIPT_DISTRIBUTION="cdn";
 const GAME_DATA={"client":"index-O0haAaUW.js","sha256":"a712d25894cff79aa0cc3b1733da3777a8786899111a912dca49c2affa850c99","captured":"2026-09-29","compatibleClients":[{"client":"index-CmaDy2eO.js","sha256":"3313256315ac50a80561f28194c4277ab0552923bf28d96d7a4ddd5915456acf"},{"client":"index-DeoJ7Jh9.js","sha256":"70ef13fc889e4339d7c93e1ed023bf526576d777fce7a8713aaa6aadb627e289"},{"client":"index-IFlmlYxK.js","sha256":"693f2d43a8e6878a2368507daf1f24a35d917e4d8787c65c22ba8ea9ab12583a"},{"client":"index-BLSaPO15.js","sha256":"8990f3fc177963fdc84cd0b2ec4105470fa71a9edbced5753f5843980bf78d98"}],"protocol":3,"skills":["mining","fishing","woodcutting","farming","thieving","cooking","smithing","fletching","herblore","crafting","enhancing","melee","ranged","magic","defence","hitpoints"],"xp":{"journeyLevel":99,"baseXp":100,"growth":1.12,"beyondStep":0.1,"beyondGrowth":1.145,"speedPerLevelAboveRequirement":0.005},"tickMs":600,"jobs":[{"id":1,"name":"Copper","skill":"mining","group":"Ore","levelReq":1,"baseTicks":5,"xp":2,"inputs":[],"output":{"itemId":1,"qty":1}},{"id":2,"name":"Tin","skill":"mining","group":"Ore","levelReq":1,"baseTicks":5,"xp":3,"inputs":[],"output":{"itemId":2,"qty":1}},{"id":3,"name":"Iron","skill":"mining","group":"Ore","levelReq":15,"baseTicks":6,"xp":5,"inputs":[],"output":{"itemId":3,"qty":1},"bonus":{"itemId":100,"chance":0.0005}},{"id":4,"name":"Silver","skill":"mining","group":"Ore","levelReq":30,"baseTicks":7,"xp":9,"inputs":[],"output":{"itemId":4,"qty":1},"bonus":{"itemId":100,"chance":0.001}},{"id":5,"name":"Coal","skill":"mining","group":"Ore","levelReq":40,"baseTicks":8,"xp":14,"inputs":[],"output":{"itemId":5,"qty":1},"bonus":{"itemId":100,"chance":0.001}},{"id":6,"name":"Gold","skill":"mining","group":"Ore","levelReq":55,"baseTicks":9,"xp":22,"inputs":[],"output":{"itemId":6,"qty":1},"bonus":{"itemId":100,"chance":0.002}},{"id":7,"name":"Cobalt","skill":"mining","group":"Ore","levelReq":65,"baseTicks":11,"xp":37,"inputs":[],"output":{"itemId":7,"qty":1},"bonus":{"itemId":100,"chance":0.003}},{"id":8,"name":"Meteoric","skill":"mining","group":"Ore","levelReq":85,"baseTicks":13,"xp":59,"inputs":[],"output":{"itemId":8,"qty":1},"bonus":{"itemId":100,"chance":0.005}},{"id":21,"name":"Shrimp","skill":"fishing","group":"Fish","levelReq":1,"baseTicks":5,"xp":2,"inputs":[],"output":{"itemId":20,"qty":1}},{"id":22,"name":"Sardine","skill":"fishing","group":"Fish","levelReq":5,"baseTicks":5,"xp":3,"inputs":[],"output":{"itemId":21,"qty":1}},{"id":23,"name":"Trout","skill":"fishing","group":"Fish","levelReq":20,"baseTicks":6,"xp":7,"inputs":[],"output":{"itemId":22,"qty":1}},{"id":24,"name":"Salmon","skill":"fishing","group":"Fish","levelReq":30,"baseTicks":7,"xp":11,"inputs":[],"output":{"itemId":23,"qty":1}},{"id":25,"name":"Tuna","skill":"fishing","group":"Fish","levelReq":45,"baseTicks":8,"xp":17,"inputs":[],"output":{"itemId":24,"qty":1}},{"id":26,"name":"Lobster","skill":"fishing","group":"Fish","levelReq":60,"baseTicks":10,"xp":28,"inputs":[],"output":{"itemId":25,"qty":1}},{"id":27,"name":"Swordfish","skill":"fishing","group":"Fish","levelReq":75,"baseTicks":11,"xp":44,"inputs":[],"output":{"itemId":26,"qty":1}},{"id":28,"name":"Shark","skill":"fishing","group":"Fish","levelReq":90,"baseTicks":13,"xp":60,"inputs":[],"output":{"itemId":27,"qty":1}},{"id":30,"name":"Tree","skill":"woodcutting","group":"Wood","levelReq":1,"baseTicks":5,"xp":3,"inputs":[],"output":{"itemId":10,"qty":1},"bonus":{"itemId":160,"chance":0.0125}},{"id":31,"name":"Oak","skill":"woodcutting","group":"Wood","levelReq":15,"baseTicks":6,"xp":7,"inputs":[],"output":{"itemId":11,"qty":1},"bonus":{"itemId":161,"chance":0.008333333333333333}},{"id":32,"name":"Willow","skill":"woodcutting","group":"Wood","levelReq":30,"baseTicks":7,"xp":11,"inputs":[],"output":{"itemId":12,"qty":1},"bonus":{"itemId":162,"chance":0.005555555555555556}},{"id":33,"name":"Maple","skill":"woodcutting","group":"Wood","levelReq":45,"baseTicks":8,"xp":18,"inputs":[],"output":{"itemId":13,"qty":1},"bonus":{"itemId":163,"chance":0.0038461538461538464}},{"id":34,"name":"Yew","skill":"woodcutting","group":"Wood","levelReq":60,"baseTicks":10,"xp":29,"inputs":[],"output":{"itemId":14,"qty":1},"bonus":{"itemId":164,"chance":0.002777777777777778}},{"id":35,"name":"Magic","skill":"woodcutting","group":"Wood","levelReq":75,"baseTicks":12,"xp":48,"inputs":[],"output":{"itemId":15,"qty":1},"bonus":{"itemId":165,"chance":0.0022222222222222222}},{"id":160,"name":"Potato","skill":"farming","group":"Crops","levelReq":1,"baseTicks":2,"xp":110,"inputs":[{"itemId":160,"qty":1}],"output":{"itemId":170,"qty":1},"grow":800},{"id":161,"name":"Glowcap","skill":"farming","group":"Crops","levelReq":15,"baseTicks":2,"xp":380,"inputs":[{"itemId":161,"qty":1}],"output":{"itemId":171,"qty":1},"grow":1500},{"id":162,"name":"Cave turnip","skill":"farming","group":"Crops","levelReq":30,"baseTicks":2,"xp":900,"inputs":[{"itemId":162,"qty":1}],"output":{"itemId":172,"qty":1},"grow":2500},{"id":163,"name":"Bitterroot","skill":"farming","group":"Crops","levelReq":45,"baseTicks":2,"xp":1900,"inputs":[{"itemId":163,"qty":1}],"output":{"itemId":173,"qty":1},"grow":4000},{"id":164,"name":"Voidmelon","skill":"farming","group":"Crops","levelReq":60,"baseTicks":2,"xp":3800,"inputs":[{"itemId":164,"qty":1}],"output":{"itemId":174,"qty":1},"grow":6000},{"id":165,"name":"Ember pepper","skill":"farming","group":"Crops","levelReq":75,"baseTicks":2,"xp":6500,"inputs":[{"itemId":165,"qty":1}],"output":{"itemId":175,"qty":1},"grow":9000},{"id":41,"name":"Bronze bar","skill":"smithing","group":"Bars","levelReq":1,"baseTicks":4,"xp":6,"inputs":[{"itemId":1,"qty":1},{"itemId":2,"qty":1}],"output":{"itemId":40,"qty":1}},{"id":42,"name":"Iron bar","skill":"smithing","group":"Bars","levelReq":15,"baseTicks":4,"xp":8,"inputs":[{"itemId":3,"qty":1}],"output":{"itemId":41,"qty":1}},{"id":43,"name":"Steel bar","skill":"smithing","group":"Bars","levelReq":30,"baseTicks":4,"xp":35,"inputs":[{"itemId":3,"qty":1},{"itemId":5,"qty":2}],"output":{"itemId":42,"qty":1}},{"id":44,"name":"Cobalt bar","skill":"smithing","group":"Bars","levelReq":60,"baseTicks":4,"xp":108,"inputs":[{"itemId":7,"qty":1},{"itemId":5,"qty":3}],"output":{"itemId":43,"qty":1}},{"id":45,"name":"Meteoric bar","skill":"smithing","group":"Bars","levelReq":85,"baseTicks":4,"xp":253,"inputs":[{"itemId":8,"qty":1},{"itemId":5,"qty":4}],"output":{"itemId":44,"qty":1}},{"id":51,"name":"Bronze pickaxe","skill":"smithing","group":"Pickaxes","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":2}],"output":{"itemId":80,"qty":1}},{"id":52,"name":"Iron pickaxe","skill":"smithing","group":"Pickaxes","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":2}],"output":{"itemId":81,"qty":1}},{"id":53,"name":"Steel pickaxe","skill":"smithing","group":"Pickaxes","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":2}],"output":{"itemId":82,"qty":1}},{"id":54,"name":"Cobalt pickaxe","skill":"smithing","group":"Pickaxes","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":2}],"output":{"itemId":83,"qty":1}},{"id":55,"name":"Meteoric pickaxe","skill":"smithing","group":"Pickaxes","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":2}],"output":{"itemId":84,"qty":1}},{"id":56,"name":"Bronze rod","skill":"fletching","group":"Rods","levelReq":1,"baseTicks":5,"xp":8,"inputs":[{"itemId":40,"qty":1},{"itemId":10,"qty":1}],"output":{"itemId":85,"qty":1}},{"id":57,"name":"Iron rod","skill":"fletching","group":"Rods","levelReq":15,"baseTicks":5,"xp":13,"inputs":[{"itemId":41,"qty":1},{"itemId":11,"qty":1}],"output":{"itemId":86,"qty":1}},{"id":58,"name":"Steel rod","skill":"fletching","group":"Rods","levelReq":30,"baseTicks":5,"xp":41,"inputs":[{"itemId":42,"qty":1},{"itemId":12,"qty":1}],"output":{"itemId":87,"qty":1}},{"id":59,"name":"Cobalt rod","skill":"fletching","group":"Rods","levelReq":60,"baseTicks":5,"xp":120,"inputs":[{"itemId":43,"qty":1},{"itemId":14,"qty":1}],"output":{"itemId":88,"qty":1}},{"id":60,"name":"Meteoric rod","skill":"fletching","group":"Rods","levelReq":85,"baseTicks":5,"xp":276,"inputs":[{"itemId":44,"qty":1},{"itemId":15,"qty":1}],"output":{"itemId":89,"qty":1}},{"id":308,"name":"Bronze pan","skill":"smithing","group":"Pans","levelReq":1,"baseTicks":5,"xp":8,"inputs":[{"itemId":40,"qty":1}],"output":{"itemId":360,"qty":1}},{"id":309,"name":"Iron pan","skill":"smithing","group":"Pans","levelReq":15,"baseTicks":5,"xp":13,"inputs":[{"itemId":41,"qty":1}],"output":{"itemId":361,"qty":1}},{"id":310,"name":"Steel pan","skill":"smithing","group":"Pans","levelReq":30,"baseTicks":5,"xp":41,"inputs":[{"itemId":42,"qty":1}],"output":{"itemId":362,"qty":1}},{"id":311,"name":"Cobalt pan","skill":"smithing","group":"Pans","levelReq":60,"baseTicks":5,"xp":120,"inputs":[{"itemId":43,"qty":1}],"output":{"itemId":363,"qty":1}},{"id":312,"name":"Meteoric pan","skill":"smithing","group":"Pans","levelReq":85,"baseTicks":5,"xp":276,"inputs":[{"itemId":44,"qty":1}],"output":{"itemId":364,"qty":1}},{"id":313,"name":"Bronze hammer","skill":"smithing","group":"Hammers","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":2}],"output":{"itemId":365,"qty":1}},{"id":314,"name":"Iron hammer","skill":"smithing","group":"Hammers","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":2}],"output":{"itemId":366,"qty":1}},{"id":315,"name":"Steel hammer","skill":"smithing","group":"Hammers","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":2}],"output":{"itemId":367,"qty":1}},{"id":316,"name":"Cobalt hammer","skill":"smithing","group":"Hammers","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":2}],"output":{"itemId":368,"qty":1}},{"id":317,"name":"Meteoric hammer","skill":"smithing","group":"Hammers","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":2}],"output":{"itemId":369,"qty":1}},{"id":318,"name":"Bronze knife","skill":"smithing","group":"Knives","levelReq":1,"baseTicks":5,"xp":8,"inputs":[{"itemId":40,"qty":1}],"output":{"itemId":370,"qty":1}},{"id":319,"name":"Iron knife","skill":"smithing","group":"Knives","levelReq":15,"baseTicks":5,"xp":13,"inputs":[{"itemId":41,"qty":1}],"output":{"itemId":371,"qty":1}},{"id":320,"name":"Steel knife","skill":"smithing","group":"Knives","levelReq":30,"baseTicks":5,"xp":41,"inputs":[{"itemId":42,"qty":1}],"output":{"itemId":372,"qty":1}},{"id":321,"name":"Cobalt knife","skill":"smithing","group":"Knives","levelReq":60,"baseTicks":5,"xp":120,"inputs":[{"itemId":43,"qty":1}],"output":{"itemId":373,"qty":1}},{"id":322,"name":"Meteoric knife","skill":"smithing","group":"Knives","levelReq":85,"baseTicks":5,"xp":276,"inputs":[{"itemId":44,"qty":1}],"output":{"itemId":374,"qty":1}},{"id":323,"name":"Bronze needle","skill":"crafting","group":"Needles","levelReq":1,"baseTicks":5,"xp":8,"inputs":[{"itemId":40,"qty":1}],"output":{"itemId":375,"qty":1}},{"id":324,"name":"Iron needle","skill":"crafting","group":"Needles","levelReq":15,"baseTicks":5,"xp":13,"inputs":[{"itemId":41,"qty":1}],"output":{"itemId":376,"qty":1}},{"id":325,"name":"Steel needle","skill":"crafting","group":"Needles","levelReq":30,"baseTicks":5,"xp":41,"inputs":[{"itemId":42,"qty":1}],"output":{"itemId":377,"qty":1}},{"id":326,"name":"Cobalt needle","skill":"crafting","group":"Needles","levelReq":60,"baseTicks":5,"xp":120,"inputs":[{"itemId":43,"qty":1}],"output":{"itemId":378,"qty":1}},{"id":327,"name":"Meteoric needle","skill":"crafting","group":"Needles","levelReq":85,"baseTicks":5,"xp":276,"inputs":[{"itemId":44,"qty":1}],"output":{"itemId":379,"qty":1}},{"id":328,"name":"Bronze mortar","skill":"crafting","group":"Mortars","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":2}],"output":{"itemId":380,"qty":1}},{"id":329,"name":"Iron mortar","skill":"crafting","group":"Mortars","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":2}],"output":{"itemId":381,"qty":1}},{"id":330,"name":"Steel mortar","skill":"crafting","group":"Mortars","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":2}],"output":{"itemId":382,"qty":1}},{"id":331,"name":"Cobalt mortar","skill":"crafting","group":"Mortars","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":2}],"output":{"itemId":383,"qty":1}},{"id":332,"name":"Meteoric mortar","skill":"crafting","group":"Mortars","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":2}],"output":{"itemId":384,"qty":1}},{"id":333,"name":"Bronze hoe","skill":"fletching","group":"Hoes","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":1},{"itemId":10,"qty":2}],"output":{"itemId":385,"qty":1}},{"id":334,"name":"Iron hoe","skill":"fletching","group":"Hoes","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":1},{"itemId":11,"qty":2}],"output":{"itemId":386,"qty":1}},{"id":335,"name":"Steel hoe","skill":"fletching","group":"Hoes","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":1},{"itemId":12,"qty":2}],"output":{"itemId":387,"qty":1}},{"id":336,"name":"Cobalt hoe","skill":"fletching","group":"Hoes","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":1},{"itemId":14,"qty":2}],"output":{"itemId":388,"qty":1}},{"id":337,"name":"Meteoric hoe","skill":"fletching","group":"Hoes","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":1},{"itemId":15,"qty":2}],"output":{"itemId":389,"qty":1}},{"id":46,"name":"Bronze axe","skill":"smithing","group":"Axes","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":2}],"output":{"itemId":90,"qty":1}},{"id":47,"name":"Iron axe","skill":"smithing","group":"Axes","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":2}],"output":{"itemId":91,"qty":1}},{"id":48,"name":"Steel axe","skill":"smithing","group":"Axes","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":2}],"output":{"itemId":92,"qty":1}},{"id":49,"name":"Cobalt axe","skill":"smithing","group":"Axes","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":2}],"output":{"itemId":93,"qty":1}},{"id":50,"name":"Meteoric axe","skill":"smithing","group":"Axes","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":2}],"output":{"itemId":94,"qty":1}},{"id":61,"name":"Cook shrimp","skill":"cooking","group":"Food","levelReq":1,"baseTicks":4,"xp":4,"inputs":[{"itemId":20,"qty":1}],"output":{"itemId":60,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":26}},{"id":62,"name":"Cook sardine","skill":"cooking","group":"Food","levelReq":5,"baseTicks":4,"xp":5,"inputs":[{"itemId":21,"qty":1}],"output":{"itemId":61,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":30}},{"id":63,"name":"Cook trout","skill":"cooking","group":"Food","levelReq":20,"baseTicks":4,"xp":10,"inputs":[{"itemId":22,"qty":1}],"output":{"itemId":62,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":45}},{"id":64,"name":"Cook salmon","skill":"cooking","group":"Food","levelReq":30,"baseTicks":4,"xp":14,"inputs":[{"itemId":23,"qty":1}],"output":{"itemId":63,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":55}},{"id":65,"name":"Cook tuna","skill":"cooking","group":"Food","levelReq":45,"baseTicks":4,"xp":22,"inputs":[{"itemId":24,"qty":1}],"output":{"itemId":64,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":70}},{"id":66,"name":"Cook lobster","skill":"cooking","group":"Food","levelReq":60,"baseTicks":4,"xp":36,"inputs":[{"itemId":25,"qty":1}],"output":{"itemId":65,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":85}},{"id":67,"name":"Cook swordfish","skill":"cooking","group":"Food","levelReq":75,"baseTicks":4,"xp":59,"inputs":[{"itemId":26,"qty":1}],"output":{"itemId":66,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":100}},{"id":68,"name":"Cook shark","skill":"cooking","group":"Food","levelReq":90,"baseTicks":4,"xp":92,"inputs":[{"itemId":27,"qty":1}],"output":{"itemId":67,"qty":1},"burn":{"itemId":70,"chanceAtReq":0.3,"safeAtLevel":115}},{"id":110,"name":"Bronze blade","skill":"smithing","group":"Weapons","levelReq":1,"baseTicks":5,"xp":8,"inputs":[{"itemId":40,"qty":1}],"output":{"itemId":110,"qty":1}},{"id":111,"name":"Iron blade","skill":"smithing","group":"Weapons","levelReq":15,"baseTicks":5,"xp":13,"inputs":[{"itemId":41,"qty":1}],"output":{"itemId":111,"qty":1}},{"id":112,"name":"Steel blade","skill":"smithing","group":"Weapons","levelReq":30,"baseTicks":5,"xp":41,"inputs":[{"itemId":42,"qty":1}],"output":{"itemId":112,"qty":1}},{"id":113,"name":"Cobalt blade","skill":"smithing","group":"Weapons","levelReq":60,"baseTicks":5,"xp":120,"inputs":[{"itemId":43,"qty":1}],"output":{"itemId":113,"qty":1}},{"id":114,"name":"Meteoric blade","skill":"smithing","group":"Weapons","levelReq":85,"baseTicks":5,"xp":276,"inputs":[{"itemId":44,"qty":1}],"output":{"itemId":114,"qty":1}},{"id":338,"name":"Bronze greatsword","skill":"smithing","group":"Two-handers","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":2}],"output":{"itemId":390,"qty":1}},{"id":339,"name":"Iron greatsword","skill":"smithing","group":"Two-handers","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":2}],"output":{"itemId":391,"qty":1}},{"id":340,"name":"Steel greatsword","skill":"smithing","group":"Two-handers","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":2}],"output":{"itemId":392,"qty":1}},{"id":341,"name":"Cobalt greatsword","skill":"smithing","group":"Two-handers","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":2}],"output":{"itemId":393,"qty":1}},{"id":342,"name":"Meteoric greatsword","skill":"smithing","group":"Two-handers","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":2}],"output":{"itemId":394,"qty":1}},{"id":343,"name":"Colossus greatsword","skill":"smithing","group":"Two-handers","levelReq":99,"baseTicks":6,"xp":1350,"inputs":[{"itemId":44,"qty":2},{"itemId":252,"qty":3}],"output":{"itemId":395,"qty":1}},{"id":115,"name":"Bronze shield","skill":"smithing","group":"Shields","levelReq":1,"baseTicks":5,"xp":25,"inputs":[{"itemId":40,"qty":3}],"output":{"itemId":115,"qty":1}},{"id":116,"name":"Iron shield","skill":"smithing","group":"Shields","levelReq":15,"baseTicks":5,"xp":40,"inputs":[{"itemId":41,"qty":3}],"output":{"itemId":116,"qty":1}},{"id":117,"name":"Steel shield","skill":"smithing","group":"Shields","levelReq":30,"baseTicks":5,"xp":124,"inputs":[{"itemId":42,"qty":3}],"output":{"itemId":117,"qty":1}},{"id":118,"name":"Cobalt shield","skill":"smithing","group":"Shields","levelReq":60,"baseTicks":5,"xp":360,"inputs":[{"itemId":43,"qty":3}],"output":{"itemId":118,"qty":1}},{"id":119,"name":"Meteoric shield","skill":"smithing","group":"Shields","levelReq":85,"baseTicks":5,"xp":828,"inputs":[{"itemId":44,"qty":3}],"output":{"itemId":119,"qty":1}},{"id":120,"name":"Bronze helm","skill":"smithing","group":"Helmets","levelReq":1,"baseTicks":5,"xp":17,"inputs":[{"itemId":40,"qty":2}],"output":{"itemId":120,"qty":1}},{"id":121,"name":"Iron helm","skill":"smithing","group":"Helmets","levelReq":15,"baseTicks":5,"xp":27,"inputs":[{"itemId":41,"qty":2}],"output":{"itemId":121,"qty":1}},{"id":122,"name":"Steel helm","skill":"smithing","group":"Helmets","levelReq":30,"baseTicks":5,"xp":83,"inputs":[{"itemId":42,"qty":2}],"output":{"itemId":122,"qty":1}},{"id":123,"name":"Cobalt helm","skill":"smithing","group":"Helmets","levelReq":60,"baseTicks":5,"xp":240,"inputs":[{"itemId":43,"qty":2}],"output":{"itemId":123,"qty":1}},{"id":124,"name":"Meteoric helm","skill":"smithing","group":"Helmets","levelReq":85,"baseTicks":5,"xp":552,"inputs":[{"itemId":44,"qty":2}],"output":{"itemId":124,"qty":1}},{"id":125,"name":"Bronze plate","skill":"smithing","group":"Bodies","levelReq":1,"baseTicks":5,"xp":42,"inputs":[{"itemId":40,"qty":5}],"output":{"itemId":125,"qty":1}},{"id":126,"name":"Iron plate","skill":"smithing","group":"Bodies","levelReq":15,"baseTicks":5,"xp":67,"inputs":[{"itemId":41,"qty":5}],"output":{"itemId":126,"qty":1}},{"id":127,"name":"Steel plate","skill":"smithing","group":"Bodies","levelReq":30,"baseTicks":5,"xp":207,"inputs":[{"itemId":42,"qty":5}],"output":{"itemId":127,"qty":1}},{"id":128,"name":"Cobalt plate","skill":"smithing","group":"Bodies","levelReq":60,"baseTicks":5,"xp":600,"inputs":[{"itemId":43,"qty":5}],"output":{"itemId":128,"qty":1}},{"id":129,"name":"Meteoric plate","skill":"smithing","group":"Bodies","levelReq":85,"baseTicks":5,"xp":1380,"inputs":[{"itemId":44,"qty":5}],"output":{"itemId":129,"qty":1}},{"id":130,"name":"Bronze greaves","skill":"smithing","group":"Legs","levelReq":1,"baseTicks":5,"xp":34,"inputs":[{"itemId":40,"qty":4}],"output":{"itemId":130,"qty":1}},{"id":131,"name":"Iron greaves","skill":"smithing","group":"Legs","levelReq":15,"baseTicks":5,"xp":53,"inputs":[{"itemId":41,"qty":4}],"output":{"itemId":131,"qty":1}},{"id":132,"name":"Steel greaves","skill":"smithing","group":"Legs","levelReq":30,"baseTicks":5,"xp":165,"inputs":[{"itemId":42,"qty":4}],"output":{"itemId":132,"qty":1}},{"id":133,"name":"Cobalt greaves","skill":"smithing","group":"Legs","levelReq":60,"baseTicks":5,"xp":480,"inputs":[{"itemId":43,"qty":4}],"output":{"itemId":133,"qty":1}},{"id":134,"name":"Meteoric greaves","skill":"smithing","group":"Legs","levelReq":85,"baseTicks":5,"xp":1104,"inputs":[{"itemId":44,"qty":4}],"output":{"itemId":134,"qty":1}},{"id":301,"name":"Colossus blade","skill":"smithing","group":"Weapons","levelReq":99,"baseTicks":6,"xp":1900,"inputs":[{"itemId":44,"qty":3},{"itemId":252,"qty":2}],"output":{"itemId":350,"qty":1}},{"id":302,"name":"Colossus shield","skill":"smithing","group":"Shields","levelReq":99,"baseTicks":6,"xp":1900,"inputs":[{"itemId":44,"qty":3},{"itemId":252,"qty":2}],"output":{"itemId":351,"qty":1}},{"id":303,"name":"Colossus helm","skill":"smithing","group":"Helmets","levelReq":99,"baseTicks":6,"xp":1250,"inputs":[{"itemId":44,"qty":2},{"itemId":252,"qty":1}],"output":{"itemId":352,"qty":1}},{"id":304,"name":"Colossus plate","skill":"smithing","group":"Bodies","levelReq":99,"baseTicks":6,"xp":3100,"inputs":[{"itemId":44,"qty":5},{"itemId":252,"qty":3}],"output":{"itemId":353,"qty":1}},{"id":305,"name":"Colossus greaves","skill":"smithing","group":"Legs","levelReq":99,"baseTicks":6,"xp":2500,"inputs":[{"itemId":44,"qty":4},{"itemId":252,"qty":2}],"output":{"itemId":354,"qty":1}},{"id":140,"name":"Shortbow","skill":"fletching","group":"Shortbows","levelReq":1,"baseTicks":5,"xp":5,"inputs":[{"itemId":10,"qty":1}],"output":{"itemId":140,"qty":1}},{"id":141,"name":"Oak shortbow","skill":"fletching","group":"Shortbows","levelReq":15,"baseTicks":5,"xp":11,"inputs":[{"itemId":11,"qty":1}],"output":{"itemId":141,"qty":1}},{"id":142,"name":"Willow shortbow","skill":"fletching","group":"Shortbows","levelReq":30,"baseTicks":5,"xp":17,"inputs":[{"itemId":12,"qty":1}],"output":{"itemId":142,"qty":1}},{"id":143,"name":"Maple shortbow","skill":"fletching","group":"Shortbows","levelReq":45,"baseTicks":5,"xp":27,"inputs":[{"itemId":13,"qty":1}],"output":{"itemId":143,"qty":1}},{"id":144,"name":"Yew shortbow","skill":"fletching","group":"Shortbows","levelReq":60,"baseTicks":5,"xp":43,"inputs":[{"itemId":14,"qty":1}],"output":{"itemId":144,"qty":1}},{"id":145,"name":"Magic shortbow","skill":"fletching","group":"Shortbows","levelReq":75,"baseTicks":5,"xp":70,"inputs":[{"itemId":15,"qty":1}],"output":{"itemId":145,"qty":1}},{"id":146,"name":"Longbow","skill":"fletching","group":"Longbows","levelReq":1,"baseTicks":5,"xp":10,"inputs":[{"itemId":10,"qty":2}],"output":{"itemId":146,"qty":1}},{"id":147,"name":"Oak longbow","skill":"fletching","group":"Longbows","levelReq":15,"baseTicks":5,"xp":22,"inputs":[{"itemId":11,"qty":2}],"output":{"itemId":147,"qty":1}},{"id":148,"name":"Willow longbow","skill":"fletching","group":"Longbows","levelReq":30,"baseTicks":5,"xp":34,"inputs":[{"itemId":12,"qty":2}],"output":{"itemId":148,"qty":1}},{"id":149,"name":"Maple longbow","skill":"fletching","group":"Longbows","levelReq":45,"baseTicks":5,"xp":54,"inputs":[{"itemId":13,"qty":2}],"output":{"itemId":149,"qty":1}},{"id":150,"name":"Yew longbow","skill":"fletching","group":"Longbows","levelReq":60,"baseTicks":5,"xp":86,"inputs":[{"itemId":14,"qty":2}],"output":{"itemId":150,"qty":1}},{"id":151,"name":"Magic longbow","skill":"fletching","group":"Longbows","levelReq":75,"baseTicks":5,"xp":140,"inputs":[{"itemId":15,"qty":2}],"output":{"itemId":151,"qty":1}},{"id":200,"name":"Staff","skill":"fletching","group":"Staffs","levelReq":1,"baseTicks":5,"xp":8,"inputs":[{"itemId":10,"qty":2}],"output":{"itemId":152,"qty":1}},{"id":201,"name":"Oak staff","skill":"fletching","group":"Staffs","levelReq":15,"baseTicks":5,"xp":22,"inputs":[{"itemId":11,"qty":2}],"output":{"itemId":153,"qty":1}},{"id":202,"name":"Willow staff","skill":"fletching","group":"Staffs","levelReq":30,"baseTicks":5,"xp":40,"inputs":[{"itemId":12,"qty":2}],"output":{"itemId":154,"qty":1}},{"id":203,"name":"Maple staff","skill":"fletching","group":"Staffs","levelReq":45,"baseTicks":5,"xp":65,"inputs":[{"itemId":13,"qty":2}],"output":{"itemId":155,"qty":1}},{"id":204,"name":"Yew staff","skill":"fletching","group":"Staffs","levelReq":60,"baseTicks":5,"xp":100,"inputs":[{"itemId":14,"qty":2}],"output":{"itemId":156,"qty":1}},{"id":205,"name":"Magic staff","skill":"fletching","group":"Staffs","levelReq":75,"baseTicks":5,"xp":150,"inputs":[{"itemId":15,"qty":2}],"output":{"itemId":157,"qty":1}},{"id":210,"name":"Sage","skill":"farming","group":"Herbs","levelReq":10,"baseTicks":2,"xp":260,"inputs":[{"itemId":190,"qty":1}],"output":{"itemId":193,"qty":1},"grow":1200},{"id":211,"name":"Nightshade","skill":"farming","group":"Herbs","levelReq":35,"baseTicks":2,"xp":1200,"inputs":[{"itemId":191,"qty":1}],"output":{"itemId":194,"qty":1},"grow":3000},{"id":212,"name":"Dragonleaf","skill":"farming","group":"Herbs","levelReq":65,"baseTicks":2,"xp":4600,"inputs":[{"itemId":192,"qty":1}],"output":{"itemId":195,"qty":1},"grow":7000},{"id":220,"name":"Gatherer's draught","skill":"herblore","group":"Potions","levelReq":1,"baseTicks":6,"xp":30,"inputs":[{"itemId":193,"qty":1},{"itemId":240,"qty":1}],"output":{"itemId":220,"qty":1}},{"id":225,"name":"Swift draught","skill":"herblore","group":"Potions","levelReq":20,"baseTicks":6,"xp":70,"inputs":[{"itemId":193,"qty":1},{"itemId":242,"qty":1}],"output":{"itemId":225,"qty":1}},{"id":226,"name":"Nourishing draught","skill":"herblore","group":"Potions","levelReq":50,"baseTicks":6,"xp":240,"inputs":[{"itemId":194,"qty":1},{"itemId":244,"qty":1}],"output":{"itemId":226,"qty":1}},{"id":227,"name":"Haste draught","skill":"herblore","group":"Potions","levelReq":70,"baseTicks":7,"xp":460,"inputs":[{"itemId":195,"qty":1},{"itemId":245,"qty":1}],"output":{"itemId":227,"qty":1}},{"id":221,"name":"Hunter's brew","skill":"herblore","group":"Potions","levelReq":35,"baseTicks":6,"xp":120,"inputs":[{"itemId":194,"qty":1},{"itemId":243,"qty":1}],"output":{"itemId":221,"qty":1}},{"id":222,"name":"Warrior's tonic","skill":"herblore","group":"Potions","levelReq":60,"baseTicks":6,"xp":300,"inputs":[{"itemId":195,"qty":1},{"itemId":244,"qty":1}],"output":{"itemId":222,"qty":1}},{"id":223,"name":"Elixir of the vein","skill":"herblore","group":"Potions","levelReq":80,"baseTicks":7,"xp":700,"inputs":[{"itemId":194,"qty":1},{"itemId":195,"qty":1},{"itemId":246,"qty":1}],"output":{"itemId":223,"qty":1}},{"id":224,"name":"Abyssal tonic","skill":"herblore","group":"Potions","levelReq":95,"baseTicks":7,"xp":1600,"inputs":[{"itemId":195,"qty":1},{"itemId":249,"qty":1}],"output":{"itemId":224,"qty":1}},{"id":230,"name":"Cut gem","skill":"crafting","group":"Gems","levelReq":1,"baseTicks":5,"xp":16,"inputs":[{"itemId":100,"qty":1}],"output":{"itemId":180,"qty":1}},{"id":231,"name":"Silver ring","skill":"crafting","group":"Rings","levelReq":20,"baseTicks":6,"xp":58,"inputs":[{"itemId":4,"qty":1},{"itemId":180,"qty":1}],"output":{"itemId":181,"qty":1}},{"id":232,"name":"Gold ring","skill":"crafting","group":"Rings","levelReq":45,"baseTicks":6,"xp":156,"inputs":[{"itemId":6,"qty":1},{"itemId":180,"qty":1}],"output":{"itemId":182,"qty":1}},{"id":233,"name":"Meteoric ring","skill":"crafting","group":"Rings","levelReq":75,"baseTicks":7,"xp":455,"inputs":[{"itemId":44,"qty":1},{"itemId":180,"qty":2}],"output":{"itemId":183,"qty":1}},{"id":307,"name":"Wyrm ring","skill":"crafting","group":"Rings","levelReq":95,"baseTicks":8,"xp":1200,"inputs":[{"itemId":356,"qty":1},{"itemId":180,"qty":2}],"output":{"itemId":358,"qty":1}},{"id":234,"name":"Silver amulet","skill":"crafting","group":"Amulets","levelReq":30,"baseTicks":6,"xp":84,"inputs":[{"itemId":4,"qty":1},{"itemId":180,"qty":1}],"output":{"itemId":184,"qty":1}},{"id":235,"name":"Gold amulet","skill":"crafting","group":"Amulets","levelReq":55,"baseTicks":6,"xp":221,"inputs":[{"itemId":6,"qty":1},{"itemId":180,"qty":1}],"output":{"itemId":185,"qty":1}},{"id":236,"name":"Meteoric amulet","skill":"crafting","group":"Amulets","levelReq":85,"baseTicks":7,"xp":618,"inputs":[{"itemId":44,"qty":1},{"itemId":180,"qty":2}],"output":{"itemId":186,"qty":1}},{"id":306,"name":"Leviathan amulet","skill":"crafting","group":"Amulets","levelReq":95,"baseTicks":8,"xp":1400,"inputs":[{"itemId":355,"qty":1},{"itemId":180,"qty":2}],"output":{"itemId":357,"qty":1}},{"id":260,"name":"Pelt coif","skill":"crafting","group":"Leather","levelReq":1,"baseTicks":6,"xp":8,"inputs":[{"itemId":240,"qty":2}],"output":{"itemId":260,"qty":1}},{"id":261,"name":"Pelt chaps","skill":"crafting","group":"Leather","levelReq":1,"baseTicks":6,"xp":12,"inputs":[{"itemId":240,"qty":3}],"output":{"itemId":262,"qty":1}},{"id":262,"name":"Pelt jerkin","skill":"crafting","group":"Leather","levelReq":1,"baseTicks":6,"xp":20,"inputs":[{"itemId":240,"qty":5}],"output":{"itemId":261,"qty":1}},{"id":263,"name":"Bogskin coif","skill":"crafting","group":"Leather","levelReq":15,"baseTicks":6,"xp":22,"inputs":[{"itemId":241,"qty":2}],"output":{"itemId":263,"qty":1}},{"id":264,"name":"Bogskin chaps","skill":"crafting","group":"Leather","levelReq":15,"baseTicks":6,"xp":33,"inputs":[{"itemId":241,"qty":3}],"output":{"itemId":265,"qty":1}},{"id":265,"name":"Bogskin jerkin","skill":"crafting","group":"Leather","levelReq":15,"baseTicks":6,"xp":55,"inputs":[{"itemId":241,"qty":5}],"output":{"itemId":264,"qty":1}},{"id":266,"name":"Chitin coif","skill":"crafting","group":"Leather","levelReq":30,"baseTicks":6,"xp":60,"inputs":[{"itemId":242,"qty":2}],"output":{"itemId":266,"qty":1}},{"id":267,"name":"Chitin chaps","skill":"crafting","group":"Leather","levelReq":30,"baseTicks":6,"xp":90,"inputs":[{"itemId":242,"qty":3}],"output":{"itemId":268,"qty":1}},{"id":268,"name":"Chitin jerkin","skill":"crafting","group":"Leather","levelReq":30,"baseTicks":6,"xp":150,"inputs":[{"itemId":242,"qty":5}],"output":{"itemId":267,"qty":1}},{"id":269,"name":"Fur coif","skill":"crafting","group":"Leather","levelReq":60,"baseTicks":7,"xp":180,"inputs":[{"itemId":245,"qty":2}],"output":{"itemId":269,"qty":1}},{"id":270,"name":"Fur chaps","skill":"crafting","group":"Leather","levelReq":60,"baseTicks":7,"xp":270,"inputs":[{"itemId":245,"qty":3}],"output":{"itemId":271,"qty":1}},{"id":271,"name":"Fur jerkin","skill":"crafting","group":"Leather","levelReq":60,"baseTicks":7,"xp":450,"inputs":[{"itemId":245,"qty":5}],"output":{"itemId":270,"qty":1}},{"id":272,"name":"Scale coif","skill":"crafting","group":"Leather","levelReq":85,"baseTicks":7,"xp":460,"inputs":[{"itemId":247,"qty":2}],"output":{"itemId":272,"qty":1}},{"id":273,"name":"Scale chaps","skill":"crafting","group":"Leather","levelReq":85,"baseTicks":7,"xp":690,"inputs":[{"itemId":247,"qty":3}],"output":{"itemId":274,"qty":1}},{"id":274,"name":"Scale jerkin","skill":"crafting","group":"Leather","levelReq":85,"baseTicks":7,"xp":1150,"inputs":[{"itemId":247,"qty":5}],"output":{"itemId":273,"qty":1}},{"id":289,"name":"Troll coif","skill":"crafting","group":"Leather","levelReq":95,"baseTicks":8,"xp":1250,"inputs":[{"itemId":248,"qty":2}],"output":{"itemId":338,"qty":1}},{"id":290,"name":"Troll chaps","skill":"crafting","group":"Leather","levelReq":95,"baseTicks":8,"xp":1900,"inputs":[{"itemId":248,"qty":3}],"output":{"itemId":340,"qty":1}},{"id":291,"name":"Troll jerkin","skill":"crafting","group":"Leather","levelReq":95,"baseTicks":8,"xp":3100,"inputs":[{"itemId":248,"qty":5}],"output":{"itemId":339,"qty":1}},{"id":292,"name":"Drake coif","skill":"crafting","group":"Leather","levelReq":99,"baseTicks":8,"xp":3300,"inputs":[{"itemId":251,"qty":2}],"output":{"itemId":341,"qty":1}},{"id":293,"name":"Drake chaps","skill":"crafting","group":"Leather","levelReq":99,"baseTicks":8,"xp":5000,"inputs":[{"itemId":251,"qty":3}],"output":{"itemId":343,"qty":1}},{"id":294,"name":"Drake jerkin","skill":"crafting","group":"Leather","levelReq":99,"baseTicks":8,"xp":8300,"inputs":[{"itemId":251,"qty":5}],"output":{"itemId":342,"qty":1}},{"id":240,"name":"Bread stall","skill":"thieving","group":"Stalls","levelReq":1,"baseTicks":6,"xp":8,"inputs":[],"output":{"itemId":200,"qty":6},"caught":{"chanceAtReq":0.25,"safeAtLevel":30,"stunTicks":8}},{"id":241,"name":"Silk stall","skill":"thieving","group":"Stalls","levelReq":25,"baseTicks":7,"xp":30,"inputs":[],"output":{"itemId":200,"qty":28},"caught":{"chanceAtReq":0.3,"safeAtLevel":60,"stunTicks":10},"bonus":{"itemId":191,"chance":0.03333333333333333}},{"id":242,"name":"Gem stall","skill":"thieving","group":"Stalls","levelReq":50,"baseTicks":8,"xp":80,"inputs":[],"output":{"itemId":200,"qty":90},"bonus":{"itemId":100,"chance":0.04},"caught":{"chanceAtReq":0.32,"safeAtLevel":85,"stunTicks":12}},{"id":243,"name":"Relic stall","skill":"thieving","group":"Stalls","levelReq":75,"baseTicks":9,"xp":200,"inputs":[],"output":{"itemId":200,"qty":260},"bonus":{"itemId":208,"chance":0.03},"caught":{"chanceAtReq":0.35,"safeAtLevel":110,"stunTicks":15}},{"id":244,"name":"Linen line","skill":"thieving","group":"Cloth","levelReq":1,"baseTicks":7,"xp":7,"inputs":[],"output":{"itemId":300,"qty":1},"caught":{"chanceAtReq":0.25,"safeAtLevel":30,"stunTicks":8}},{"id":245,"name":"Silk cart","skill":"thieving","group":"Cloth","levelReq":25,"baseTicks":8,"xp":26,"inputs":[],"output":{"itemId":301,"qty":1},"caught":{"chanceAtReq":0.3,"safeAtLevel":60,"stunTicks":10}},{"id":246,"name":"Gilded loom","skill":"thieving","group":"Cloth","levelReq":50,"baseTicks":9,"xp":70,"inputs":[],"output":{"itemId":302,"qty":1},"caught":{"chanceAtReq":0.32,"safeAtLevel":85,"stunTicks":12}},{"id":247,"name":"Reliquary vestry","skill":"thieving","group":"Cloth","levelReq":75,"baseTicks":10,"xp":175,"inputs":[],"output":{"itemId":303,"qty":1},"caught":{"chanceAtReq":0.35,"safeAtLevel":110,"stunTicks":15}},{"id":248,"name":"Homespun hood","skill":"crafting","group":"Cloth","levelReq":1,"baseTicks":6,"xp":9,"inputs":[{"itemId":300,"qty":2}],"output":{"itemId":304,"qty":1}},{"id":249,"name":"Homespun skirt","skill":"crafting","group":"Cloth","levelReq":1,"baseTicks":6,"xp":14,"inputs":[{"itemId":300,"qty":3}],"output":{"itemId":306,"qty":1}},{"id":250,"name":"Homespun robe","skill":"crafting","group":"Cloth","levelReq":1,"baseTicks":6,"xp":23,"inputs":[{"itemId":300,"qty":5}],"output":{"itemId":305,"qty":1}},{"id":251,"name":"Silk hood","skill":"crafting","group":"Cloth","levelReq":25,"baseTicks":6,"xp":50,"inputs":[{"itemId":301,"qty":2}],"output":{"itemId":307,"qty":1}},{"id":252,"name":"Silk skirt","skill":"crafting","group":"Cloth","levelReq":25,"baseTicks":6,"xp":75,"inputs":[{"itemId":301,"qty":3}],"output":{"itemId":309,"qty":1}},{"id":253,"name":"Silk robe","skill":"crafting","group":"Cloth","levelReq":25,"baseTicks":6,"xp":125,"inputs":[{"itemId":301,"qty":5}],"output":{"itemId":308,"qty":1}},{"id":254,"name":"Gilded hood","skill":"crafting","group":"Cloth","levelReq":50,"baseTicks":7,"xp":145,"inputs":[{"itemId":302,"qty":2}],"output":{"itemId":310,"qty":1}},{"id":255,"name":"Gilded skirt","skill":"crafting","group":"Cloth","levelReq":50,"baseTicks":7,"xp":215,"inputs":[{"itemId":302,"qty":3}],"output":{"itemId":312,"qty":1}},{"id":256,"name":"Gilded robe","skill":"crafting","group":"Cloth","levelReq":50,"baseTicks":7,"xp":360,"inputs":[{"itemId":302,"qty":5}],"output":{"itemId":311,"qty":1}},{"id":257,"name":"Voidweave hood","skill":"crafting","group":"Cloth","levelReq":75,"baseTicks":7,"xp":380,"inputs":[{"itemId":303,"qty":2}],"output":{"itemId":313,"qty":1}},{"id":258,"name":"Voidweave skirt","skill":"crafting","group":"Cloth","levelReq":75,"baseTicks":7,"xp":570,"inputs":[{"itemId":303,"qty":3}],"output":{"itemId":315,"qty":1}},{"id":259,"name":"Voidweave robe","skill":"crafting","group":"Cloth","levelReq":75,"baseTicks":7,"xp":950,"inputs":[{"itemId":303,"qty":5}],"output":{"itemId":314,"qty":1}},{"id":295,"name":"Wightweave hood","skill":"crafting","group":"Cloth","levelReq":90,"baseTicks":8,"xp":1000,"inputs":[{"itemId":303,"qty":2},{"itemId":250,"qty":1}],"output":{"itemId":344,"qty":1}},{"id":296,"name":"Wightweave skirt","skill":"crafting","group":"Cloth","levelReq":90,"baseTicks":8,"xp":1500,"inputs":[{"itemId":303,"qty":3},{"itemId":250,"qty":2}],"output":{"itemId":346,"qty":1}},{"id":297,"name":"Wightweave robe","skill":"crafting","group":"Cloth","levelReq":90,"baseTicks":8,"xp":2500,"inputs":[{"itemId":303,"qty":5},{"itemId":250,"qty":3}],"output":{"itemId":345,"qty":1}},{"id":275,"name":"Pelt gloves","skill":"crafting","group":"Gloves","levelReq":5,"baseTicks":6,"xp":10,"inputs":[{"itemId":240,"qty":4}],"output":{"itemId":323,"qty":1}},{"id":276,"name":"Bogskin gloves","skill":"crafting","group":"Gloves","levelReq":25,"baseTicks":6,"xp":28,"inputs":[{"itemId":241,"qty":2},{"itemId":202,"qty":1}],"output":{"itemId":324,"qty":1}},{"id":277,"name":"Chitin gloves","skill":"crafting","group":"Gloves","levelReq":45,"baseTicks":6,"xp":75,"inputs":[{"itemId":242,"qty":2},{"itemId":203,"qty":1}],"output":{"itemId":325,"qty":1}},{"id":278,"name":"Bone gloves","skill":"crafting","group":"Gloves","levelReq":65,"baseTicks":7,"xp":225,"inputs":[{"itemId":243,"qty":2},{"itemId":204,"qty":1}],"output":{"itemId":326,"qty":1}},{"id":280,"name":"Pelt quiver","skill":"fletching","group":"Quivers","levelReq":1,"baseTicks":5,"xp":14,"inputs":[{"itemId":240,"qty":2},{"itemId":10,"qty":1}],"output":{"itemId":329,"qty":1}},{"id":281,"name":"Bogskin quiver","skill":"fletching","group":"Quivers","levelReq":15,"baseTicks":5,"xp":34,"inputs":[{"itemId":241,"qty":2},{"itemId":11,"qty":1}],"output":{"itemId":330,"qty":1}},{"id":282,"name":"Chitin quiver","skill":"fletching","group":"Quivers","levelReq":30,"baseTicks":5,"xp":70,"inputs":[{"itemId":242,"qty":2},{"itemId":12,"qty":1}],"output":{"itemId":331,"qty":1}},{"id":283,"name":"Fur quiver","skill":"fletching","group":"Quivers","levelReq":60,"baseTicks":5,"xp":150,"inputs":[{"itemId":245,"qty":2},{"itemId":13,"qty":1}],"output":{"itemId":332,"qty":1}},{"id":284,"name":"Scale quiver","skill":"fletching","group":"Quivers","levelReq":85,"baseTicks":5,"xp":320,"inputs":[{"itemId":247,"qty":2},{"itemId":14,"qty":1}],"output":{"itemId":333,"qty":1}},{"id":298,"name":"Troll quiver","skill":"fletching","group":"Quivers","levelReq":95,"baseTicks":6,"xp":700,"inputs":[{"itemId":248,"qty":2},{"itemId":15,"qty":1}],"output":{"itemId":347,"qty":1}},{"id":299,"name":"Drake quiver","skill":"fletching","group":"Quivers","levelReq":99,"baseTicks":6,"xp":1400,"inputs":[{"itemId":251,"qty":2},{"itemId":15,"qty":2}],"output":{"itemId":348,"qty":1}},{"id":285,"name":"Linen grimoire","skill":"crafting","group":"Grimoires","levelReq":1,"baseTicks":6,"xp":16,"inputs":[{"itemId":300,"qty":3}],"output":{"itemId":334,"qty":1}},{"id":286,"name":"Silk grimoire","skill":"crafting","group":"Grimoires","levelReq":25,"baseTicks":6,"xp":85,"inputs":[{"itemId":301,"qty":3},{"itemId":241,"qty":1}],"output":{"itemId":335,"qty":1}},{"id":287,"name":"Gilded grimoire","skill":"crafting","group":"Grimoires","levelReq":50,"baseTicks":7,"xp":230,"inputs":[{"itemId":302,"qty":3},{"itemId":244,"qty":1}],"output":{"itemId":336,"qty":1}},{"id":288,"name":"Voidweave grimoire","skill":"crafting","group":"Grimoires","levelReq":75,"baseTicks":7,"xp":560,"inputs":[{"itemId":303,"qty":3},{"itemId":246,"qty":2}],"output":{"itemId":337,"qty":1}},{"id":300,"name":"Wightweave grimoire","skill":"crafting","group":"Grimoires","levelReq":90,"baseTicks":8,"xp":1200,"inputs":[{"itemId":303,"qty":3},{"itemId":250,"qty":2}],"output":{"itemId":349,"qty":1}},{"id":279,"name":"Scale gloves","skill":"crafting","group":"Gloves","levelReq":85,"baseTicks":7,"xp":575,"inputs":[{"itemId":247,"qty":2},{"itemId":206,"qty":1}],"output":{"itemId":327,"qty":1}}],"gear":[{"itemId":80,"slot":"pickaxe","bonus":0.08},{"itemId":81,"slot":"pickaxe","bonus":0.16},{"itemId":82,"slot":"pickaxe","bonus":0.25},{"itemId":83,"slot":"pickaxe","bonus":0.35},{"itemId":84,"slot":"pickaxe","bonus":0.5},{"itemId":85,"slot":"rod","bonus":0.08},{"itemId":86,"slot":"rod","bonus":0.16},{"itemId":87,"slot":"rod","bonus":0.25},{"itemId":88,"slot":"rod","bonus":0.35},{"itemId":89,"slot":"rod","bonus":0.5},{"itemId":90,"slot":"axe","bonus":0.08},{"itemId":91,"slot":"axe","bonus":0.16},{"itemId":92,"slot":"axe","bonus":0.25},{"itemId":93,"slot":"axe","bonus":0.35},{"itemId":94,"slot":"axe","bonus":0.5},{"itemId":323,"slot":"gloves","bonus":0.08},{"itemId":324,"slot":"gloves","bonus":0.16},{"itemId":325,"slot":"gloves","bonus":0.25},{"itemId":326,"slot":"gloves","bonus":0.35},{"itemId":327,"slot":"gloves","bonus":0.5},{"itemId":360,"slot":"pan","bonus":0.08},{"itemId":361,"slot":"pan","bonus":0.16},{"itemId":362,"slot":"pan","bonus":0.25},{"itemId":363,"slot":"pan","bonus":0.35},{"itemId":364,"slot":"pan","bonus":0.5},{"itemId":365,"slot":"hammer","bonus":0.08},{"itemId":366,"slot":"hammer","bonus":0.16},{"itemId":367,"slot":"hammer","bonus":0.25},{"itemId":368,"slot":"hammer","bonus":0.35},{"itemId":369,"slot":"hammer","bonus":0.5},{"itemId":370,"slot":"knife","bonus":0.08},{"itemId":371,"slot":"knife","bonus":0.16},{"itemId":372,"slot":"knife","bonus":0.25},{"itemId":373,"slot":"knife","bonus":0.35},{"itemId":374,"slot":"knife","bonus":0.5},{"itemId":375,"slot":"needle","bonus":0.08},{"itemId":376,"slot":"needle","bonus":0.16},{"itemId":377,"slot":"needle","bonus":0.25},{"itemId":378,"slot":"needle","bonus":0.35},{"itemId":379,"slot":"needle","bonus":0.5},{"itemId":380,"slot":"mortar","bonus":0.08},{"itemId":381,"slot":"mortar","bonus":0.16},{"itemId":382,"slot":"mortar","bonus":0.25},{"itemId":383,"slot":"mortar","bonus":0.35},{"itemId":384,"slot":"mortar","bonus":0.5},{"itemId":385,"slot":"hoe","bonus":0.08},{"itemId":386,"slot":"hoe","bonus":0.16},{"itemId":387,"slot":"hoe","bonus":0.25},{"itemId":388,"slot":"hoe","bonus":0.35},{"itemId":389,"slot":"hoe","bonus":0.5},{"itemId":328,"slot":"mount","bonus":0.12},{"itemId":110,"slot":"weapon","accuracy":6,"strength":5,"defence":0,"speed":4,"levelReq":1,"needs":"melee"},{"itemId":111,"slot":"weapon","accuracy":14,"strength":12,"defence":0,"speed":4,"levelReq":15,"needs":"melee"},{"itemId":112,"slot":"weapon","accuracy":24,"strength":21,"defence":0,"speed":4,"levelReq":30,"needs":"melee"},{"itemId":113,"slot":"weapon","accuracy":38,"strength":34,"defence":0,"speed":4,"levelReq":60,"needs":"melee"},{"itemId":114,"slot":"weapon","accuracy":56,"strength":50,"defence":0,"speed":4,"levelReq":85,"needs":"melee"},{"itemId":390,"slot":"weapon","accuracy":7,"strength":5,"defence":0,"speed":4,"twoHanded":true,"levelReq":1,"needs":"melee"},{"itemId":391,"slot":"weapon","accuracy":16,"strength":15,"defence":0,"speed":4,"twoHanded":true,"levelReq":15,"needs":"melee"},{"itemId":392,"slot":"weapon","accuracy":27,"strength":24,"defence":0,"speed":4,"twoHanded":true,"levelReq":30,"needs":"melee"},{"itemId":393,"slot":"weapon","accuracy":53,"strength":48,"defence":0,"speed":4,"twoHanded":true,"levelReq":60,"needs":"melee"},{"itemId":394,"slot":"weapon","accuracy":72,"strength":65,"defence":0,"speed":4,"twoHanded":true,"levelReq":85,"needs":"melee"},{"itemId":395,"slot":"weapon","accuracy":80,"strength":72,"defence":0,"speed":4,"twoHanded":true,"levelReq":99,"needs":"melee"},{"itemId":115,"slot":"shield","accuracy":0,"strength":3,"defence":4,"levelReq":1,"needs":"melee","style":"melee"},{"itemId":116,"slot":"shield","accuracy":0,"strength":9,"defence":9,"levelReq":15,"needs":"melee","style":"melee"},{"itemId":117,"slot":"shield","accuracy":0,"strength":14,"defence":16,"levelReq":30,"needs":"melee","style":"melee"},{"itemId":118,"slot":"shield","accuracy":0,"strength":35,"defence":25,"levelReq":60,"needs":"melee","style":"melee"},{"itemId":119,"slot":"shield","accuracy":0,"strength":43,"defence":37,"levelReq":85,"needs":"melee","style":"melee"},{"itemId":329,"slot":"shield","accuracy":2,"strength":1,"defence":0,"ranged":true,"levelReq":1,"needs":"ranged","style":"ranged"},{"itemId":330,"slot":"shield","accuracy":4,"strength":3,"defence":0,"ranged":true,"levelReq":15,"needs":"ranged","style":"ranged"},{"itemId":331,"slot":"shield","accuracy":7,"strength":5,"defence":0,"ranged":true,"levelReq":30,"needs":"ranged","style":"ranged"},{"itemId":332,"slot":"shield","accuracy":11,"strength":8,"defence":0,"ranged":true,"levelReq":60,"needs":"ranged","style":"ranged"},{"itemId":333,"slot":"shield","accuracy":16,"strength":12,"defence":0,"ranged":true,"levelReq":85,"needs":"ranged","style":"ranged"},{"itemId":347,"slot":"shield","accuracy":20,"strength":15,"defence":0,"ranged":true,"levelReq":95,"needs":"ranged","style":"ranged"},{"itemId":348,"slot":"shield","accuracy":24,"strength":18,"defence":0,"ranged":true,"levelReq":99,"needs":"ranged","style":"ranged"},{"itemId":334,"slot":"shield","accuracy":2,"strength":1,"defence":0,"magic":true,"levelReq":1,"needs":"magic","style":"magic"},{"itemId":335,"slot":"shield","accuracy":5,"strength":4,"defence":0,"magic":true,"levelReq":25,"needs":"magic","style":"magic"},{"itemId":336,"slot":"shield","accuracy":9,"strength":7,"defence":0,"magic":true,"levelReq":50,"needs":"magic","style":"magic"},{"itemId":337,"slot":"shield","accuracy":14,"strength":11,"defence":0,"magic":true,"levelReq":75,"needs":"magic","style":"magic"},{"itemId":349,"slot":"shield","accuracy":18,"strength":14,"defence":0,"magic":true,"levelReq":90,"needs":"magic","style":"magic"},{"itemId":120,"slot":"helmet","accuracy":1,"strength":0,"defence":3,"levelReq":1,"needs":"melee","style":"melee"},{"itemId":121,"slot":"helmet","accuracy":2,"strength":0,"defence":7,"levelReq":15,"needs":"melee","style":"melee"},{"itemId":122,"slot":"helmet","accuracy":4,"strength":0,"defence":12,"levelReq":30,"needs":"melee","style":"melee"},{"itemId":123,"slot":"helmet","accuracy":7,"strength":0,"defence":19,"levelReq":60,"needs":"melee","style":"melee"},{"itemId":124,"slot":"helmet","accuracy":10,"strength":0,"defence":28,"levelReq":85,"needs":"melee","style":"melee"},{"itemId":125,"slot":"body","accuracy":2,"strength":0,"defence":6,"levelReq":1,"needs":"melee","style":"melee"},{"itemId":126,"slot":"body","accuracy":5,"strength":0,"defence":14,"levelReq":15,"needs":"melee","style":"melee"},{"itemId":127,"slot":"body","accuracy":8,"strength":0,"defence":24,"levelReq":30,"needs":"melee","style":"melee"},{"itemId":128,"slot":"body","accuracy":13,"strength":0,"defence":38,"levelReq":60,"needs":"melee","style":"melee"},{"itemId":129,"slot":"body","accuracy":20,"strength":0,"defence":56,"levelReq":85,"needs":"melee","style":"melee"},{"itemId":130,"slot":"legs","accuracy":2,"strength":0,"defence":5,"levelReq":1,"needs":"melee","style":"melee"},{"itemId":131,"slot":"legs","accuracy":4,"strength":0,"defence":11,"levelReq":15,"needs":"melee","style":"melee"},{"itemId":132,"slot":"legs","accuracy":7,"strength":0,"defence":19,"levelReq":30,"needs":"melee","style":"melee"},{"itemId":133,"slot":"legs","accuracy":10,"strength":0,"defence":30,"levelReq":60,"needs":"melee","style":"melee"},{"itemId":134,"slot":"legs","accuracy":15,"strength":0,"defence":44,"levelReq":85,"needs":"melee","style":"melee"},{"itemId":350,"slot":"weapon","accuracy":70,"strength":63,"defence":0,"speed":4,"levelReq":99,"needs":"melee"},{"itemId":351,"slot":"shield","accuracy":0,"strength":43,"defence":46,"levelReq":99,"needs":"melee","style":"melee"},{"itemId":352,"slot":"helmet","accuracy":12,"strength":0,"defence":35,"levelReq":99,"needs":"melee","style":"melee"},{"itemId":353,"slot":"body","accuracy":24,"strength":0,"defence":70,"levelReq":99,"needs":"melee","style":"melee"},{"itemId":354,"slot":"legs","accuracy":19,"strength":0,"defence":55,"levelReq":99,"needs":"melee","style":"melee"},{"itemId":260,"slot":"helmet","accuracy":1,"strength":0,"defence":2,"levelReq":1,"needs":"ranged","style":"ranged"},{"itemId":261,"slot":"body","accuracy":2,"strength":0,"defence":4,"levelReq":1,"needs":"ranged","style":"ranged"},{"itemId":262,"slot":"legs","accuracy":2,"strength":0,"defence":3,"levelReq":1,"needs":"ranged","style":"ranged"},{"itemId":263,"slot":"helmet","accuracy":3,"strength":0,"defence":4,"levelReq":15,"needs":"ranged","style":"ranged"},{"itemId":264,"slot":"body","accuracy":5,"strength":0,"defence":8,"levelReq":15,"needs":"ranged","style":"ranged"},{"itemId":265,"slot":"legs","accuracy":4,"strength":0,"defence":7,"levelReq":15,"needs":"ranged","style":"ranged"},{"itemId":266,"slot":"helmet","accuracy":5,"strength":0,"defence":7,"levelReq":30,"needs":"ranged","style":"ranged"},{"itemId":267,"slot":"body","accuracy":8,"strength":0,"defence":14,"levelReq":30,"needs":"ranged","style":"ranged"},{"itemId":268,"slot":"legs","accuracy":6,"strength":0,"defence":11,"levelReq":30,"needs":"ranged","style":"ranged"},{"itemId":269,"slot":"helmet","accuracy":8,"strength":0,"defence":11,"levelReq":60,"needs":"ranged","style":"ranged"},{"itemId":270,"slot":"body","accuracy":13,"strength":0,"defence":23,"levelReq":60,"needs":"ranged","style":"ranged"},{"itemId":271,"slot":"legs","accuracy":10,"strength":0,"defence":18,"levelReq":60,"needs":"ranged","style":"ranged"},{"itemId":272,"slot":"helmet","accuracy":12,"strength":0,"defence":17,"levelReq":85,"needs":"ranged","style":"ranged"},{"itemId":273,"slot":"body","accuracy":20,"strength":0,"defence":34,"levelReq":85,"needs":"ranged","style":"ranged"},{"itemId":274,"slot":"legs","accuracy":15,"strength":0,"defence":26,"levelReq":85,"needs":"ranged","style":"ranged"},{"itemId":338,"slot":"helmet","accuracy":15,"strength":0,"defence":21,"levelReq":95,"needs":"ranged","style":"ranged"},{"itemId":339,"slot":"body","accuracy":25,"strength":0,"defence":42,"levelReq":95,"needs":"ranged","style":"ranged"},{"itemId":340,"slot":"legs","accuracy":19,"strength":0,"defence":32,"levelReq":95,"needs":"ranged","style":"ranged"},{"itemId":341,"slot":"helmet","accuracy":18,"strength":0,"defence":25,"levelReq":99,"needs":"ranged","style":"ranged"},{"itemId":342,"slot":"body","accuracy":30,"strength":0,"defence":50,"levelReq":99,"needs":"ranged","style":"ranged"},{"itemId":343,"slot":"legs","accuracy":22,"strength":0,"defence":38,"levelReq":99,"needs":"ranged","style":"ranged"},{"itemId":140,"slot":"weapon","accuracy":5,"strength":4,"defence":0,"speed":3,"ranged":true,"levelReq":1,"needs":"ranged"},{"itemId":141,"slot":"weapon","accuracy":12,"strength":10,"defence":0,"speed":3,"ranged":true,"levelReq":15,"needs":"ranged"},{"itemId":142,"slot":"weapon","accuracy":20,"strength":17,"defence":0,"speed":3,"ranged":true,"levelReq":30,"needs":"ranged"},{"itemId":143,"slot":"weapon","accuracy":30,"strength":26,"defence":0,"speed":3,"ranged":true,"levelReq":45,"needs":"ranged"},{"itemId":144,"slot":"weapon","accuracy":42,"strength":37,"defence":0,"speed":3,"ranged":true,"levelReq":60,"needs":"ranged"},{"itemId":145,"slot":"weapon","accuracy":56,"strength":50,"defence":0,"speed":3,"ranged":true,"levelReq":75,"needs":"ranged"},{"itemId":152,"slot":"weapon","accuracy":5,"strength":4,"defence":0,"speed":6,"magic":true,"levelReq":1,"needs":"magic"},{"itemId":153,"slot":"weapon","accuracy":12,"strength":10,"defence":0,"speed":6,"magic":true,"levelReq":15,"needs":"magic"},{"itemId":154,"slot":"weapon","accuracy":20,"strength":17,"defence":0,"speed":6,"magic":true,"levelReq":30,"needs":"magic"},{"itemId":155,"slot":"weapon","accuracy":30,"strength":26,"defence":0,"speed":6,"magic":true,"levelReq":45,"needs":"magic"},{"itemId":156,"slot":"weapon","accuracy":42,"strength":37,"defence":0,"speed":6,"magic":true,"levelReq":60,"needs":"magic"},{"itemId":157,"slot":"weapon","accuracy":56,"strength":50,"defence":0,"speed":6,"magic":true,"levelReq":75,"needs":"magic"},{"itemId":181,"slot":"ring","accuracy":4,"strength":2,"defence":0,"levelReq":20,"needs":"defence"},{"itemId":182,"slot":"ring","accuracy":9,"strength":5,"defence":0,"levelReq":45,"needs":"defence"},{"itemId":183,"slot":"ring","accuracy":16,"strength":9,"defence":0,"levelReq":75,"needs":"defence"},{"itemId":358,"slot":"ring","accuracy":22,"strength":13,"defence":0,"levelReq":95,"needs":"defence"},{"itemId":184,"slot":"amulet","accuracy":0,"strength":0,"defence":4,"luck":0.25,"levelReq":30,"needs":"none"},{"itemId":185,"slot":"amulet","accuracy":0,"strength":0,"defence":8,"luck":0.5,"levelReq":55,"needs":"none"},{"itemId":186,"slot":"amulet","accuracy":0,"strength":0,"defence":14,"luck":1,"levelReq":85,"needs":"none"},{"itemId":357,"slot":"amulet","accuracy":0,"strength":0,"defence":18,"luck":1.5,"levelReq":95,"needs":"none"},{"itemId":304,"slot":"helmet","accuracy":2,"strength":0,"defence":1,"levelReq":1,"needs":"magic","style":"magic"},{"itemId":305,"slot":"body","accuracy":3,"strength":0,"defence":2,"levelReq":1,"needs":"magic","style":"magic"},{"itemId":306,"slot":"legs","accuracy":2,"strength":0,"defence":1,"levelReq":1,"needs":"magic","style":"magic"},{"itemId":307,"slot":"helmet","accuracy":6,"strength":0,"defence":2,"levelReq":25,"needs":"magic","style":"magic"},{"itemId":308,"slot":"body","accuracy":10,"strength":0,"defence":5,"levelReq":25,"needs":"magic","style":"magic"},{"itemId":309,"slot":"legs","accuracy":8,"strength":0,"defence":4,"levelReq":25,"needs":"magic","style":"magic"},{"itemId":310,"slot":"helmet","accuracy":11,"strength":0,"defence":4,"levelReq":50,"needs":"magic","style":"magic"},{"itemId":311,"slot":"body","accuracy":18,"strength":0,"defence":9,"levelReq":50,"needs":"magic","style":"magic"},{"itemId":312,"slot":"legs","accuracy":14,"strength":0,"defence":7,"levelReq":50,"needs":"magic","style":"magic"},{"itemId":313,"slot":"helmet","accuracy":17,"strength":0,"defence":7,"levelReq":75,"needs":"magic","style":"magic"},{"itemId":314,"slot":"body","accuracy":28,"strength":0,"defence":14,"levelReq":75,"needs":"magic","style":"magic"},{"itemId":315,"slot":"legs","accuracy":22,"strength":0,"defence":11,"levelReq":75,"needs":"magic","style":"magic"},{"itemId":344,"slot":"helmet","accuracy":21,"strength":0,"defence":9,"levelReq":90,"needs":"magic","style":"magic"},{"itemId":345,"slot":"body","accuracy":35,"strength":0,"defence":17,"levelReq":90,"needs":"magic","style":"magic"},{"itemId":346,"slot":"legs","accuracy":27,"strength":0,"defence":14,"levelReq":90,"needs":"magic","style":"magic"},{"itemId":146,"slot":"weapon","accuracy":7,"strength":6,"defence":0,"speed":5,"ranged":true,"levelReq":1,"needs":"ranged"},{"itemId":147,"slot":"weapon","accuracy":15,"strength":13,"defence":0,"speed":5,"ranged":true,"levelReq":15,"needs":"ranged"},{"itemId":148,"slot":"weapon","accuracy":24,"strength":22,"defence":0,"speed":5,"ranged":true,"levelReq":30,"needs":"ranged"},{"itemId":149,"slot":"weapon","accuracy":36,"strength":33,"defence":0,"speed":5,"ranged":true,"levelReq":45,"needs":"ranged"},{"itemId":150,"slot":"weapon","accuracy":50,"strength":46,"defence":0,"speed":5,"ranged":true,"levelReq":60,"needs":"ranged"},{"itemId":151,"slot":"weapon","accuracy":66,"strength":62,"defence":0,"speed":5,"ranged":true,"levelReq":75,"needs":"ranged"}],"items":{"1":{"id":1,"name":"Copper","stackable":false,"value":3},"2":{"id":2,"name":"Tin","stackable":false,"value":4},"3":{"id":3,"name":"Iron","stackable":false,"value":12},"4":{"id":4,"name":"Silver","stackable":false,"value":40},"5":{"id":5,"name":"Coal","stackable":false,"value":55},"6":{"id":6,"name":"Gold","stackable":false,"value":140},"7":{"id":7,"name":"Cobalt","stackable":false,"value":380},"8":{"id":8,"name":"Meteoric","stackable":false,"value":900},"10":{"id":10,"name":"Logs","stackable":false,"value":3},"11":{"id":11,"name":"Oak logs","stackable":false,"value":15},"12":{"id":12,"name":"Willow logs","stackable":false,"value":45},"13":{"id":13,"name":"Maple logs","stackable":false,"value":100},"14":{"id":14,"name":"Yew logs","stackable":false,"value":240},"15":{"id":15,"name":"Magic logs","stackable":false,"value":600},"20":{"id":20,"name":"Shrimp","stackable":false,"value":4},"21":{"id":21,"name":"Sardine","stackable":false,"value":9},"22":{"id":22,"name":"Trout","stackable":false,"value":26},"23":{"id":23,"name":"Salmon","stackable":false,"value":48},"24":{"id":24,"name":"Tuna","stackable":false,"value":92},"25":{"id":25,"name":"Lobster","stackable":false,"value":175},"26":{"id":26,"name":"Swordfish","stackable":false,"value":330},"27":{"id":27,"name":"Shark","stackable":false,"value":780},"40":{"id":40,"name":"Bronze bar","stackable":false,"value":12},"41":{"id":41,"name":"Iron bar","stackable":false,"value":22},"42":{"id":42,"name":"Steel bar","stackable":false,"value":156},"43":{"id":43,"name":"Cobalt bar","stackable":false,"value":660},"44":{"id":44,"name":"Meteoric bar","stackable":false,"value":1527},"60":{"id":60,"name":"Cooked shrimp","stackable":false,"value":9,"heals":3},"61":{"id":61,"name":"Cooked sardine","stackable":false,"value":15,"heals":4},"62":{"id":62,"name":"Cooked trout","stackable":false,"value":44,"heals":7},"63":{"id":63,"name":"Cooked salmon","stackable":false,"value":82,"heals":9},"64":{"id":64,"name":"Cooked tuna","stackable":false,"value":150,"heals":12},"65":{"id":65,"name":"Cooked lobster","stackable":false,"value":290,"heals":16},"66":{"id":66,"name":"Cooked swordfish","stackable":false,"value":550,"heals":20},"67":{"id":67,"name":"Cooked shark","stackable":false,"value":1280,"heals":26},"70":{"id":70,"name":"Burnt food","stackable":true,"value":0},"80":{"id":80,"name":"Bronze pickaxe","stackable":false,"value":29},"81":{"id":81,"name":"Iron pickaxe","stackable":false,"value":54},"82":{"id":82,"name":"Steel pickaxe","stackable":false,"value":346},"83":{"id":83,"name":"Cobalt pickaxe","stackable":false,"value":1435},"84":{"id":84,"name":"Meteoric pickaxe","stackable":false,"value":3461},"85":{"id":85,"name":"Bronze rod","stackable":false,"value":20},"86":{"id":86,"name":"Iron rod","stackable":false,"value":47},"87":{"id":87,"name":"Steel rod","stackable":false,"value":235},"88":{"id":88,"name":"Cobalt rod","stackable":false,"value":1015},"89":{"id":89,"name":"Meteoric rod","stackable":false,"value":2534},"90":{"id":90,"name":"Bronze axe","stackable":false,"value":29},"91":{"id":91,"name":"Iron axe","stackable":false,"value":54},"92":{"id":92,"name":"Steel axe","stackable":false,"value":346},"93":{"id":93,"name":"Cobalt axe","stackable":false,"value":1435},"94":{"id":94,"name":"Meteoric axe","stackable":false,"value":3461},"100":{"id":100,"name":"Rough gem","stackable":true,"value":2500},"110":{"id":110,"name":"Bronze blade","stackable":false,"value":17},"111":{"id":111,"name":"Iron blade","stackable":false,"value":32},"112":{"id":112,"name":"Steel blade","stackable":false,"value":190},"113":{"id":113,"name":"Cobalt blade","stackable":false,"value":775},"114":{"id":114,"name":"Meteoric blade","stackable":false,"value":1934},"115":{"id":115,"name":"Bronze shield","stackable":false,"value":41},"116":{"id":116,"name":"Iron shield","stackable":false,"value":76},"117":{"id":117,"name":"Steel shield","stackable":false,"value":502},"118":{"id":118,"name":"Cobalt shield","stackable":false,"value":2095},"119":{"id":119,"name":"Meteoric shield","stackable":false,"value":4988},"120":{"id":120,"name":"Bronze helm","stackable":false,"value":29},"121":{"id":121,"name":"Iron helm","stackable":false,"value":54},"122":{"id":122,"name":"Steel helm","stackable":false,"value":346},"123":{"id":123,"name":"Cobalt helm","stackable":false,"value":1435},"124":{"id":124,"name":"Meteoric helm","stackable":false,"value":3461},"125":{"id":125,"name":"Bronze plate","stackable":false,"value":65},"126":{"id":126,"name":"Iron plate","stackable":false,"value":120},"127":{"id":127,"name":"Steel plate","stackable":false,"value":814},"128":{"id":128,"name":"Cobalt plate","stackable":false,"value":3415},"129":{"id":129,"name":"Meteoric plate","stackable":false,"value":8042},"130":{"id":130,"name":"Bronze greaves","stackable":false,"value":53},"131":{"id":131,"name":"Iron greaves","stackable":false,"value":98},"132":{"id":132,"name":"Steel greaves","stackable":false,"value":658},"133":{"id":133,"name":"Cobalt greaves","stackable":false,"value":2755},"134":{"id":134,"name":"Meteoric greaves","stackable":false,"value":6515},"140":{"id":140,"name":"Shortbow","stackable":false,"value":8},"141":{"id":141,"name":"Oak shortbow","stackable":false,"value":25},"142":{"id":142,"name":"Willow shortbow","stackable":false,"value":79},"143":{"id":143,"name":"Maple shortbow","stackable":false,"value":158},"144":{"id":144,"name":"Yew shortbow","stackable":false,"value":355},"145":{"id":145,"name":"Magic shortbow","stackable":false,"value":820},"146":{"id":146,"name":"Longbow","stackable":false,"value":11},"147":{"id":147,"name":"Oak longbow","stackable":false,"value":40},"148":{"id":148,"name":"Willow longbow","stackable":false,"value":124},"149":{"id":149,"name":"Maple longbow","stackable":false,"value":258},"150":{"id":150,"name":"Yew longbow","stackable":false,"value":595},"151":{"id":151,"name":"Magic longbow","stackable":false,"value":1420},"152":{"id":152,"name":"Staff","stackable":false,"value":11},"153":{"id":153,"name":"Oak staff","stackable":false,"value":40},"154":{"id":154,"name":"Willow staff","stackable":false,"value":124},"155":{"id":155,"name":"Maple staff","stackable":false,"value":258},"156":{"id":156,"name":"Yew staff","stackable":false,"value":595},"157":{"id":157,"name":"Magic staff","stackable":false,"value":1420},"160":{"id":160,"name":"Potato seed","stackable":true,"value":2},"161":{"id":161,"name":"Glowcap spore","stackable":true,"value":6},"162":{"id":162,"name":"Turnip seed","stackable":true,"value":14},"163":{"id":163,"name":"Bitterroot seed","stackable":true,"value":30},"164":{"id":164,"name":"Voidmelon seed","stackable":true,"value":60},"165":{"id":165,"name":"Pepper seed","stackable":true,"value":110},"170":{"id":170,"name":"Potato","stackable":false,"value":7,"heals":3},"171":{"id":171,"name":"Glowcap","stackable":false,"value":22,"heals":5},"172":{"id":172,"name":"Cave turnip","stackable":false,"value":55,"heals":7},"173":{"id":173,"name":"Bitterroot","stackable":false,"value":120,"heals":10},"174":{"id":174,"name":"Voidmelon","stackable":false,"value":260,"heals":14},"175":{"id":175,"name":"Ember pepper","stackable":false,"value":520,"heals":20},"180":{"id":180,"name":"Cut gem","stackable":true,"value":2505},"181":{"id":181,"name":"Silver ring","stackable":false,"value":2563},"182":{"id":182,"name":"Gold ring","stackable":false,"value":2703},"183":{"id":183,"name":"Meteoric ring","stackable":false,"value":6757},"184":{"id":184,"name":"Silver amulet","stackable":false,"value":2579},"185":{"id":185,"name":"Gold amulet","stackable":false,"value":2741},"186":{"id":186,"name":"Meteoric amulet","stackable":false,"value":6944},"190":{"id":190,"name":"Sage seed","stackable":true,"value":6},"191":{"id":191,"name":"Nightshade seed","stackable":true,"value":40},"192":{"id":192,"name":"Dragonleaf seed","stackable":true,"value":220},"193":{"id":193,"name":"Sage","stackable":true,"value":18},"194":{"id":194,"name":"Nightshade","stackable":true,"value":110},"195":{"id":195,"name":"Dragonleaf","stackable":true,"value":520},"200":{"id":200,"name":"Coins","stackable":true,"value":1},"201":{"id":201,"name":"Gnawed charm","stackable":true,"value":1500},"202":{"id":202,"name":"Bog pearl","stackable":true,"value":4000},"203":{"id":203,"name":"Dry sigil","stackable":true,"value":12000},"204":{"id":204,"name":"Cairn token","stackable":true,"value":40000},"205":{"id":205,"name":"Rime fang","stackable":true,"value":120000},"206":{"id":206,"name":"Ember heart","stackable":true,"value":350000},"207":{"id":207,"name":"Abyssal eye","stackable":true,"value":900000},"208":{"id":208,"name":"Voidshard","stackable":true,"value":1500},"209":{"id":209,"name":"Gravemaw skull","stackable":false,"value":250000},"210":{"id":210,"name":"Hollow crown","stackable":false,"value":1000000},"211":{"id":211,"name":"Riftborne heart","stackable":false,"value":4000000},"212":{"id":212,"name":"Colossus core","stackable":false,"value":15000000},"213":{"id":213,"name":"Wraith ash","stackable":true,"value":15000},"214":{"id":214,"name":"Stalker fang","stackable":true,"value":30000},"215":{"id":215,"name":"Troll tusk","stackable":true,"value":50000},"216":{"id":216,"name":"Wight crown","stackable":true,"value":120000},"217":{"id":217,"name":"Drake scale","stackable":true,"value":250000},"218":{"id":218,"name":"Colossus ember","stackable":true,"value":500000},"220":{"id":220,"name":"Gatherer's draught","stackable":true,"value":28},"221":{"id":221,"name":"Hunter's brew","stackable":true,"value":272},"222":{"id":222,"name":"Warrior's tonic","stackable":true,"value":835},"223":{"id":223,"name":"Elixir of the vein","stackable":true,"value":1643},"224":{"id":224,"name":"Abyssal tonic","stackable":true,"value":2103},"225":{"id":225,"name":"Swift draught","stackable":true,"value":96},"226":{"id":226,"name":"Nourishing draught","stackable":true,"value":387},"227":{"id":227,"name":"Haste draught","stackable":true,"value":1205},"240":{"id":240,"name":"Gnawer pelt","stackable":true,"value":5},"241":{"id":241,"name":"Bogling skin","stackable":true,"value":12},"242":{"id":242,"name":"Husk chitin","stackable":true,"value":60},"243":{"id":243,"name":"Cairn bone","stackable":true,"value":120},"244":{"id":244,"name":"Wraith dust","stackable":true,"value":200},"245":{"id":245,"name":"Rimewolf fur","stackable":true,"value":500},"246":{"id":246,"name":"Stalker claw","stackable":true,"value":700},"247":{"id":247,"name":"Ember scale","stackable":true,"value":1200},"248":{"id":248,"name":"Troll hide","stackable":true,"value":800},"249":{"id":249,"name":"Horror ichor","stackable":true,"value":1000},"250":{"id":250,"name":"Ice wight shard","stackable":true,"value":1500},"251":{"id":251,"name":"Drake hide","stackable":true,"value":2000},"252":{"id":252,"name":"Colossus chip","stackable":true,"value":3000},"260":{"id":260,"name":"Pelt coif","stackable":false,"value":15},"261":{"id":261,"name":"Pelt jerkin","stackable":false,"value":30},"262":{"id":262,"name":"Pelt chaps","stackable":false,"value":20},"263":{"id":263,"name":"Bogskin coif","stackable":false,"value":34},"264":{"id":264,"name":"Bogskin jerkin","stackable":false,"value":70},"265":{"id":265,"name":"Bogskin chaps","stackable":false,"value":46},"266":{"id":266,"name":"Chitin coif","stackable":false,"value":154},"267":{"id":267,"name":"Chitin jerkin","stackable":false,"value":334},"268":{"id":268,"name":"Chitin chaps","stackable":false,"value":214},"269":{"id":269,"name":"Fur coif","stackable":false,"value":1115},"270":{"id":270,"name":"Fur jerkin","stackable":false,"value":2615},"271":{"id":271,"name":"Fur chaps","stackable":false,"value":1615},"272":{"id":272,"name":"Scale coif","stackable":false,"value":2807},"273":{"id":273,"name":"Scale jerkin","stackable":false,"value":6407},"274":{"id":274,"name":"Scale chaps","stackable":false,"value":4007},"280":{"id":280,"name":"Gnawer pup","stackable":false,"value":0},"281":{"id":281,"name":"Bogling tadpole","stackable":false,"value":0},"282":{"id":282,"name":"Husk grub","stackable":false,"value":0},"283":{"id":283,"name":"Cairn wisp","stackable":false,"value":0},"284":{"id":284,"name":"Rimewolf cub","stackable":false,"value":0},"285":{"id":285,"name":"Emberkin spark","stackable":false,"value":0},"286":{"id":286,"name":"Horror spawn","stackable":false,"value":0},"287":{"id":287,"name":"Wraith mote","stackable":false,"value":0},"288":{"id":288,"name":"Stalker kit","stackable":false,"value":0},"289":{"id":289,"name":"Frost troll whelp","stackable":false,"value":0},"290":{"id":290,"name":"Ice wight shard-child","stackable":false,"value":0},"291":{"id":291,"name":"Ash drake hatchling","stackable":false,"value":0},"292":{"id":292,"name":"Cinder ember","stackable":false,"value":0},"293":{"id":293,"name":"Gem pack","stackable":true,"value":10},"294":{"id":294,"name":"Pouch of gems","stackable":true,"value":1200},"295":{"id":295,"name":"Chest of gems","stackable":true,"value":2600},"296":{"id":296,"name":"Vein of gems","stackable":true,"value":7000},"297":{"id":297,"name":"Hoard of gems","stackable":true,"value":15000},"300":{"id":300,"name":"Homespun bolt","stackable":true,"value":12},"301":{"id":301,"name":"Silk bolt","stackable":true,"value":70},"302":{"id":302,"name":"Gilded bolt","stackable":true,"value":260},"303":{"id":303,"name":"Voidweave bolt","stackable":true,"value":900},"304":{"id":304,"name":"Homespun hood","stackable":false,"value":29},"305":{"id":305,"name":"Homespun robe","stackable":false,"value":65},"306":{"id":306,"name":"Homespun skirt","stackable":false,"value":41},"307":{"id":307,"name":"Silk hood","stackable":false,"value":166},"308":{"id":308,"name":"Silk robe","stackable":false,"value":376},"309":{"id":309,"name":"Silk skirt","stackable":false,"value":236},"310":{"id":310,"name":"Gilded hood","stackable":false,"value":597},"311":{"id":311,"name":"Gilded robe","stackable":false,"value":1377},"312":{"id":312,"name":"Gilded skirt","stackable":false,"value":857},"313":{"id":313,"name":"Voidweave hood","stackable":false,"value":2020},"314":{"id":314,"name":"Voidweave robe","stackable":false,"value":4720},"315":{"id":315,"name":"Voidweave skirt","stackable":false,"value":2920},"316":{"id":316,"name":"Rock mite nymph","stackable":false,"value":0},"317":{"id":317,"name":"Fen lurker spawn","stackable":false,"value":0},"318":{"id":318,"name":"Grave beetle grub","stackable":false,"value":0},"319":{"id":319,"name":"Sump crawler hatchling","stackable":false,"value":0},"320":{"id":320,"name":"Stone eater pebble","stackable":false,"value":0},"321":{"id":321,"name":"Barrow pup","stackable":false,"value":0},"322":{"id":322,"name":"Chalk wightling","stackable":false,"value":0},"323":{"id":323,"name":"Pelt gloves","stackable":false,"value":75},"324":{"id":324,"name":"Bogskin gloves","stackable":false,"value":4000},"325":{"id":325,"name":"Chitin gloves","stackable":false,"value":12000},"326":{"id":326,"name":"Bone gloves","stackable":false,"value":40000},"327":{"id":327,"name":"Scale gloves","stackable":false,"value":350000},"328":{"id":328,"name":"Horse","stackable":false,"value":10000},"329":{"id":329,"name":"Pelt quiver","stackable":false,"value":18},"330":{"id":330,"name":"Bogskin quiver","stackable":false,"value":49},"331":{"id":331,"name":"Chitin quiver","stackable":false,"value":199},"332":{"id":332,"name":"Fur quiver","stackable":false,"value":1215},"333":{"id":333,"name":"Scale quiver","stackable":false,"value":3047},"334":{"id":334,"name":"Linen grimoire","stackable":false,"value":41},"335":{"id":335,"name":"Silk grimoire","stackable":false,"value":248},"336":{"id":336,"name":"Gilded grimoire","stackable":false,"value":1057},"337":{"id":337,"name":"Voidweave grimoire","stackable":false,"value":4320},"338":{"id":338,"name":"Troll coif","stackable":false,"value":2183},"339":{"id":339,"name":"Troll jerkin","stackable":false,"value":4583},"340":{"id":340,"name":"Troll chaps","stackable":false,"value":2983},"341":{"id":341,"name":"Drake coif","stackable":false,"value":4650},"342":{"id":342,"name":"Drake jerkin","stackable":false,"value":10650},"343":{"id":343,"name":"Drake chaps","stackable":false,"value":6650},"344":{"id":344,"name":"Wightweave hood","stackable":false,"value":3800},"345":{"id":345,"name":"Wightweave robe","stackable":false,"value":9500},"346":{"id":346,"name":"Wightweave skirt","stackable":false,"value":6200},"347":{"id":347,"name":"Troll quiver","stackable":false,"value":2783},"348":{"id":348,"name":"Drake quiver","stackable":false,"value":5850},"349":{"id":349,"name":"Wightweave grimoire","stackable":false,"value":6200},"350":{"id":350,"name":"Colossus blade","stackable":false,"value":11231},"351":{"id":351,"name":"Colossus shield","stackable":false,"value":11231},"352":{"id":352,"name":"Colossus helm","stackable":false,"value":6704},"353":{"id":353,"name":"Colossus plate","stackable":false,"value":17285},"354":{"id":354,"name":"Colossus greaves","stackable":false,"value":12758},"355":{"id":355,"name":"Leviathan scale","stackable":true,"value":20000},"356":{"id":356,"name":"Wyrm ember","stackable":true,"value":20000},"357":{"id":357,"name":"Leviathan amulet","stackable":false,"value":25593},"358":{"id":358,"name":"Wyrm ring","stackable":false,"value":25593},"359":{"id":359,"name":"Protection scroll","stackable":true,"value":10},"360":{"id":360,"name":"Bronze pan","stackable":false,"value":17},"361":{"id":361,"name":"Iron pan","stackable":false,"value":32},"362":{"id":362,"name":"Steel pan","stackable":false,"value":190},"363":{"id":363,"name":"Cobalt pan","stackable":false,"value":775},"364":{"id":364,"name":"Meteoric pan","stackable":false,"value":1934},"365":{"id":365,"name":"Bronze hammer","stackable":false,"value":29},"366":{"id":366,"name":"Iron hammer","stackable":false,"value":54},"367":{"id":367,"name":"Steel hammer","stackable":false,"value":346},"368":{"id":368,"name":"Cobalt hammer","stackable":false,"value":1435},"369":{"id":369,"name":"Meteoric hammer","stackable":false,"value":3461},"370":{"id":370,"name":"Bronze knife","stackable":false,"value":17},"371":{"id":371,"name":"Iron knife","stackable":false,"value":32},"372":{"id":372,"name":"Steel knife","stackable":false,"value":190},"373":{"id":373,"name":"Cobalt knife","stackable":false,"value":775},"374":{"id":374,"name":"Meteoric knife","stackable":false,"value":1934},"375":{"id":375,"name":"Bronze needle","stackable":false,"value":17},"376":{"id":376,"name":"Iron needle","stackable":false,"value":32},"377":{"id":377,"name":"Steel needle","stackable":false,"value":190},"378":{"id":378,"name":"Cobalt needle","stackable":false,"value":775},"379":{"id":379,"name":"Meteoric needle","stackable":false,"value":1934},"380":{"id":380,"name":"Bronze mortar","stackable":false,"value":29},"381":{"id":381,"name":"Iron mortar","stackable":false,"value":54},"382":{"id":382,"name":"Steel mortar","stackable":false,"value":346},"383":{"id":383,"name":"Cobalt mortar","stackable":false,"value":1435},"384":{"id":384,"name":"Meteoric mortar","stackable":false,"value":3461},"385":{"id":385,"name":"Bronze hoe","stackable":false,"value":23},"386":{"id":386,"name":"Iron hoe","stackable":false,"value":62},"387":{"id":387,"name":"Steel hoe","stackable":false,"value":280},"388":{"id":388,"name":"Cobalt hoe","stackable":false,"value":1255},"389":{"id":389,"name":"Meteoric hoe","stackable":false,"value":3134},"390":{"id":390,"name":"Bronze greatsword","stackable":false,"value":29},"391":{"id":391,"name":"Iron greatsword","stackable":false,"value":54},"392":{"id":392,"name":"Steel greatsword","stackable":false,"value":346},"393":{"id":393,"name":"Cobalt greatsword","stackable":false,"value":1435},"394":{"id":394,"name":"Meteoric greatsword","stackable":false,"value":3461},"395":{"id":395,"name":"Colossus greatsword","stackable":false,"value":12704}},"toolSkills":{"pickaxe":"mining","rod":"fishing","axe":"woodcutting","gloves":"thieving","pan":"cooking","hammer":"smithing","knife":"fletching","needle":"crafting","mortar":"herblore","hoe":"farming"},"rarityMultipliers":[1,1.3,1.6,2.2,3],"enhanceScale":0.06,"sites":[{"id":1,"x":187,"y":78,"kind":"rock","jobIds":[1]},{"id":2,"x":194,"y":91,"kind":"rock","jobIds":[2]},{"id":3,"x":200,"y":60,"kind":"rock","jobIds":[1]},{"id":4,"x":196,"y":62,"kind":"rock","jobIds":[1]},{"id":5,"x":200,"y":56,"kind":"rock","jobIds":[2]},{"id":6,"x":192,"y":63,"kind":"rock","jobIds":[2]},{"id":7,"x":196,"y":57,"kind":"rock","jobIds":[3]},{"id":8,"x":200,"y":52,"kind":"rock","jobIds":[3]},{"id":9,"x":204,"y":55,"kind":"rock","jobIds":[3]},{"id":10,"x":200,"y":45,"kind":"rock","jobIds":[4]},{"id":11,"x":196,"y":49,"kind":"rock","jobIds":[4]},{"id":12,"x":204,"y":49,"kind":"rock","jobIds":[4]},{"id":13,"x":198,"y":37,"kind":"rock","jobIds":[5]},{"id":14,"x":202,"y":40,"kind":"rock","jobIds":[5]},{"id":15,"x":197,"y":41,"kind":"rock","jobIds":[5]},{"id":16,"x":194,"y":37,"kind":"rock","jobIds":[6]},{"id":17,"x":190,"y":41,"kind":"rock","jobIds":[6]},{"id":18,"x":186,"y":45,"kind":"rock","jobIds":[6]},{"id":19,"x":190,"y":33,"kind":"rock","jobIds":[7]},{"id":20,"x":186,"y":37,"kind":"rock","jobIds":[7]},{"id":21,"x":182,"y":41,"kind":"rock","jobIds":[7]},{"id":22,"x":181,"y":35,"kind":"rock","jobIds":[8]},{"id":23,"x":177,"y":39,"kind":"rock","jobIds":[8]},{"id":24,"x":185,"y":33,"kind":"rock","jobIds":[8]},{"id":25,"x":214,"y":83,"kind":"fishing","jobIds":[21]},{"id":26,"x":216,"y":79,"kind":"fishing","jobIds":[21]},{"id":27,"x":214,"y":89,"kind":"fishing","jobIds":[22]},{"id":28,"x":208,"y":65,"kind":"fishing","jobIds":[22]},{"id":29,"x":218,"y":75,"kind":"fishing","jobIds":[23]},{"id":30,"x":205,"y":60,"kind":"fishing","jobIds":[23]},{"id":31,"x":212,"y":67,"kind":"fishing","jobIds":[24]},{"id":32,"x":217,"y":93,"kind":"fishing","jobIds":[24]},{"id":33,"x":216,"y":69,"kind":"fishing","jobIds":[25]},{"id":34,"x":230,"y":82,"kind":"fishing","jobIds":[25]},{"id":35,"x":220,"y":71,"kind":"fishing","jobIds":[26]},{"id":36,"x":205,"y":54,"kind":"fishing","jobIds":[26]},{"id":37,"x":168,"y":80,"kind":"fishing","jobIds":[27]},{"id":38,"x":171,"y":87,"kind":"fishing","jobIds":[27]},{"id":39,"x":221,"y":95,"kind":"fishing","jobIds":[28]},{"id":40,"x":173,"y":91,"kind":"fishing","jobIds":[28]},{"id":42,"x":197,"y":85,"kind":"furnace","jobIds":[41,42,43,44,45]},{"id":43,"x":204,"y":86,"kind":"anvil","jobIds":[51,52,53,54,55,56,57,58,59,60,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,46,47,48,49,50,110,111,112,113,114,338,339,340,341,342,343,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,301,302,303,304,305,140,141,142,143,144,145,146,147,148,149,150,151,200,201,202,203,204,205,230,231,232,233,307,234,235,236,306,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,289,290,291,292,293,294,248,249,250,251,252,253,254,255,256,257,258,259,295,296,297,275,276,277,278,280,281,282,283,284,298,299,285,286,287,288,300,279]},{"id":44,"x":202,"y":83,"kind":"fire","jobIds":[61,62,63,64,65,66,67,68,220,225,226,227,221,222,223,224]},{"id":46,"x":113,"y":177,"kind":"furnace","jobIds":[41,42,43,44,45]},{"id":47,"x":113,"y":180,"kind":"anvil","jobIds":[51,52,53,54,55,56,57,58,59,60,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,46,47,48,49,50,110,111,112,113,114,338,339,340,341,342,343,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,301,302,303,304,305,140,141,142,143,144,145,146,147,148,149,150,151,200,201,202,203,204,205,230,231,232,233,307,234,235,236,306,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,289,290,291,292,293,294,248,249,250,251,252,253,254,255,256,257,258,259,295,296,297,275,276,277,278,280,281,282,283,284,298,299,285,286,287,288,300,279]},{"id":48,"x":110,"y":179,"kind":"fire","jobIds":[61,62,63,64,65,66,67,68,220,225,226,227,221,222,223,224]},{"id":56,"x":172,"y":39,"kind":"tree","jobIds":[30]},{"id":57,"x":167,"y":43,"kind":"tree","jobIds":[30]},{"id":58,"x":174,"y":34,"kind":"tree","jobIds":[30]},{"id":59,"x":174,"y":29,"kind":"tree","jobIds":[31]},{"id":60,"x":169,"y":34,"kind":"tree","jobIds":[31]},{"id":61,"x":162,"y":41,"kind":"tree","jobIds":[31]},{"id":62,"x":171,"y":23,"kind":"tree","jobIds":[32]},{"id":63,"x":166,"y":28,"kind":"tree","jobIds":[32]},{"id":64,"x":161,"y":33,"kind":"tree","jobIds":[32]},{"id":65,"x":168,"y":18,"kind":"tree","jobIds":[33]},{"id":66,"x":163,"y":23,"kind":"tree","jobIds":[33]},{"id":67,"x":158,"y":28,"kind":"tree","jobIds":[33]},{"id":68,"x":161,"y":16,"kind":"tree","jobIds":[34]},{"id":69,"x":156,"y":21,"kind":"tree","jobIds":[34]},{"id":70,"x":151,"y":26,"kind":"tree","jobIds":[34]},{"id":71,"x":151,"y":18,"kind":"tree","jobIds":[35]},{"id":72,"x":146,"y":25,"kind":"tree","jobIds":[35]},{"id":73,"x":156,"y":16,"kind":"tree","jobIds":[35]},{"id":74,"x":207,"y":93,"kind":"field","jobIds":[160,161,162,163,164,165,210,211,212]},{"id":75,"x":209,"y":93,"kind":"field","jobIds":[160,161,162,163,164,165,210,211,212]},{"id":76,"x":211,"y":93,"kind":"field","jobIds":[160,161,162,163,164,165,210,211,212]},{"id":77,"x":207,"y":97,"kind":"field","jobIds":[160,161,162,163,164,165,210,211,212]},{"id":78,"x":209,"y":97,"kind":"field","jobIds":[160,161,162,163,164,165,210,211,212]},{"id":79,"x":211,"y":97,"kind":"field","jobIds":[160,161,162,163,164,165,210,211,212]},{"id":80,"x":196,"y":77,"kind":"stall","jobIds":[240]},{"id":81,"x":198,"y":77,"kind":"stall","jobIds":[241]},{"id":82,"x":200,"y":77,"kind":"stall","jobIds":[242]},{"id":83,"x":202,"y":77,"kind":"stall","jobIds":[243]},{"id":84,"x":115,"y":179,"kind":"stall","jobIds":[240]},{"id":85,"x":115,"y":181,"kind":"stall","jobIds":[241]},{"id":86,"x":112,"y":182,"kind":"stall","jobIds":[242]},{"id":87,"x":116,"y":171,"kind":"stall","jobIds":[243]},{"id":359,"x":199,"y":86,"kind":"stall","jobIds":[244]},{"id":360,"x":195,"y":83,"kind":"stall","jobIds":[245]},{"id":361,"x":201,"y":87,"kind":"stall","jobIds":[246]},{"id":362,"x":195,"y":88,"kind":"stall","jobIds":[247]},{"id":363,"x":104,"y":180,"kind":"stall","jobIds":[244]},{"id":364,"x":114,"y":170,"kind":"stall","jobIds":[245]},{"id":365,"x":117,"y":173,"kind":"stall","jobIds":[246]},{"id":366,"x":117,"y":181,"kind":"stall","jobIds":[247]}],"banks":[{"id":1,"x":200,"y":82,"approach":{"x":200,"y":83}},{"id":2,"x":110,"y":177,"approach":{"x":110,"y":178}}],"zones":[{"id":1,"name":"The Warrens","monsterId":1,"population":10,"x":191,"y":133,"width":12,"height":12},{"id":2,"name":"Mirefen","monsterId":2,"population":10,"x":204,"y":147,"width":12,"height":12},{"id":3,"name":"Dust Hollow","monsterId":3,"population":10,"x":242,"y":58,"width":12,"height":12},{"id":4,"name":"The Cairns","monsterId":4,"population":12,"x":128,"y":185,"width":13,"height":13},{"id":5,"name":"Frostmarch","monsterId":5,"population":10,"x":224,"y":167,"width":12,"height":12},{"id":6,"name":"Cinder Reach","monsterId":6,"population":12,"x":80,"y":22,"width":13,"height":13},{"id":7,"name":"The Deep","monsterId":7,"population":10,"x":67,"y":9,"width":12,"height":12},{"id":8,"name":"Sunscar Dunes","monsterId":8,"population":10,"x":175,"y":209,"width":11,"height":11},{"id":9,"name":"The Glass Flats","monsterId":9,"population":12,"x":92,"y":51,"width":12,"height":12},{"id":10,"name":"Frostwild Hollow","monsterId":10,"population":12,"x":12,"y":128,"width":12,"height":12},{"id":11,"name":"Rimeholt","monsterId":11,"population":12,"x":14,"y":100,"width":12,"height":12},{"id":12,"name":"Ashfall","monsterId":12,"population":12,"x":61,"y":38,"width":12,"height":12},{"id":13,"name":"The Cinder Throne","monsterId":13,"population":12,"x":47,"y":23,"width":12,"height":12},{"id":14,"name":"The Scree","monsterId":14,"population":12,"x":229,"y":104,"width":12,"height":12},{"id":15,"name":"Sallow Reach","monsterId":15,"population":14,"x":148,"y":185,"width":13,"height":13},{"id":16,"name":"The Boneyard","monsterId":16,"population":10,"x":49,"y":160,"width":11,"height":11},{"id":17,"name":"Sunken Row","monsterId":17,"population":12,"x":168,"y":174,"width":12,"height":12},{"id":18,"name":"Gritmaw","monsterId":18,"population":14,"x":64,"y":198,"width":13,"height":13},{"id":19,"name":"Hollowbarrow","monsterId":19,"population":12,"x":81,"y":106,"width":12,"height":12},{"id":20,"name":"The Chalk Steps","monsterId":20,"population":14,"x":214,"y":11,"width":13,"height":13}],"monsters":[{"id":1,"name":"Gnawer","level":2,"hp":8,"maxHit":1,"attack":1,"defence":1,"speed":4,"xp":8,"gold":[1,2],"bonus":{"itemId":201,"chance":0.0004},"drop":240},{"id":2,"name":"Bogling","level":8,"hp":18,"maxHit":3,"attack":8,"defence":6,"speed":4,"xp":22,"gold":[2,4],"bonus":{"itemId":202,"chance":0.0006},"drop":241},{"id":3,"name":"Husk","level":20,"hp":40,"maxHit":6,"attack":20,"defence":18,"speed":4,"xp":60,"gold":[17,32],"bonus":{"itemId":203,"chance":0.0008},"drop":242},{"id":4,"name":"Cairn wight","level":40,"hp":75,"maxHit":10,"attack":40,"defence":38,"speed":4,"xp":165,"gold":[117,217],"bonus":{"itemId":204,"chance":0.001},"drop":243},{"id":5,"name":"Rimewolf","level":60,"hp":120,"maxHit":15,"attack":62,"defence":58,"speed":4,"xp":380,"gold":[369,685],"bonus":{"itemId":205,"chance":0.0014},"drop":245},{"id":6,"name":"Emberkin","level":80,"hp":180,"maxHit":22,"attack":85,"defence":80,"speed":5,"xp":780,"gold":[837,1554],"bonus":{"itemId":206,"chance":0.002},"drop":247},{"id":7,"name":"Deep horror","level":95,"hp":260,"maxHit":30,"attack":100,"defence":96,"speed":5,"xp":1500,"gold":[1365,2535],"bonus":{"itemId":207,"chance":0.003},"drop":249},{"id":8,"name":"Sand wraith","level":50,"hp":95,"maxHit":12,"attack":50,"defence":48,"speed":4,"xp":250,"gold":[220,409],"bonus":{"itemId":213,"chance":0.0012},"drop":244},{"id":9,"name":"Dune stalker","level":70,"hp":150,"maxHit":18,"attack":72,"defence":68,"speed":4,"xp":550,"gold":[572,1063],"bonus":{"itemId":214,"chance":0.0016},"drop":246},{"id":10,"name":"Frost troll","level":85,"hp":210,"maxHit":25,"attack":90,"defence":84,"speed":5,"xp":1000,"gold":[994,1847],"bonus":{"itemId":215,"chance":0.0022},"drop":248},{"id":11,"name":"Ice wight","level":105,"hp":300,"maxHit":34,"attack":112,"defence":106,"speed":5,"xp":2000,"gold":[1815,3371],"bonus":{"itemId":216,"chance":0.003},"drop":250},{"id":12,"name":"Ash drake","level":120,"hp":360,"maxHit":40,"attack":128,"defence":120,"speed":5,"xp":2800,"gold":[2655,4932],"bonus":{"itemId":217,"chance":0.0035},"drop":251},{"id":13,"name":"Cinder colossus","level":140,"hp":440,"maxHit":48,"attack":150,"defence":140,"speed":6,"xp":4000,"gold":[4120,7651],"bonus":{"itemId":218,"chance":0.004},"drop":252},{"id":14,"name":"Rock mite","level":3,"hp":10,"maxHit":1,"attack":3,"defence":2,"speed":4,"xp":11,"gold":[1,2],"bonus":{"itemId":201,"chance":0.0004},"drop":240},{"id":15,"name":"Fen lurker","level":5,"hp":13,"maxHit":2,"attack":5,"defence":4,"speed":4,"xp":15,"gold":[1,2],"bonus":{"itemId":201,"chance":0.0005},"drop":240},{"id":16,"name":"Grave beetle","level":12,"hp":26,"maxHit":4,"attack":12,"defence":10,"speed":4,"xp":34,"gold":[4,9],"bonus":{"itemId":202,"chance":0.0006},"drop":241},{"id":17,"name":"Sump crawler","level":16,"hp":33,"maxHit":5,"attack":16,"defence":14,"speed":4,"xp":46,"gold":[9,18],"bonus":{"itemId":202,"chance":0.0007},"drop":241},{"id":18,"name":"Stone eater","level":22,"hp":44,"maxHit":6,"attack":22,"defence":20,"speed":4,"xp":70,"gold":[22,41],"bonus":{"itemId":203,"chance":0.0008},"drop":242},{"id":19,"name":"Barrow hound","level":26,"hp":51,"maxHit":7,"attack":26,"defence":24,"speed":4,"xp":91,"gold":[35,65],"bonus":{"itemId":203,"chance":0.0009},"drop":242},{"id":20,"name":"Chalk wight","level":32,"hp":61,"maxHit":8,"attack":32,"defence":30,"speed":4,"xp":122,"gold":[62,116],"bonus":{"itemId":203,"chance":0.001},"drop":242}],"farmUnlocks":[1,1,15,30,45,60],"farmWaterTrim":20,"plusScale":10000,"rarityScale":1000,"rarityXp":[1,1.5,3,8,25],"rarityChance":{"legendary":0.000006666666666666667,"epic":0.000125,"rare":0.0025,"uncommon":0.025},"toolLuck":[0,0.25,0.75,2,5],"enhanceGold":[100,300,1000,3000,8000,20000],"enhanceThresholds":[15,30,50,75,90],"enhanceShards":3,"shardId":208,"coinId":200,"formulaBaseline":"index-BH7O_PDX.js","foodHealingMultipliers":[1,1.2,1.5,2,3]};
 /* Acorn
@@ -6715,6 +6715,8 @@ function createStrategy(data, planner) {
       // merchant-only seeds never receive an invented acquisition time.
       const crop=jobs.find(j=>j.output.itemId===id&&j.grow&&j.levelReq<=lv.farming);
       if (crop) {
+        const preference=planner.farmingPreference?.();
+        if(preference?.mode==='manual'&&preference.jobId!==crop.id)return false;
         const planted=Object.values(p.plots??{}).some(f=>planner.base(f.seedItemId)===crop.inputs[0].itemId);
         const seeds=Object.keys(stock).some(k=>planner.base(Number(k))===crop.inputs[0].itemId&&stock[k]>0);
         if (!planted&&!seeds&&!supply(crop.inputs[0].itemId,1,next)) return false;
@@ -7357,11 +7359,11 @@ const MAIN_TRADES={auto:'自动选择（按收益）',mining:'采矿',fishing:'�
 // Compare renewable production, not a one-time warehouse liquidation. Market
 // proceeds are a finite-batch forecast; only marketFilled records actual income.
 function createSpecialization(data,planner) {
-  let owner=null,profession=null,selection='auto',focus=null,pausedUntil={};
+  let owner=null,profession=null,selection='auto',selectedJob=null,selectedMonster=null,focus=null,pausedUntil={};
   const seconds=p=>p.lastTick*data.tickMs/1000;
-  function select(p,style,requested='auto') {
-    if(owner===p.id&&profession===style&&selection===requested)return;
-    owner=p.id;profession=style;selection=requested;focus=null;pausedUntil={};
+  function select(p,style,requested='auto',jobId=null,monsterId=null) {
+    if(owner===p.id&&profession===style&&selection===requested&&selectedJob===jobId&&selectedMonster===monsterId)return;
+    owner=p.id;profession=style;selection=requested;selectedJob=jobId;selectedMonster=monsterId;focus=null;pausedUntil={};
   }
   function incomeChoices(p,candidates,style) {
     const choices=[];
@@ -7453,9 +7455,39 @@ function createSpecialization(data,planner) {
       startedXp:p.skills[best.skill],startedTick:p.lastTick,
       skipUpgrade:temporary||now-focus.progressAt>=600,batch,reason};
   }
-  function chooseGoal(p,served={},deferred={},style='magic',requested='auto') {
+  function fixedGoal(p,deferred,style,requested,job) {
+    const skill=job.skill,lv=planner.levels(p),now=seconds(p);
+    if(!focus)focus={skill,since:now,progressAt:now,xp:p.skills[skill]};
+    if(p.skills[skill]>focus.xp){focus.xp=p.skills[skill];focus.progressAt=now;}
+    const reason=`固定工作 · ${MAIN_TRADES[requested]}：${job.name}；准备所需装备与材料后返回此工作，不自动更换配方`;
+    Object.assign(focus,{recipeId:job.id,reason});
+    planner.watchMarket?.(p,[job.output.itemId],job.output.itemId);
+    if(deferred[skill])return null;
+    const batch=50,estimate=planner.routeEstimate(p,job,batch,{style});
+    const target=Math.min(planner.thresholds.length-1,lv[skill]+1);
+    const budget={coins:estimate.budget.coins,items:{...estimate.budget.items}};
+    for(const input of job.inputs)budget.items[input.itemId]=Math.max(budget.items[input.itemId]??0,input.qty*batch);
+    return {skill,recipeId:job.id,fixedRecipeId:job.id,recipes:{...estimate.recipes,[skill]:job.id},
+      supplyRecipes:estimate.supplyRecipes,output:{...job.output},estimate,rate:estimate.rate,
+      budget,target,stage:target,specialization:true,manualTrade:requested,mainSkill:skill,
+      growth:false,startedXp:p.skills[skill],startedTick:p.lastTick,skipUpgrade:now-focus.progressAt>=600,batch,reason};
+  }
+  function chooseGoal(p,served={},deferred={},style='magic',requested='auto',jobId=null,monsterId=null) {
     if(!Object.hasOwn(MAIN_TRADES,requested))requested='auto';
-    select(p,style,requested);
+    const fixed=data.jobs.find(j=>j.id===jobId&&j.skill===requested&&!j.grow);
+    const monster=requested==='combat'&&data.monsters.find(m=>m.id===monsterId);
+    select(p,style,requested,fixed?.id??null,monster?.id??null);
+    if(fixed)return fixedGoal(p,deferred,style,requested,fixed);
+    if(monster) {
+      const skill=professionSkill(style),target=Math.min(planner.thresholds.length-1,planner.level(p.skills[skill])+1);
+      const reason=`固定怪物：${monster.name}；检查安全、武器与食物，准备完成后返回此目标，不自动更换怪物`;
+      focus??={skill,since:seconds(p)};Object.assign(focus,{target,monsterId:monster.id,reason});
+      planner.watchMarket?.(p,[]);
+      if(deferred[skill])return null;
+      return {skill,monsterId:monster.id,fixedMonsterId:monster.id,target,stage:target,
+        specialization:true,manualTrade:requested,mainSkill:skill,growth:false,horizon:1800,
+        budget:{coins:0,items:{}},startedXp:p.skills[skill],startedTick:p.lastTick,reason};
+    }
     if(requested!=='auto')return manualGoal(p,served,deferred,style,requested);
     const now=seconds(p),lv=planner.levels(p);
     if(focus&&p.skills[focus.skill]>focus.xp) {
@@ -7500,9 +7532,15 @@ function createSpecialization(data,planner) {
       startedXp:p.skills[best.skill],startedTick:p.lastTick,
       skipUpgrade:now-focus.progressAt>=600,batch:50,reason};
   }
-  function status(p,style='magic',requested='auto') {
+  function status(p,style='magic',requested='auto',jobId=null,monsterId=null) {
     if(!Object.hasOwn(MAIN_TRADES,requested))requested='auto';
-    select(p,style,requested);
+    const fixed=data.jobs.find(j=>j.id===jobId&&j.skill===requested&&!j.grow);
+    const monster=requested==='combat'&&data.monsters.find(m=>m.id===monsterId);
+    select(p,style,requested,fixed?.id??null,monster?.id??null);
+    if(fixed)return {skill:fixed.skill,requested,fixedRecipeId:fixed.id,recipeId:fixed.id,
+      reason:focus?.reason??`已固定工作：${fixed.name}，开始后准备此工作所需装备和材料`};
+    if(monster)return {skill:professionSkill(style),requested,fixedMonsterId:monster.id,monsterId:monster.id,
+      reason:focus?.reason??`已固定怪物：${monster.name}，开始后检查安全、武器与食物`};
     return focus?{skill:focus.skill,target:focus.target,since:focus.since,rate:focus.rate,reason:focus.reason,requested}:
       requested!=='auto'?{skill:requested==='combat'?professionSkill(style):requested,requested,reason:'已指定主业，开始后规划供料和练级'}:null;
   }
@@ -7691,6 +7729,28 @@ function createPlanner(data) {
     });
   }
   const hasSeed = (p,job) => held(p).some(id=>base(id)===job.inputs[0].itemId&&count(p,id)>0);
+  const seedCount = (p,job) => held(p).filter(id=>base(id)===job.inputs[0].itemId).reduce((n,id)=>n+count(p,id),0)+
+    Object.entries(p.overflow??{}).filter(([id])=>base(+id)===job.inputs[0].itemId).reduce((n,[,qty])=>n+qty,0);
+  let farmingChoice={mode:'auto',jobId:null};
+  const farmingPreference=()=>({...farmingChoice});
+  function setFarmingPreference(value) {
+    const mode=value?.mode==='manual'?'manual':'auto';
+    const jobId=jobs.find(j=>j.grow&&j.id===value?.jobId)?.id??null;
+    if(mode!==farmingChoice.mode||jobId!==farmingChoice.jobId) {
+      farmSearch=null;farmRetryAt=0;farmDelayReason=null;farmTarget=null;farmTargetReason=null;farmQuote=null;
+    }
+    farmingChoice={mode,jobId};
+    return farmingPreference();
+  }
+  const manualFarmJob=()=>farmingChoice.mode==='manual'?jobs.find(j=>j.grow&&j.id===farmingChoice.jobId):null;
+  const allowedCrop=job=>farmingChoice.mode!=='manual'||job.id===farmingChoice.jobId;
+  function manualFarmReason(p) {
+    if(farmingChoice.mode!=='manual')return null;
+    const job=manualFarmJob();
+    if(!job)return '手动农业尚未选择有效作物，先继续其他任务';
+    if(level(p.skills.farming)<job.levelReq)return `手动选择 ${job.name} 需要农业 ${job.levelReq} 级（当前 ${level(p.skills.farming)}），先继续其他任务`;
+    return null;
+  }
   function waitForFarmBatch(p) {
     const growing=farmPlots(p).filter(f=>f.readyAt>p.lastTick);
     if (!growing.length) return null;
@@ -7702,38 +7762,53 @@ function createPlanner(data) {
     {t:'setRoute',siteId:site.id,jobId:job.id,onFull:'bank',limit:0,errand:true},
     `收获并补种 · ${job.name}`,'播种／收获后继续主任务，生长期间练其他技能'),farmJobId:job.id});
   function harvestOnly(p) {
+    farmState(p);
+    farmDelayReason=manualFarmReason(p);
+    if(farmDelayReason)return null;
     if(p.route?.errand||p.enhance||p.held||!p.route&&(p.path?.length||p.activity==='walking'))return null;
     const plots=farmPlots(p);
     if(plots.some(f=>f.readyAt>p.lastTick))return null;
-    const eligible=jobs.filter(j=>j.grow&&level(p.skills.farming)>=j.levelReq&&
-      (hasSeed(p,j)||plots.some(f=>f.job.id===j.id))).sort((a,b)=>b.xp/b.grow-a.xp/a.grow);
+    const eligible=jobs.filter(j=>j.grow&&allowedCrop(j)&&level(p.skills.farming)>=j.levelReq&&
+      (hasSeed(p,j)||plots.some(f=>f.job.id===j.id)||farmingChoice.mode==='manual'&&plots.length)).sort((a,b)=>b.xp/b.grow-a.xp/a.grow);
     const job=eligible[0];
-    if(!job)return null;
+    if(!job) {
+      if(farmingChoice.mode==='manual')farmDelayReason=`缺少所选 ${manualFarmJob().name} 种子；辅助模式不采购或采种，继续原任务`;
+      return null;
+    }
     const site=plots.find(f=>f.job.id===job.id)?.site??plots[0]?.site??farmFields(p).find(s=>!p.plots?.[s.id]);
     if(!site)return null;
     // The native unlimited errand banks the harvest and restores route.after;
     // a finite harvest limit would stop before restoring the saved route.
     return {...farmErrand(p,job,site),reason:'整批收获并用已有种子补种；由游戏保留原任务剩余数量，完成后继续玩家队列'};
   }
-  let farmSearch=null,farmPlayerId=null,farmRetryAt=0,farmDelayReason=null;
+  let farmSearch=null,farmPlayerId=null,farmRetryAt=0,farmDelayReason=null,farmTarget=null,farmTargetReason=null,farmQuote=null;
   function farmState(p) {
     if (farmPlayerId===p.id) return;
-    farmPlayerId=p.id;farmSearch=null;farmRetryAt=0;farmDelayReason=null;
+    farmPlayerId=p.id;farmSearch=null;farmRetryAt=0;farmDelayReason=null;farmTarget=null;farmTargetReason=null;farmQuote=null;
   }
   function harvest(p,preferredJobId,goal=null,style='magic',completedLoad=false) {
     farmState(p);
-    farmDelayReason=null;
+    farmDelayReason=manualFarmReason(p);
+    if(farmDelayReason)return null;
     if (p.route?.errand) return null;
     const plots=farmPlots(p), ready=plots.filter(f=>f.readyAt<=p.lastTick)
       .sort((a,b)=>a.readyAt-b.readyAt);
     const fields=farmFields(p),empty=fields.filter(s=>!p.plots?.[s.id]);
-    const eligible=jobs.filter(j=>j.grow&&level(p.skills.farming)>=j.levelReq);
+    const eligible=jobs.filter(j=>j.grow&&allowedCrop(j)&&level(p.skills.farming)>=j.levelReq);
     const demanded=j=>(goal?.budget?.items?.[j.output.itemId]??0)>count(p,j.output.itemId);
-    const available=j=>hasSeed(p,j)||ready.some(f=>f.job.id===j.id);
     const rank=(a,b)=>Number(demanded(b))-Number(demanded(a))||b.xp/b.grow-a.xp/a.grow||
       Number(b.id===preferredJobId)-Number(a.id===preferredJobId);
-    const crops=eligible.filter(available).sort(rank);
-    const selected=crops[0];
+    const crops=eligible.sort(rank);
+    // Native errands harvest every ripe plot, then sow only the route's crop.
+    // A selected crop without seeds can therefore collect the old batch safely.
+    const selected=crops[0]??manualFarmJob();
+    farmTarget=selected;
+    if(!selected)return null;
+    farmTargetReason=demanded(selected)?`补充当前计划所需原料 ${name(selected.output.itemId)}`:'按已解锁作物的农业经验收益选择';
+    const seedSlots=empty.length+ready.filter(f=>f.job.id!==selected.id).length;
+    const seedNeed=Math.max(0,(seedSlots||(!empty.length&&!ready.length?plots.filter(f=>f.job.id!==selected.id).length:0))*
+      selected.inputs[0].qty-seedCount(p,selected));
+    if(farmQuote&&(farmQuote.jobId!==selected.id||!seedNeed))farmQuote=null;
     const urgentHarvest=ready.some(f=>demanded(f.job));
     const farmingRequired=level(p.skills.farming)<(goal?.farmingTarget??0);
     const naturalBreak=completedLoad||!p.route||p.route.phase==='toBank';
@@ -7750,18 +7825,15 @@ function createPlanner(data) {
       foregroundRate=current?current.xp/current.seconds:Math.max(0,...jobs.filter(j=>!j.grow&&!j.inputs.length&&
         level(p.skills[j.skill])>=j.levelReq).map(j=>{const e=strategy.estimateWork(p,j);return e.xp/e.seconds;}));
     }
-    if (farmSearch&&hasSeed(p,farmSearch.job)) farmSearch=null;
+    if (farmSearch&&(farmSearch.job.id!==selected.id||!seedNeed)) farmSearch=null;
     if (farmSearch&&p.lastTick-farmSearch.started>farmSearch.maxTicks) {
-      farmRetryAt=p.lastTick+Math.min(farmSearch.job.grow,600000/data.tickMs);farmSearch=null;
+      farmRetryAt=p.lastTick+Math.min(farmSearch.job.grow,600000/data.tickMs);farmSearch=null;farmQuote=null;
     }
     if(!completedLoad&&!urgentHarvest&&finishTaskReason(data,p))
       return deferFarm('先完成当前采集背包或制作批次，再合并收菜、补种及采种准备');
-    // Recycled seeds only sustain existing plots. Fill empty fields with owned
-    // seeds before investing in another crop; expansion needs independent seeds.
-    // Filling spare land must not add a slower, unrelated crop to a harvest
-    // batch that the foreground recipe is already waiting for.
-    const neededGrowth=Math.min(Infinity,...plots.filter(f=>f.readyAt>p.lastTick&&demanded(f.job)).map(f=>f.job.grow));
-    const owned=eligible.filter(j=>hasSeed(p,j)&&(demanded(j)||j.grow<=neededGrowth)).sort(rank);
+    // Reserve enough independent seeds for this whole planting/replacement
+    // batch; mature plots of the chosen crop return their own seed.
+    const owned=eligible.filter(j=>j.id===selected.id&&hasSeed(p,j)&&!seedNeed);
     // Native sowing errands also collect ripe fields, so a partial harvest
     // must wait. With no ripe fields, spare seeds can fill empty land without
     // touching the crops that are still growing.
@@ -7771,7 +7843,7 @@ function createPlanner(data) {
         return deferFarm('已有种子，等当前任务结束或返仓时合并收菜、补种');
       return farmErrand(p,owned[0],empty[0]);
     }
-    if (ready.length) {
+    if (ready.length&&(urgentHarvest||farmingChoice.mode==='manual'||!seedNeed)) {
       const expand=empty.length&&hasSeed(p,selected);
       const errand=farmErrand(p,selected,expand?empty[0]:ready[0].site);
       const collected=ready;
@@ -7812,31 +7884,38 @@ function createPlanner(data) {
         if (!naturalBreak) return null;
       } else return {...errand,reason:`合批收获 ${collected.length} 块；预计往返及农活约 ${Math.ceil(trip)} 秒，完成后继续主任务`};
     }
-    const sage=eligible.find(j=>j.inputs[0].itemId===190&&(demanded(j)||j.grow<=neededGrowth));
+    const catchUp=goal&&data.skills.includes(goal.skill)&&(goal.growth||goal.quest)&&level(p.skills[goal.skill])<level(p.skills.farming);
+    if(seedNeed&&farmingChoice.mode==='auto'&&catchUp&&!empty.length&&ready.length<plots.length&&!demanded(selected))
+      return deferFarm('作物仍在生长，先推进当前主任务及其原料需求；整批成熟后再准备作物升级');
+    const sage=selected.inputs[0].itemId===190?selected:null;
     const seedPrice=data.items[190].value*4;
-    const seedStock=held(p).filter(id=>base(id)===190).reduce((n,id)=>n+count(p,id),0);
-    const seedQty=Math.min(Math.max(0,empty.length-seedStock),Math.floor((p.coins-Math.max(0,goal?.budget?.coins??0))/seedPrice));
-    if(empty.length&&!owned.length&&naturalBreak&&sage&&seedQty>0) {
+    const seedQty=Math.min(seedNeed,Math.floor((p.coins-Math.max(0,goal?.budget?.coins??0))/seedPrice));
+    if(naturalBreak&&sage&&seedQty>0) {
       if(nearBank(p)&&(p.route||p.path?.length))return {
-        ...action({t:'clearRoute'},'补空田种子前停止旧路线','在已完成背包的边界确认停下，再按空田缺口补种子'),farmJobId:sage.id};
-      return {...bankAction(p,{t:'vendorBuy',itemId:190,qty:seedQty},`为空田补 ${seedQty} 颗鼠尾草种子`),
-        farmJobId:sage.id,reason:`${empty.length} 块空田缺备用种子；保留当前计划金币，按商人单价 ${seedPrice} 购买 ${seedQty} 颗，已有种子优先使用`};
+        ...action({t:'clearRoute'},'补种子前停止旧路线','在已完成背包的边界确认停下，再按整批缺口补种子'),farmJobId:sage.id};
+      return {...bankAction(p,{t:'vendorBuy',itemId:190,qty:seedQty},`补 ${seedQty} 颗鼠尾草种子`),
+        farmJobId:sage.id,reason:`本批尚缺 ${seedNeed} 颗种子；保留当前计划金币，按商人单价 ${seedPrice} 购买 ${seedQty} 颗`};
+    }
+    if(seedNeed&&naturalBreak&&p.lastTick>=farmRetryAt) {
+      const purchase=api.marketPurchase?.(p,selected.inputs[0].itemId,seedNeed,
+        {...goal,rate:{...goal?.rate,xp:foregroundRate}},style);
+      if(purchase?.marketWaiting) {
+        farmQuote??={jobId:selected.id,started:p.lastTick};
+        farmDelayReason=`${selected.name} 本批尚缺 ${seedNeed} 颗种子；市场比价最多等待 4 秒，然后继续采种或主任务`;
+        if((p.lastTick-farmQuote.started)*data.tickMs<4000)return {...purchase,farmJobId:selected.id,reason:farmDelayReason};
+      } else if(purchase?.intent)return {...purchase,farmJobId:selected.id};
     }
     if (p.lastTick>=farmRetryAt) {
       // These bounded investments deliberately make long-term farm progress
       // even when a short foreground XP window would always reject them.
       const unlocked=j=>level(p.skills[j.skill])>=j.levelReq;
       const seedTime=j=>strategy.estimateWork(p,j).seconds/j.bonus.chance;
-      // Crop upgrades must not keep a lower-stage foreground skill waiting for
-      // unrelated woodcutting/tool unlocks. Needed ingredients still qualify.
-      const catchUp=goal&&data.skills.includes(goal.skill)&&(goal.growth||goal.quest)&&level(p.skills[goal.skill])<level(p.skills.farming);
-      const missing=eligible.filter(j=>(!catchUp||empty.length||demanded(j))&&!hasSeed(p,j)&&
-        (empty.length||plots.some(f=>rank(j,f.job)<0))&&!owned.some(o=>rank(o,j)<=0))
+      const missing=eligible.filter(j=>j.id===selected.id&&seedNeed>0&&
+        (empty.length||plots.some(f=>f.job.id!==j.id)))
         .flatMap(job=>{
           const source=jobs.filter(j=>j.bonus?.itemId===job.inputs[0].itemId)
             .sort((a,b)=>Number(unlocked(b))-Number(unlocked(a))||a.levelReq-b.levelReq||seedTime(a)-seedTime(b))[0];
-          return source&&(!goal?.specialization||demanded(job)||
-            source.skill===goal.mainSkill&&unlocked(source))?[{job,source}]:[];
+          return source?[{job,source}]:[];
         }).sort((a,b)=>Number(unlocked(b.source))-Number(unlocked(a.source))||
           (empty.length?seedTime(a.source)-seedTime(b.source):
             unlocked(a.source)?rank(a.job,b.job):a.source.levelReq-b.source.levelReq||rank(a.job,b.job)));
@@ -7850,6 +7929,7 @@ function createPlanner(data) {
       }
       if (farmSearch) {
         const {job,source}=farmSearch;
+        farmSearch.needed=seedNeed;
         if (!unlocked(source)) {
           farmSearch.goal??={skill:source.skill,target:source.levelReq,horizon:600};
           const result=plan(p,farmSearch.goal,style);
@@ -7867,12 +7947,30 @@ function createPlanner(data) {
               if (improvement) return {...improvement,farmJobId:job.id,
                 reason:`准备采种工具 · ${NAMES[source.skill]}：${improvement.reason||improvement.label}`};
             }
-            if (p.route?.jobId===source.id) return {...wait(`继续自采 ${job.name} 种子，获得后补种／换种`),farmJobId:job.id};
+            if (p.route?.jobId===source.id) return {...wait(`继续自采 ${job.name} 种子，本批尚缺 ${seedNeed} 颗，备齐后补种／换种`),farmJobId:job.id};
             const departure=gatheringDeparture(p,source);
             if(departure)return {...departure,farmJobId:job.id};
             return {...action({t:'setRoute',jobId:source.id,siteId:site.id,onFull:'bank',limit:0,rarity:0},
               `为${expansion?'空田':'升级作物'}补种子 · ${job.name}`,`从 ${source.name} 自采；本轮最多 ${Math.ceil(farmSearch.maxTicks*data.tickMs/60000)} 分钟，超时先继续其他任务`),farmJobId:job.id};
           }
+        }
+      }
+    }
+    const missingSource=!jobs.some(j=>j.bonus?.itemId===selected.inputs[0].itemId);
+    if(seedNeed&&(missingSource||p.lastTick<farmRetryAt)) {
+      if(missingSource&&naturalBreak&&p.lastTick>=farmRetryAt) {
+        farmRetryAt=p.lastTick+Math.min(selected.grow,600000/data.tickMs);farmQuote=null;
+      }
+      farmDelayReason=`${selected.name} 本批尚缺 ${seedNeed} 颗种子；`+
+        (!missingSource?'本轮采种／解锁准备已达时间预算或暂不可行，先继续主任务，稍后重试':
+          sage?'保留当前计划金币，等待可负担的商人或市场采购':'市场暂未购得，未找到已核实的自采来源');
+      if(farmingChoice.mode==='auto'&&naturalBreak&&(empty.length||ready.length)) {
+        const neededGrowth=Math.min(Infinity,...plots.filter(f=>f.readyAt>p.lastTick&&demanded(f.job)).map(f=>f.job.grow));
+        const temporary=eligible.find(j=>(hasSeed(p,j)||ready.some(f=>f.job.id===j.id))&&
+          (demanded(j)||j.grow<=neededGrowth));
+        if(temporary) {
+          farmDelayReason+=`；临时种植 ${temporary.name}，继续补齐目标 ${selected.name} 种子`;
+          return {...farmErrand(p,temporary,empty[0]??ready[0].site),reason:farmDelayReason};
         }
       }
     }
@@ -7950,6 +8048,7 @@ function createPlanner(data) {
       const producers = made(id).filter(unlocked);
       if (producers.length) return Math.min(...producers.map(j => {
         if(j.grow) {
+          if(!allowedCrop(j)&&!farmPlots(p).some(f=>f.job.id===j.id))return Infinity;
           const seed=hasSeed(p,j)||Object.values(p.plots??{}).some(plot=>base(plot.seedItemId)===j.inputs[0].itemId);
           return (jobTime(j)+(seed?0:cost(j.inputs[0].itemId,[...trail,id])))/(4+lv.farming/100);
         }
@@ -7968,9 +8067,19 @@ function createPlanner(data) {
       if (!site) return blocked(`${job.name} 没有可用地点`);
       if (job.grow) {
         if (p.route?.errand) return wait('完成本次收获补种后返回原任务');
+        const manualReason=manualFarmReason(p);
+        if(manualReason)return blocked(manualReason);
+        const existing=farmPlots(p).some(f=>f.job.id===job.id);
+        if(!allowedCrop(job)&&!existing)
+          return blocked(`手动农业选择 ${manualFarmJob()?.name??'尚未设置'}，不会为 ${job.name} 改种；暂缓此目标，先继续其他任务`);
         const waitingBatch=waitForFarmBatch(p);
-        if (waitingBatch&&(hasSeed(p,job)||farmPlots(p).some(f=>f.job.id===job.id)))
+        if (waitingBatch&&(hasSeed(p,job)||existing))
           return {...waitingBatch,farmJobId:job.id};
+        if(farmingChoice.mode==='manual') {
+          if(!allowedCrop(job))return farmErrand(p,manualFarmJob(),farmPlots(p).find(f=>f.job.id===job.id).site);
+          const result=harvest(p,job.id,{...goal,rate:{xp:0}},profession);
+          return result??(waitingBatch?{...waitingBatch,farmJobId:job.id}:blocked(farmStatus(p).reason));
+        }
       } else if (p.route?.jobId===job.id && p.route.zoneId==null) return wait(`继续 ${job.name}`);
       if (!trail.length) {
         const improvement=upgrade(job.skill);
@@ -8003,10 +8112,12 @@ function createPlanner(data) {
     function train(skill,target,trail=[]) {
       if (atGoal(skill,target)&&!(goal.manualTrade&&!goal.quest&&skill===goal.mainSkill)) return wait(`${NAMES[skill]}已达到 ${target} 级`);
       if(skill==='farming')goal.farmingTarget=Math.max(goal.farmingTarget??0,target);
+      if(skill==='farming'&&manualFarmReason(p))return blocked(manualFarmReason(p));
       if (attacks.includes(skill)) return fight(skill);
       if (skill==='defence'||skill==='hitpoints') return fight(style);
       if (skill==='enhancing') return enhance();
       const prepareBatch=(goal.growth||goal.manualTrade)&&!goal.quest&&!goal.upgrade&&skill===goal.skill&&!trail.length;
+      const fixed=skill===goal.mainSkill&&!trail.length?goal.fixedRecipeId:null;
       const batchLimits=new Map();
       function trainingLimit(job) {
         if(!prepareBatch||job.grow)return 50;
@@ -8037,7 +8148,7 @@ function createPlanner(data) {
         }
         batchLimits.set(job.id,low);return low;
       }
-      const choices = jobs.filter(j=>j.skill===skill && unlocked(j) && siteFor(j)&&trainingLimit(j)>0);
+      const choices = jobs.filter(j=>j.skill===skill && (fixed==null||j.id===fixed) && (!j.grow||allowedCrop(j)) && unlocked(j) && siteFor(j)&&(fixed!=null||trainingLimit(j)>0));
       const neededXp = Math.max(1,thresholds[target]-p.skills[skill]);
       const score = j => {
         const e=jobEstimate(j),n = Math.min(20,Math.ceil(neededXp/(j.grow?j.xp:e.xp)));
@@ -8046,7 +8157,7 @@ function createPlanner(data) {
         return (j.grow?j.xp:e.xp)*n/((j.grow?jobTime(j):e.seconds)*n+ingredients+travel);
       };
       choices.sort((a,b)=>score(b)-score(a)||a.id-b.id);
-      if (!choices.length) return blocked(`${NAMES[skill]}没有已解锁任务`);
+      if (!choices.length) return blocked(fixed!=null?`固定工作 ${jobs.find(j=>j.id===fixed)?.name} 缺少可持续准备的材料，等待材料或采购条件`:`${NAMES[skill]}没有已解锁任务`);
       goal.recipes ??= {};
       goal.recipeLevels??={};
       const preparation=prepareBatch?goal.craftPreparation:null;
@@ -8074,7 +8185,7 @@ function createPlanner(data) {
           amount=Math.max(amount,useful);
         }
       }
-      if(prepareBatch)amount=Math.min(amount,trainingLimit(job));
+      if(prepareBatch)amount=Math.min(amount,Math.max(fixed!=null?1:0,trainingLimit(job)));
       const result=batch(job,amount,trail);
       if(prepareBatch&&job.inputs.length&&!job.grow) {
         // Once supply has started, new drops must not shrink the planned batch.
@@ -8250,6 +8361,11 @@ function createPlanner(data) {
         seconds:cost,payback,before,after,horizon};
     }
     function fight(style, requiredItem=null, prepareGear=true) {
+      const fixedMonster=requiredItem===null&&goal.fixedMonsterId!=null?monsters.find(m=>m.id===goal.fixedMonsterId):null;
+      if(requiredItem===null&&goal.fixedMonsterId!=null) {
+        if(!fixedMonster)return blocked('固定怪物已不在当前数据中，请重新选择');
+        if(!zones.some(z=>z.monsterId===fixedMonster.id))return blocked(`固定怪物 ${fixedMonster.name} 没有可用地点`);
+      }
       if (prepareGear) {
         const improvement=upgrade(style);
         if (improvement) return improvement;
@@ -8276,9 +8392,11 @@ function createPlanner(data) {
       const stat=key=>equipment.reduce((sum,g)=>sum+(key==='defence'||!g.style||g.style===style?1:-1)*(g[key]??0),0);
       const maxHp=lv.hitpoints;
       const safe = m => m.maxHit<maxHp/3 && maxHp/((10+m.attack)/(20+m.attack+lv.defence+stat('defence'))*(1+m.maxHit)/2)>=6;
+      if(fixedMonster&&!safe(fixedMonster))return blocked(`固定怪物 ${fixedMonster.name} 目前无法安全战斗；请检查生命、防御与装备，不自动更换怪物`);
       const safeMonsters=monsters.filter(safe);
       if (!safeMonsters.length) return blocked('当前生命／防御不足以稳定战斗，请先检查装备与生命值');
-      const choices=safeMonsters.filter(m=>requiredItem===null||requiredItem===data.shardId||m.drop===requiredItem).map(m=>{
+      const choices=safeMonsters.filter(m=>(!fixedMonster||m.id===fixedMonster.id)&&zones.some(z=>z.monsterId===m.id)&&
+        (requiredItem===null||requiredItem===data.shardId||m.drop===requiredItem)).map(m=>{
         const estimate=combatEstimate(data,m,{style,level:lv[style],accuracy:stat('accuracy'),
           strength:stat('strength'),defence:stat('defence'),defenceLevel:lv.defence,speed:w.speed??5,twoHanded:w.twoHanded});
         const zone=zones.find(z=>z.monsterId===m.id);
@@ -8299,7 +8417,8 @@ function createPlanner(data) {
       choices.sort((a,b)=>b.score-a.score||b.coinsPerMinute-a.coinsPerMinute);
       // Small estimate changes should not cause repeated travel between similar spots.
       const current=choices.find(c=>c.zone.id===p.route?.zoneId);
-      const planned=requiredItem===null?choices.find(c=>c.monsterId===goal.monsterId):undefined;
+      const planned=requiredItem===null?choices.find(c=>c.monsterId===(goal.fixedMonsterId??goal.monsterId)):undefined;
+      if(fixedMonster&&!planned)return blocked(`固定怪物 ${fixedMonster.name} 目前无法安全持续补给；等待食物或装备条件，不自动更换怪物`);
       if(goal.quest&&requiredItem===null&&!planned)return blocked('任务目标怪物目前无法安全有效击杀，先继续成长');
       const selected=planned??(current&&current.score>=choices[0]?.score*.9?current:choices[0]);
       if (!selected) return blocked('所需材料的怪物目前过强，先提升其他战斗技能');
@@ -8377,6 +8496,12 @@ function createPlanner(data) {
     }
     if (!goal) return blocked('参与训练的技能已达到数据表的等级上限');
     if (!trainedSkills(profession).includes(goal.skill)) return blocked(`${PROFESSIONS[profession]}模式不训练${NAMES[goal.skill]}`);
+    if(goal.fixedRecipeId!=null) {
+      const fixed=jobs.find(j=>j.id===goal.fixedRecipeId&&!j.grow&&j.skill===goal.mainSkill);
+      if(!fixed)return blocked('固定工作已不在当前主业数据中，请重新选择');
+      if(!unlocked(fixed))return blocked(`固定工作 ${fixed.name} 需要${NAMES[fixed.skill]} ${fixed.levelReq} 级（当前 ${lv[fixed.skill]}），不会自动改练其他配方`);
+      if(!siteFor(fixed))return blocked(`固定工作 ${fixed.name} 没有可用地点，等待条件变化`);
+    }
     if (Object.values(p.overflow??{}).some(n=>n>0)) return blocked('仓库已有溢出物品，请整理后继续');
     if(goal.upgrade?.priority) {
       const result=upgrade(goal.upgrade.skill??data.toolSkills[goal.upgrade.slot]??style);
@@ -8441,26 +8566,35 @@ function createPlanner(data) {
   function farmStatus(p) {
     farmState(p);
     const fields=farmFields(p),plots=farmPlots(p),empty=fields.filter(s=>!p.plots?.[s.id]).length;
-    const best=jobs.filter(j=>j.grow&&level(p.skills.farming)>=j.levelReq).sort((a,b)=>b.xp/b.grow-a.xp/a.grow)[0];
-    if (!best) return {fields:fields.length,empty,reason:'暂无已解锁作物'};
+    const best=farmingChoice.mode==='manual'?manualFarmJob():farmTarget??
+      jobs.filter(j=>j.grow&&level(p.skills.farming)>=j.levelReq).sort((a,b)=>b.xp/b.grow-a.xp/a.grow)[0];
+    const status={fields:fields.length,empty,planted:plots.length,preference:farmingPreference(),selectedName:best?.name??null,
+      seedStock:best?seedCount(p,best):0};
+    const manualReason=manualFarmReason(p);
+    if(manualReason)return {...status,crop:best?.name,reason:manualReason};
+    if (!best) return {...status,reason:'暂无已解锁作物'};
     let reason;
     if (farmDelayReason&&!p.route?.errand) reason=farmDelayReason;
-    else if (empty&&jobs.some(j=>j.grow&&hasSeed(p,j)&&level(p.skills.farming)>=j.levelReq)) reason='已有备用种子，优先补种空田';
     else if (farmSearch) reason=`${farmSearch.expansion?'补齐空田':'升级作物'} · ${farmSearch.job.name}：`+
       (level(p.skills[farmSearch.source.skill])<farmSearch.source.levelReq?
-        `先练${NAMES[farmSearch.source.skill]}至 ${farmSearch.source.levelReq} 级，再自采种子`:`正在从 ${farmSearch.source.name} 自采种子`);
+        `先练${NAMES[farmSearch.source.skill]}至 ${farmSearch.source.levelReq} 级，再自采种子`:`正在从 ${farmSearch.source.name} 自采种子，本批尚缺 ${farmSearch.needed} 颗`);
     else if (p.lastTick<farmRetryAt) reason='本轮采种／前置练级已达时间预算，先继续其他任务，稍后重试';
     else if (hasSeed(p,best)) reason=`${best.name} 种子已备好，空田补种／成熟后更换`;
     else if (!empty&&plots.every(f=>f.job.id===best.id)) reason=`${best.name} 已种满；收获后种子循环使用`;
+    else if(farmingChoice.mode==='manual'&&best.inputs[0].itemId===190)
+      reason='缺少所选种子；训练模式可在保留当前计划金币后，按空田缺口向商人采购；辅助模式等待已有种子';
     else {
       const source=jobs.find(j=>j.bonus?.itemId===best.inputs[0].itemId);
       reason=`已解锁 ${best.name}，缺种子；`+(!source?'未找到已核实的采种路线，暂时保留现有作物':
         level(p.skills[source.skill])<source.levelReq?`自采需${NAMES[source.skill]} ${source.levelReq} 级（当前 ${level(p.skills[source.skill])}）`:
         `将分批从 ${source.name} 自采，补齐空田后逐步换种`);
     }
-    return {fields:fields.length,empty,planted:plots.length,crop:best.name,reason};
+    if(farmingChoice.mode==='manual')reason=`手动种植 ${best.name}：${reason}`;
+    else if(farmTargetReason)reason=`${farmTargetReason} · ${best.name}：${reason}`;
+    return {...status,crop:best.name,reason};
   }
   const api={level,levels,thresholds,trainedSkills,balancedChooseGoal,plan:planAtBoundary,count,base,nearBank,carriedBatch,equipmentStats,farmPlots,harvest,harvestOnly,professionUpgrade,equipmentStatus,farmStatus,
+    setFarmingPreference,farmingPreference,
     taskBoundary:p=>!finishTaskReason(data,p)};
   api.consumable=(p,goal,style,plan,window)=>planConsumable(data,api,p,goal,style,plan,window);
   api.enhancementTraining=createEnhancementTraining(data,api);
@@ -8476,17 +8610,17 @@ function createPlanner(data) {
   return Object.assign(api,{growthChooseGoal:growth.chooseGoal,growthStatus:growth.status,
     specialistChooseGoal:specialization.chooseGoal,specializationStatus:specialization.status,
     resetSpecialization:specialization.reset,
-    selectGoal(p,served,deferred,style,mode='balanced',mainTrade='auto') {
+    selectGoal(p,served,deferred,style,mode='balanced',mainTrade='auto',mainJobId=null,mainMonsterId=null) {
       if(mode!=='business')this.watchMarket?.(p,[]);
       return (mode==='business'?this.specialistChooseGoal:mode==='experience'?this.chooseGoal:
-        this.growthChooseGoal??this.chooseGoal)(p,served,deferred,style,mainTrade);
+        this.growthChooseGoal??this.chooseGoal)(p,served,deferred,style,mainTrade,mainJobId,mainMonsterId);
     },
     questRead:quests.read,questClaim:quests.claim,questChooseGoal:quests.chooseGoal,questCompleted:quests.completed});
 }
 
 
 function createEconomy(data,planner,{autoSell=false,capacitySales=false}={}) {
-  let lastGoal=null,lastPlayer=null,lastStyle=null,lastMode=null,lastMain=null,investmentGoal=null,gearDeferredUntil=0,recovery=null;
+  let lastGoal=null,lastPlayer=null,lastStyle=null,lastMode=null,lastMain=null,lastJob=null,lastMonster=null,investmentGoal=null,gearDeferredUntil=0,recovery=null;
   const budget=(p,goal)=>inventoryBudget(data,planner,p,goal);
   const review=(p,goal,style='magic')=>reviewInventory(data,planner,p,goal,style);
   const action=(intent,label,reason='',extra={})=>({intent,label,reason,...extra});
@@ -8564,8 +8698,9 @@ function createEconomy(data,planner,{autoSell=false,capacitySales=false}={}) {
     const next=investment(p,goal,style,budget(p,goal),true);
     return next?{coins:next.requiredCoins,enhancement:{itemId:next.id,gold:next.quote.gold,shards:next.quote.shards}}:null;
   }
-  function maintenance(p,goal,style='magic',mode='balanced',mainTrade='auto') {
-    if(p.id!==lastPlayer||style!==lastStyle||mode!==lastMode||mainTrade!==lastMain){lastGoal=null;investmentGoal=null;gearDeferredUntil=0;recovery=null;lastPlayer=p.id;lastStyle=style;lastMode=mode;lastMain=mainTrade;}
+  function maintenance(p,goal,style='magic',mode='balanced',mainTrade='auto',mainJobId=null,mainMonsterId=null) {
+    if(mode!=='business'){mainJobId=null;mainMonsterId=null;}
+    if(p.id!==lastPlayer||style!==lastStyle||mode!==lastMode||mainTrade!==lastMain||mainJobId!==lastJob||mainMonsterId!==lastMonster){lastGoal=null;investmentGoal=null;gearDeferredUntil=0;recovery=null;lastPlayer=p.id;lastStyle=style;lastMode=mode;lastMain=mainTrade;lastJob=mainJobId;lastMonster=mainMonsterId;}
     if(mode==='business'&&goal?.mainSkill!==professionSkill(style))investmentGoal=null;
     const upgrading=goal?.upgrade?.priority||goal?.toolUpgrade?.upgrade?.priority;
     if(upgrading)investmentGoal=null;
@@ -8691,10 +8826,13 @@ function createEconomy(data,planner,{autoSell=false,capacitySales=false}={}) {
         !j.inputs.length&&j.levelReq<=lv.thieving&&(!j.bonus||(p.bank[j.bonus.itemId]??0)>0));
       choices.sort((a,b)=>b.output.qty/workEstimate(data,b,lv.thieving).seconds-
         a.output.qty/workEstimate(data,a,lv.thieving).seconds);
-      const job=choices[0],site=job&&data.sites.find(s=>s.jobIds.includes(job.id));
+      const fixed=mode==='business'&&(mainJobId!=null||mainMonsterId!=null||goal?.fixedRecipeId!=null||goal?.fixedMonsterId!=null);
+      const job=fixed?choices.find(j=>j.id===(mainJobId??goal?.fixedRecipeId)):choices[0];
+      const site=job&&data.sites.find(s=>s.jobIds.includes(job.id));
+      if(fixed&&!site)return action(null,'固定工作等待仓库空间','仓库空间不足；保留固定工作，等待整理或盈余成交后继续，不自动改做其他工作',{capacityLimited:true});
       if(site)return action(p.route?.jobId===job.id?null:
         {t:'setRoute',siteId:site.id,jobId:job.id,onFull:'bank',limit:0,rarity:0},
-        '仓库保护 · 先赚金币',!autoSell&&!capacitySale?'自动出售已关闭，库存留给玩家处理；先做不新增物品种类的任务':deferredSale?'市场物品等待成交；继续不新增物品种类的赚钱任务':
+        fixed?'继续固定金币工作':'仓库保护 · 先赚金币',fixed?`继续所选 ${job.name}；此工作不新增物品种类，不更换固定目标`:!autoSell&&!capacitySale?'自动出售已关闭，库存留给玩家处理；先做不新增物品种类的任务':deferredSale?'市场物品等待成交；继续不新增物品种类的赚钱任务':
           '剩余库存均受保护；继续不新增物品种类的任务，保留稀有、种子及计划物资',
         {capacityLimited:true});
     }
@@ -9573,6 +9711,8 @@ class Trainer {
     this.style='magic';
     this.mode='balanced';
     this.mainTrade='auto';
+    this.mainJobId=null;
+    this.mainMonsterId=null;
     this.boss=createWorldBoss(data,now);
     this.farmJobId=null;
     this.recovery=null; this.awaitingWelcome=false;
@@ -9612,16 +9752,34 @@ class Trainer {
     this.pause(`已选择${names[mode]}，点击开始应用；先完成当前背包或批次`);
   }
   chooseGoal(p) {
-    if(this.planner.selectGoal)return this.planner.selectGoal(p,this.served,this.deferred,this.style,this.mode,this.mainTrade);
+    if(this.planner.selectGoal)return this.planner.selectGoal(p,this.served,this.deferred,this.style,this.mode,this.mainTrade,this.mainJobId,this.mainMonsterId);
     return (this.planner.growthChooseGoal??this.planner.chooseGoal)(p,this.served,this.deferred,this.style);
   }
   setMainTrade(mainTrade) {
     if(!Object.hasOwn(MAIN_TRADES,mainTrade)||mainTrade===this.mainTrade)return;
-    this.mainTrade=mainTrade;this.planner.resetSpecialization?.();
+    this.mainTrade=mainTrade;this.mainJobId=null;this.mainMonsterId=null;this.planner.resetSpecialization?.();
     if(this.mode!=='business')return;
     this.goal=null;this.plan=null;this.served={};this.deferred={};this.questDeferred={};this.waitingGoals={};this.blockedReasons={};
     if(this.player)this.planner.watchMarket?.(this.player,[]);
     this.pause(`已选择主业：${MAIN_TRADES[mainTrade]}，点击开始应用；先完成当前背包或批次`);
+  }
+  setMainJob(jobId) {
+    const job=this.data.jobs.find(j=>j.id===jobId&&j.skill===this.mainTrade&&!j.grow);
+    if(jobId!==null&&!job||jobId===this.mainJobId)return;
+    this.mainJobId=jobId;this.planner.resetSpecialization?.();
+    if(this.mode!=='business')return;
+    this.goal=null;this.plan=null;this.served={};this.deferred={};this.questDeferred={};this.waitingGoals={};this.blockedReasons={};
+    if(this.player)this.planner.watchMarket?.(this.player,[]);
+    this.pause(`已选择${job?`固定工作：${job.name}`:'自动选择工作'}，点击开始应用；游戏当前任务仍继续`);
+  }
+  setMainMonster(monsterId) {
+    const monster=this.data.monsters.find(m=>m.id===monsterId);
+    if(this.mainTrade!=='combat'||monsterId!==null&&!monster||monsterId===this.mainMonsterId)return;
+    this.mainMonsterId=monsterId;this.planner.resetSpecialization?.();
+    if(this.mode!=='business')return;
+    this.goal=null;this.plan=null;this.served={};this.deferred={};this.questDeferred={};this.waitingGoals={};this.blockedReasons={};
+    if(this.player)this.planner.watchMarket?.(this.player,[]);
+    this.pause(`已选择${monster?`固定怪物：${monster.name}`:'自动选择怪物'}，点击开始应用；游戏当前任务仍继续`);
   }
   manualAction(intent) {
     this.boss?.manualAction(intent,this.player);
@@ -9876,9 +10034,12 @@ class Trainer {
       p.equipment[this.goal.enhancement.slot]!==this.goal.enhancement.itemId&&!p.enhance) {
       this.served.enhancing=++this.sequence;this.goal=null;this.plan=null;
     }
-    const marketPlan=this.market?.next(p,this.goal,this.style);
+    // Reserve a fixed project's waiting batch before reviewing inventory sales.
+    const maintenanceGoal=this.goal??(this.mode==='business'&&(this.mainJobId!=null||this.mainMonsterId!=null)?
+      this.waitingGoals[this.mainTrade==='combat'?professionSkill(this.style):this.mainTrade]??this.chooseGoal(p):null);
+    const marketPlan=this.market?.next(p,maintenanceGoal,this.style);
     if(marketPlan?.intent)return this.issue(marketPlan);
-    const maintenance=this.planner.maintenance?.(p,this.goal,this.style,this.mode,this.mainTrade);
+    const maintenance=this.planner.maintenance?.(p,maintenanceGoal,this.style,this.mode,this.mainTrade,this.mainJobId,this.mainMonsterId);
     if(maintenance?.intent)return this.issue(maintenance);
     if(maintenance?.marketWaiting){this.message=maintenance.reason??maintenance.label;return;}
     if(maintenance?.capacityLimited||maintenance?.priorityGear){
@@ -9904,12 +10065,13 @@ class Trainer {
       this.served[this.goal.skill]=++this.sequence;
       if(this.goal.quest&&now-this.goalSince>600000)this.questDeferred[this.goal.quest.key]=now+120000;
       // Allow other skills a turn after a long ingredient-gathering slice.
-      if (now-this.goalSince>600000&&!this.goal.rate) this.deferred[this.goal.skill]=now+120000;
+      if (now-this.goalSince>600000&&!this.goal.rate&&this.goal.fixedRecipeId==null&&this.goal.fixedMonsterId==null)
+        this.deferred[this.goal.skill]=now+120000;
       this.goal=null;
     }
     for(let attempt=0;attempt<this.data.skills.length;attempt++) {
       let proposedGoal=null;
-      if(!this.goal?.quest&&!this.goal?.craftPreparation&&!equipmentProject(this.goal)&&(this.bankedLoad||!this.planner.taskBoundary||this.planner.taskBoundary(p))&&
+      if(!(this.mode==='business'&&(this.mainJobId!=null||this.mainMonsterId!=null))&&!this.goal?.quest&&!this.goal?.craftPreparation&&!equipmentProject(this.goal)&&(this.bankedLoad||!this.planner.taskBoundary||this.planner.taskBoundary(p))&&
         this.planner.questRead?.(p).some(q=>!q.claimed&&q.remaining>0)) {
         proposedGoal=this.goal??this.chooseGoal(p);
         const quest=this.planner.questChooseGoal(p,proposedGoal,this.style,this.questDeferred);
@@ -9936,7 +10098,11 @@ class Trainer {
         harvestGoal={...this.goal,farmingTarget,budget:{...this.goal?.budget,items}};
       }
       const harvest=this.planner.harvest(p,this.farmJobId,harvestGoal,this.style,this.bankedLoad);
-      if (!this.goal&&!harvest) { this.message='当前模式暂无可行任务，等待条件变化'; return; }
+      if (!this.goal&&!harvest) {
+        this.message=this.mode==='business'&&(this.mainJobId!=null||this.mainMonsterId!=null)?
+          this.blockedReasons[this.mainTrade==='combat'?professionSkill(this.style):this.mainTrade]??'固定目标正在等待材料或条件恢复，不自动更换工作':'当前模式暂无可行任务，等待条件变化';
+        return;
+      }
       const preparation=this.goal?.craftPreparation;
       this.plan=harvest??this.planner.plan(p,this.goal,this.style,this.bankedLoad);
       if(preparation&&this.plan.intent?.t==='setRoute'&&this.plan.intent.jobId===preparation.jobId)
@@ -9962,7 +10128,7 @@ class Trainer {
       if (this.goal) delete this.blockedReasons[this.goal.skill];
       const consumable=this.planner.consumable?.(p,this.goal,this.style,this.plan);
       if(consumable?.intent)return this.issue(consumable);
-      this.bankedLoad=false;
+      if(!(harvest?.marketWaiting&&harvest.farmJobId))this.bankedLoad=false;
       if (!this.plan.intent) { this.message=this.plan.combat?this.plan.label:this.plan.reason; return; }
       return this.issue(this.plan);
     }
@@ -10228,6 +10394,11 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
   if (window.__deepveinBalancedTrainer) return;
   window.__deepveinBalancedTrainer=true;
   const planner=createPlanner(GAME_DATA);
+  const farmingPreferenceKey='deepvein-farming-preference-v1';
+  try {
+    const saved=planner.setFarmingPreference(JSON.parse(localStorage.getItem(farmingPreferenceKey)||'null'));
+    if(saved.mode==='manual'&&saved.jobId===null)planner.setFarmingPreference({mode:'auto',jobId:null});
+  }catch{}
   const autoSellKey='deepvein-auto-sell-v1';
   let autoSell=false;
   try {autoSell=localStorage.getItem(autoSellKey)==='true';}catch{}
@@ -10253,18 +10424,22 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
   planner.restockPotion=(...args)=>potionRestock?market.restockPotion(...args):null;
   planner.watchPotions=(p,itemIds)=>market.watchPotions(p,potionRestock?itemIds:[]);
   const NativeWebSocket=window.WebSocket;
-  let socket=null, panel=null, rendered='', checking=false, startCheck=0, compatibilityMessage='', pumping=false,nativeBossClick=null;
+  let socket=null, panel=null, rendered='', farmingOptions='', mainJobOptions='', mainMonsterOptions='', checking=false, startCheck=0, compatibilityMessage='', pumping=false,nativeBossClick=null;
   let foregroundSequence=-1,pendingNativeJoin=null;
   const owner=crypto.randomUUID();
   const leaseKey='deepvein-balanced-trainer-lease';
   const styleKey='deepvein-balanced-trainer-profession';
   const modeKey='deepvein-trainer-mode-v1';
   const mainTradeKey='deepvein-trainer-main-trade-v1';
+  const mainJobKey='deepvein-trainer-main-job-v1';
+  const mainMonsterKey='deepvein-trainer-main-monster-v1';
+  const validMainJob=(jobId,trade)=>Number.isInteger(jobId)&&GAME_DATA.jobs.some(j=>j.id===jobId&&!j.grow&&j.skill===trade)?jobId:null;
+  const validMainMonster=(monsterId,trade)=>trade==='combat'&&Number.isInteger(monsterId)&&GAME_DATA.monsters.some(m=>m.id===monsterId)?monsterId:null;
   const TRAINING_MODE_LABELS={balanced:'均衡成长',experience:'经验优先',business:'主业经营',assist:'只收菜＋蹭世界 Boss'};
   const modeInfo={
     balanced:'按五级阶段补齐生活和所选战斗职业的落后技能，适合全面成长。',
     experience:'比较供料与往返后的总经验效率，允许技能等级拉开差距。',
-    business:'由你指定主业，也可按收益自动选择；手选时只在本业内比较收益，行情不足按本业经验效率安排配方和供料。',
+    business:'主业、具体工作与战斗目标均可自动或手选；指定目标不会因其他工作收益更高而被替换，仍可安排必要供料与换装。',
     assist:'仅合批收菜、用现有种子补种与蹭世界 Boss；保留玩家队列，完成临时外出后继续原任务。'
   };
   const runKey='deepvein-balanced-trainer-session';
@@ -10352,6 +10527,7 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
       if(result.updated) {
         Object.assign(GAME_DATA,result.data);
         const refreshed=createPlanner(GAME_DATA);
+        refreshed.setFarmingPreference(planner.farmingPreference());
         refreshed.enhancementTraining=createEnhancementTraining(GAME_DATA,refreshed,enhancementStorage);
         refreshed.marketSale=planner.marketSale;refreshed.marketPurchase=planner.marketPurchase;
         refreshed.marketOpportunity=planner.marketOpportunity;refreshed.watchMarket=planner.watchMarket;
@@ -10359,6 +10535,8 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
         refreshed.watchPotions=planner.watchPotions;
         refreshed.investmentBudget=planner.investmentBudget;
         Object.assign(planner,refreshed);
+        trainer.mainJobId=validMainJob(trainer.mainJobId,trainer.mainTrade);
+        trainer.mainMonsterId=validMainMonster(trainer.mainMonsterId,trainer.mainTrade);
         trainer.telemetry.level=planner.level;trainer.telemetry.rates={};trainer.telemetry.previous=null;
         economy=createEconomy(GAME_DATA,planner,{autoSell,capacitySales});planner.maintenance=(...args)=>economy.maintenance(...args);
         planner.investmentBudget=(...args)=>economy.investmentBudget(...args);
@@ -10391,12 +10569,18 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
     const saved=localStorage.getItem(mainTradeKey);
     trainer.mainTrade=Object.hasOwn(MAIN_TRADES,saved)?saved:'auto';
   } catch { trainer.mainTrade='auto'; }
+  try {trainer.mainJobId=validMainJob(JSON.parse(localStorage.getItem(mainJobKey)||'null'),trainer.mainTrade);}
+  catch {trainer.mainJobId=null;}
+  try {trainer.mainMonsterId=validMainMonster(JSON.parse(localStorage.getItem(mainMonsterKey)||'null'),trainer.mainTrade);}
+  catch {trainer.mainMonsterId=null;}
   try {
     const saved=JSON.parse(sessionStorage.getItem(runKey)||'null');
     if (saved?.playerId!=null&&Object.hasOwn(PROFESSIONS,saved.style)) {
       trainer.style=saved.style;
       trainer.mode=Object.hasOwn(TRAINING_MODE_LABELS,saved.mode)?saved.mode:'balanced';
       trainer.mainTrade=Object.hasOwn(MAIN_TRADES,saved.mainTrade)?saved.mainTrade:'auto';
+      trainer.mainJobId=validMainJob(saved.mainJobId,trainer.mainTrade);
+      trainer.mainMonsterId=validMainMonster(saved.mainMonsterId,trainer.mainTrade);
       trainer.boss.restore(saved.boss);
       trainer.recovery={playerId:saved.playerId,lastTick:saved.lastTick};
       trainer.awaitingWelcome=true;
@@ -10407,7 +10591,7 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
   function saveRun() {
     const record=trainer.active||trainer.recovery?JSON.stringify({
       playerId:trainer.recovery?.playerId??trainer.player?.id,
-      lastTick:trainer.recovery?.lastTick??trainer.player?.lastTick,style:trainer.style,mode:trainer.mode,mainTrade:trainer.mainTrade,boss:trainer.boss.save()}):'';
+      lastTick:trainer.recovery?.lastTick??trainer.player?.lastTick,style:trainer.style,mode:trainer.mode,mainTrade:trainer.mainTrade,mainJobId:trainer.mainJobId,mainMonsterId:trainer.mainMonsterId,boss:trainer.boss.save()}):'';
     if (record===savedRun) return;
     try {
       if (record) sessionStorage.setItem(runKey,record); else sessionStorage.removeItem(runKey);
@@ -10503,68 +10687,88 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
     }
   };
 
+  const cropNames={Potato:'土豆',Sage:'鼠尾草',Nightshade:'颠茄'};
+  const mainJobName=job=>({Coal:'煤（Coal）',Maple:'枫树（Maple）'}[job.name]??job.name);
+  function farmingChoices(p) {
+    const ids=p?[...new Set([...Object.keys(p.bank).map(Number),...p.pack.map(i=>i.itemId)])]:[];
+    return GAME_DATA.jobs.filter(j=>j.grow).sort((a,b)=>a.levelReq-b.levelReq||a.id-b.id).map(j=>({
+      id:j.id,name:cropNames[j.name]??j.name,level:j.levelReq,
+      locked:!p||planner.level(p.skills.farming)<j.levelReq,
+      seeds:p?ids.filter(id=>planner.base(id)===j.inputs[0].itemId).reduce((n,id)=>n+planner.count(p,id),0):null
+    }));
+  }
+  function changeFarmingPreference(mode,jobId) {
+    if(mode==='manual'&&jobId==null)jobId=farmingChoices(trainer.player).find(j=>!j.locked)?.id??GAME_DATA.jobs.find(j=>j.grow)?.id??null;
+    const preference=planner.setFarmingPreference({mode,jobId});
+    try {localStorage.setItem(farmingPreferenceKey,JSON.stringify(preference));}
+    catch {trainer.log('种植偏好已应用，但无法保存；刷新后恢复原设置');}
+    render();
+  }
   function mount() {
     const host=document.createElement('div');
     host.id='deepvein-balanced-trainer';
     host.style.cssText='position:fixed;right:12px;top:60px;z-index:2147483646;';
     panel=host.attachShadow({mode:'open'});
     panel.innerHTML=`<style>
-      :host{all:initial;color-scheme:dark;font:13px/1.5 system-ui,"Microsoft YaHei",sans-serif;color:#e5e7eb}
-      *{box-sizing:border-box}section{width:310px;max-width:calc(100vw - 24px);background:#20252b;border:1px solid #4c565f;border-radius:9px;box-shadow:0 8px 28px #0006}
-      header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #39424a}
-      strong{font-size:14px}button{font:inherit;cursor:pointer;border:1px solid #5d6a74;border-radius:5px;padding:6px 12px;background:#323c44;color:#fff}
-      a{color:#99d7b6}header a{font-size:11px;margin-left:auto;margin-right:8px}[data-update-status]{font-size:12px;margin-top:8px}
-      label{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}select{font:inherit;background:#323c44;color:#fff;border:1px solid #5d6a74;border-radius:5px;padding:4px 8px}
-      button:hover{background:#40505c}button:disabled{opacity:.4;cursor:default}[data-start]{background:#305b49;border-color:#538a70}
-      [data-fold]{border:0;padding:0 6px;background:none;font-size:18px}.body{padding:12px;max-height:calc(100vh - 116px);overflow:auto}[hidden]{display:none!important}
-      p{margin:0 0 9px;overflow-wrap:anywhere}.muted{color:#aeb9c2;font-size:11px}.buttons{display:flex;gap:8px;margin:12px 0}
-      .levels{display:grid;grid-template-columns:repeat(2,1fr);gap:3px 14px;border-top:1px solid #39424a;padding-top:9px}
-      .levels span{display:flex;justify-content:space-between}.low{color:#99d7b6}.excluded{color:#89939c}details{margin-top:10px}summary{cursor:pointer;color:#aeb9c2;font-size:12px}
-      ol{padding-left:18px;max-height:140px;overflow:auto;font-size:11px;color:#b3c0ca}li{margin:5px 0}
-      [data-inventory],[data-enhancement],[data-equipment]{white-space:pre-wrap;font:inherit;font-size:11px;line-height:1.6;max-height:260px;overflow:auto;color:#b3c0ca}
-      [data-metrics],[data-farm],[data-market],[data-growth],[data-quests],[data-rejections]{white-space:pre-line}
+      :host{all:initial;color-scheme:dark;font:13px/1.6 "Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:#eee9dd}
+      *{box-sizing:border-box}section{display:flex;flex-direction:column;width:380px;max-width:calc(100vw - 24px);max-height:calc(100vh - 76px);max-height:calc(100dvh - 76px);background:#1c1b18;border:1px solid #494333;border-radius:14px;box-shadow:0 12px 36px #0005;overflow:hidden}
+      header{display:flex;align-items:center;gap:8px;padding:13px 14px 10px;flex-shrink:0}.brand{flex:1;min-width:0}.eyebrow{font-size:10px;letter-spacing:2px;color:#c1a96e}.brand strong{display:block;font-size:15px;font-weight:650;letter-spacing:.2px}
+      button,select,input{font:inherit}button,select{min-height:44px;border:1px solid #504b3d;border-radius:8px;background:#292721;color:#eee9dd}button{cursor:pointer;padding:8px 14px;font-weight:600}button:hover{background:#383328}button:disabled{opacity:.38;cursor:default}
+      :is(button,select,input,summary,a):focus-visible{outline:2px solid #e2c274;outline-offset:3px}a{color:#d8bd7e;text-underline-offset:3px}header a{font-size:11px;white-space:nowrap}[data-fold]{width:44px;flex-shrink:0;border-color:transparent;background:transparent;padding:0;font-size:22px;color:#bfb8a6}
+      .runbar{padding:0 14px 14px;border-bottom:1px solid #3b382f;flex-shrink:0}.run-state{display:flex;align-items:center;gap:8px;margin:0 0 8px}.run-state b{font-size:11px;font-weight:600;border:1px solid #5b523a;border-radius:5px;padding:1px 7px;color:#dac18b;white-space:nowrap}.run-state b[data-running="true"]{border-color:#657956;color:#b5d299}[data-status]{min-width:0;font-size:12px;color:#c6bead;max-height:3.2em;overflow:auto;margin:0}.buttons{display:flex;gap:8px}.buttons button{flex:1}[data-start]{background:#d4b36a;border-color:#d4b36a;color:#211d13}[data-start]:hover{background:#e1c381}
+      .body{padding:14px;min-height:0;overflow:auto;scrollbar-width:thin;scrollbar-color:#56503f transparent;overscroll-behavior:contain}[hidden]{display:none!important}p{margin:0 0 8px;overflow-wrap:anywhere}p:last-child{margin-bottom:0}.muted{color:#b7b0a0;font-size:12px}.label{font-size:10px;letter-spacing:1.5px;color:#c1a96e;margin-bottom:5px}.current{padding:0 1px 14px}[data-activity]{font-size:14px;font-weight:600}[data-task]{color:#ddc38d;font-size:12px}[data-goal],[data-reason]{font-size:12px;color:#b7b0a0}
+      .card{background:#23211c;border:1px solid #3d392f;border-radius:10px;padding:12px;margin-bottom:10px}.card-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:9px}.card-heading strong{font-size:13px;font-weight:600}.card-heading span{font-size:11px;color:#b7b0a0}.farm-counts{display:grid;grid-template-columns:repeat(3,1fr);padding:0 0 10px;margin-bottom:10px;border-bottom:1px solid #3d392f}.farm-counts span{color:#b7b0a0;font-size:11px}.farm-counts span+span{padding-left:12px;border-left:1px solid #3d392f}.farm-counts b{display:block;color:#eee9dd;font-size:21px;line-height:1.35;font-weight:500;font-variant-numeric:tabular-nums}[data-farm]{margin-bottom:12px;font-size:11px;line-height:1.65}[data-farming-note]{font-size:11px;color:#b7b0a0}
+      label{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;margin-bottom:8px;font-size:12px}select{min-width:0;max-width:75%;padding:8px 9px;cursor:pointer}label select{flex:1}input[type="checkbox"]{width:18px;height:18px;accent-color:#d4b36a;flex-shrink:0;margin:13px 0 13px 10px}.setting-note{padding:0 0 9px}.notice{padding:10px;border:1px solid #766044;border-radius:8px;color:#e1c494;margin:10px 0;font-size:11px}
+      details{border-top:1px solid #3d392f}summary{display:flex;align-items:center;justify-content:space-between;gap:10px;list-style:none;min-height:46px;padding:10px 1px;cursor:pointer;color:#d3cbbb;font-size:12px;font-weight:600}summary::-webkit-details-marker{display:none}summary::after{content:'+';color:#a79a7d;font-size:17px;font-weight:400}details[open]>summary::after{content:'−'}.detail-content{padding:1px 0 13px}.detail-content>details{margin:0 0 2px}.detail-content>details>summary{font-weight:400;color:#bfb6a3}.detail-content>details[open]{padding-bottom:12px}.detail-content>details>p,.detail-content>details>pre{padding:0 3px}
+      .levels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 14px;margin:12px 0}.levels span{display:flex;justify-content:space-between;font-size:12px}.levels b{font-weight:500;font-variant-numeric:tabular-nums}.low{color:#dbbd78}.excluded{color:#8e887c}ol{padding-left:19px;max-height:200px;overflow:auto;font-size:11px;color:#b7b0a0}li{margin:6px 0;overflow-wrap:anywhere}pre{margin:10px 0}[data-inventory],[data-enhancement],[data-equipment]{white-space:pre-wrap;font:inherit;font-size:11px;line-height:1.7;max-height:260px;overflow:auto;color:#b7b0a0}
+      [data-metrics],[data-farm],[data-market],[data-growth],[data-quests],[data-rejections],[data-buffs]{white-space:pre-line}.footer{display:flex;justify-content:space-between;gap:10px;padding-top:12px;border-top:1px solid #3d392f;color:#968e7b;font-size:10px;letter-spacing:.2px}.update-actions{display:flex;align-items:center;gap:16px;margin:9px 0}.update-actions a{display:flex;align-items:center;min-height:44px}.fine-print{font-size:11px;color:#999281}
+      @media(max-width:480px){:host{top:12px!important;right:8px!important}section{width:380px;max-width:calc(100vw - 16px);max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px)}header{padding-top:11px}.brand strong{font-size:14px}}
     </style><section aria-label="自给成长与职业助手">
-      <header><strong data-heading>均衡成长 · 职业专精</strong><a data-update-badge hidden target="_blank" rel="noopener noreferrer">有更新</a><button data-fold aria-label="收起面板">−</button></header>
-      <div class="body"><label>成长策略<select data-mode aria-label="成长策略">${Object.entries(TRAINING_MODE_LABELS).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label>
-      <p data-mode-info class="muted"></p>
-      <div data-main-trade-controls hidden><label>主业<select data-main-trade aria-label="主业">${Object.entries(MAIN_TRADES).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label>
-      <p class="muted">农业继续后台合批种收；强化随有用装备升级。手选主业不会被更赚钱的其它技能替换。</p></div>
-      <label>战斗职业<select data-profession aria-label="战斗职业">${Object.entries(PROFESSIONS).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label>
-      <p data-profession-info class="muted"></p><p data-status>等待游戏状态…</p><p data-goal></p><p data-activity></p><p data-task></p><p data-reason class="muted"></p><p data-farm class="muted"></p><p data-boss class="muted"></p>
-      <div class="buttons"><button data-start>开始</button><button data-pause disabled>暂停调度</button></div>
-      <p data-last-rejection class="muted" hidden></p>
-      <details data-rejection-details hidden><summary>服务器拒绝记录（刷新保留）</summary>
-      <p data-rejections class="muted"></p><button data-export-rejections>导出故障记录</button>
-      <p class="muted">最近 10 次，仅保存在本机。已识别的公会提示不打断练级；同期操作只作为排查线索。记录本身不触发重试，未知错误仍会暂停。</p></details>
-      <p data-training-policy class="muted"></p>
-      <p class="muted">切换策略后点击“开始”。开始后断线／本页刷新自动恢复；暂停会取消自动恢复。保持电脑运行和标签页打开。</p>
-      <p data-growth class="muted"></p><div class="levels"></div><p data-blocked class="muted" style="margin-top:8px"></p><details><summary>最近操作</summary><ol></ol></details>
-      <details data-quests-details><summary>日常／周常任务</summary><p data-quests class="muted"></p><p class="muted">短且收益合算的任务优先，长任务顺路推进；完成后自动领奖，领取不会停止当前工作。击杀任务经验按领奖时的武器职业发放。</p></details>
-      <details data-equipment-details><summary>当前与下一档装备</summary><p data-equipment-policy class="muted"></p><pre data-equipment></pre></details>
-      <details data-economy-details><summary>自动物资与强化预算</summary>
-      <p class="muted">保留计划用料、关键种子和装备；有用的在用装备以 +5 为基线，每次只尝试一级并确认。后续强化单次不超过自由金币 10%、碎片 25%；同装备每阶段最多五次，失败停止本阶段重试。临近换代先换装，中间一级属性取整不变但 +5 有提升时可继续。</p>
-      <p class="muted">售价有最低报价保护；未知物品和稀有装备保留。</p>
-      <pre data-inventory></pre><p class="muted">已装备物品的强化报价，是否执行由当前策略决定。属性为基础估算；高阶强化失败可能回到 +0。</p>
-      <pre data-enhancement></pre></details>
-      <details data-market-details><summary>市场比价与采购</summary>
-      <label>自动出售多余物品<input type="checkbox" data-auto-sell aria-label="自动出售多余物品"></label>
-      <label>满仓时出售普通盈余<input type="checkbox" data-capacity-sales aria-label="满仓时出售普通盈余"></label>
-      <p class="muted">日常出售默认关闭，满仓清理默认开启。只处理扣除计划用量后的普通盈余，保护稀有物品、种子、药水、食物储备、在用装备与装备方案；不自动捐赠。优先市场出售，挂售至少 2 小时并重新定价后才允许系统回收。关闭授权后顺路撤回相应脚本卖单，不动玩家手动单。</p><p data-market class="muted"></p></details>
-      <details data-buffs-details><summary>药水与食物增益</summary><p data-buffs class="muted"></p>
-      <label>限预算自动补普通药水<input type="checkbox" data-potion-restock aria-label="限预算自动补普通药水"></label>
-      <p class="muted">按实际任务续对应药效，普通药每瓶叠加 1 小时。剩余不超过 6 小时时，批量补到约 20 小时；单次最多喝或买 20 瓶，逐批确认。优先利用普通盈余，缺药只在原有返仓空闲时按需批购，不停工等报价或专程返仓。滚动每小时订单总额不超过可用金币 1%，封顶 3000；另留 1000 金币和当前计划预算，单瓶不超过基础估值 3 倍。库存或预算不足就少补，稀有药水保留。</p>
-      <p class="muted">采集：采矿、钓鱼、伐木、盗窃经验 +10%；灵药：普通工作与战斗经验 +10%。猎人：提高产物及掉落品质，也影响收菜返还种子的品质。战士：命中数值 +10、最大伤害 +10%，法师也适用。疾行：新路程移动速度 +20%；急速：攻击速度 +20%；滋养：食物治疗 +25%；深渊：普通怪金币 +25%。均为普通品质数值。</p>
-      <p class="muted">不保证断货或离仓时药效不断。富余作物仍按收益补战斗减伤；临时增益不降低安全携粮量。</p></details>
-      <details><summary>实际运行收益</summary><p data-metrics class="muted"></p>
-      <button data-export>导出运行记录</button><p class="muted">只统计已观察到的在线区间；断线离线奖励不用于估算战斗效率。</p></details>
-      <p data-client class="muted" style="margin-top:8px"></p>
-      <p data-update-status role="status"></p><button data-update-check title="每分钟最多检查一次">检查更新</button> <a data-update-install target="_blank" rel="noopener noreferrer">安装／更新</a>
-      <p class="muted">油猴可按自身设置自动更新；已打开的游戏页需刷新才能运行新版。本助手不强制刷新或打断任务。</p>
-      <p class="muted" style="margin:10px 0 0">成长策略 · 物资预算 · v${SCRIPT_VERSION}</p></div>
+      <header><div class="brand"><div class="eyebrow">DEEP VEIN · 助手</div><strong data-heading>均衡成长 · 职业专精</strong></div><a data-update-badge hidden target="_blank" rel="noopener noreferrer">有更新</a><button data-fold aria-label="收起面板" aria-expanded="true">−</button></header>
+      <div class="runbar"><div class="run-state"><b data-run-state>待机</b><p data-status role="status">等待游戏状态…</p></div><div class="buttons"><button data-start>开始调度</button><button data-pause disabled>暂停调度</button></div></div>
+      <div class="body">
+        <div class="current"><p class="label">当前任务</p><p data-activity>等待游戏状态</p><p data-task></p><p data-goal></p><p data-reason></p></div>
+        <div class="card"><div class="card-heading"><strong>农田</strong><span data-farm-fields>等待田地状态</span></div>
+          <div class="farm-counts"><span><b data-farm-ready>—</b>待收获</span><span><b data-farm-growing>—</b>生长中</span><span><b data-farm-empty>—</b>空田</span></div>
+          <p data-farm class="muted"></p>
+          <label>种植方式<select data-farming-mode aria-label="种植方式"><option value="auto">自动选择</option><option value="manual">指定作物</option></select></label>
+          <label data-farming-crop-controls hidden>指定作物<select data-farming-crop aria-label="指定作物"></select></label>
+          <p data-farming-note></p>
+        </div>
+        <div class="card"><div class="card-heading"><strong>世界 Boss</strong><span>临时参与 · 原队列保留</span></div><p data-boss class="muted"></p></div>
+        <p data-last-rejection class="notice" hidden></p>
+        <details data-settings-details><summary>成长设置<span data-settings-summary class="muted"></span></summary><div class="detail-content">
+          <label>成长策略<select data-mode aria-label="成长策略">${Object.entries(TRAINING_MODE_LABELS).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label>
+          <p data-mode-info class="muted setting-note"></p>
+          <div data-main-trade-controls hidden><label>主业<select data-main-trade aria-label="主业">${Object.entries(MAIN_TRADES).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label><div data-main-job-controls hidden><label>具体工作<select data-main-job aria-label="具体工作"></select></label><p data-main-job-info class="muted setting-note"></p></div><div data-main-monster-controls hidden><label>目标怪物<select data-main-monster aria-label="目标怪物"></select></label><p data-main-monster-info class="muted setting-note"></p></div><p class="muted setting-note">农业继续后台合批种收；强化随有用装备升级。手选主业不会被更赚钱的其它技能替换。</p></div>
+          <label>战斗职业<select data-profession aria-label="战斗职业">${Object.entries(PROFESSIONS).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label>
+          <p data-profession-info class="muted"></p><p data-training-policy class="muted"></p>
+          <p class="fine-print">切换成长策略／职业后点击“开始”。开始后断线或本页刷新自动恢复；暂停取消恢复。保持电脑运行和标签页打开。</p>
+        </div></details>
+        <details data-progress-details><summary>等级与运行收益</summary><div class="detail-content"><p data-growth class="muted"></p><div class="levels"></div><p data-blocked class="muted"></p><p data-metrics class="muted"></p><p class="fine-print">只统计已观察到的在线区间；离线奖励不用于估算战斗效率。</p></div></details>
+        <details data-more-details><summary>任务、装备与物资</summary><div class="detail-content">
+          <details data-quests-details><summary>日常／周常任务</summary><p data-quests class="muted"></p><p class="fine-print">短且收益合算的任务优先，长任务顺路推进；完成后自动领奖，不停止当前工作。击杀任务经验按领奖时的武器职业发放。</p></details>
+          <details data-equipment-details><summary>当前与下一档装备</summary><p data-equipment-policy class="muted"></p><pre data-equipment></pre></details>
+          <details data-economy-details><summary>物资保留与强化预算</summary><pre data-inventory></pre><pre data-enhancement></pre>
+            <details><summary>预算规则</summary><p class="fine-print">保留计划用料、关键种子和装备；在用装备以 +5 为基线，每次尝试一级并确认。后续强化单次不超过自由金币 10%、碎片 25%；同装备每阶段最多五次，失败停止本阶段重试。临近换代先换装，中间一级属性取整不变但 +5 有提升时可继续。</p><p class="fine-print">强化报价按基础属性估算，是否执行由策略决定；高阶失败可能回到 +0。售价有最低报价保护，未知物品和稀有装备保留。</p></details>
+          </details>
+          <details data-market-details><summary>市场比价与出售</summary><label>自动出售多余物品<input type="checkbox" data-auto-sell aria-label="自动出售多余物品"></label><label>满仓时出售普通盈余<input type="checkbox" data-capacity-sales aria-label="满仓时出售普通盈余"></label><p data-market class="muted"></p>
+            <details><summary>出售范围与保护</summary><p class="fine-print">日常出售默认关闭，满仓清理默认开启。扣除计划用量后只卖普通盈余；保护稀有物品、种子、药水、食物储备、在用装备与装备方案，不自动捐赠。优先市场出售，挂售至少 2 小时且重新定价后才允许系统回收。关闭授权后顺路撤回相应脚本卖单，不动玩家手动单。</p></details>
+          </details>
+          <details data-buffs-details><summary>药水与食物</summary><p data-buffs class="muted"></p><label>限预算自动补普通药水<input type="checkbox" data-potion-restock aria-label="限预算自动补普通药水"></label><p class="fine-print">药效余量 ≤ 6 小时时按需补至约 20 小时；利用返仓空闲补货，不停工等报价，稀有药水保留。</p>
+            <details><summary>补给预算与药效说明</summary><p class="fine-print">普通药每瓶叠加 1 小时，单次最多喝或买 20 瓶并逐批确认。优先利用普通盈余；滚动每小时订单不超过可用金币 1%，封顶 3000，另留 1000 金币与当前计划预算；单瓶不超过基础估值 3 倍。缺货或预算不足就少补，不专程返仓。</p><p class="fine-print">采集：采矿、钓鱼、伐木、盗窃经验 +10%；灵药：普通工作与战斗经验 +10%。猎人：提高产物、掉落及收菜返种品质。战士：命中 +10、最大伤害 +10%，法师也适用。疾行：新路程速度 +20%；急速：攻击速度 +20%；滋养：食物治疗 +25%；深渊：普通怪金币 +25%。以上为普通品质数值。</p><p class="fine-print">不保证断货或离仓时药效不断。富余作物按收益补战斗减伤；临时增益不降低安全携粮量。</p></details>
+          </details>
+        </div></details>
+        <details data-diagnostics-details><summary>运行记录与诊断</summary><div class="detail-content"><ol></ol><button data-export>导出运行记录</button><details data-rejection-details hidden><summary>服务器拒绝记录</summary><p data-rejections class="muted"></p><button data-export-rejections>导出故障记录</button><p class="fine-print">最近 10 次仅保存在本机，刷新保留。公会提示不打断练级；同期操作仅作排查线索。记录不触发重试，未知错误仍会暂停。</p></details><p data-client class="fine-print"></p></div></details>
+        <details data-update-details><summary>脚本更新<span class="muted">v${SCRIPT_VERSION}</span></summary><div class="detail-content"><p data-update-status role="status" class="muted"></p><div class="update-actions"><button data-update-check title="每分钟最多检查一次">检查更新</button><a data-update-install target="_blank" rel="noopener noreferrer">安装／更新</a></div><p class="fine-print">油猴可按自身设置自动更新；已打开的游戏页需刷新才能运行新版，不强制刷新或打断任务。</p></div></details>
+        <div class="footer"><span>DEEP VEIN IDLE</span><span>成长策略 · 物资预算 · v${SCRIPT_VERSION}</span></div>
+      </div>
     </section>`;
     document.body.append(host);
     for(const selector of ['[data-update-badge]','[data-update-install]'])panel.querySelector(selector).href=updates.state.installUrl;
     panel.querySelector('[data-update-check]').onclick=()=>updates.check(true);
+    panel.querySelector('[data-farming-mode]').onchange=event=>changeFarmingPreference(event.currentTarget.value,planner.farmingPreference().jobId);
+    panel.querySelector('[data-farming-crop]').onchange=event=>changeFarmingPreference('manual',Number(event.currentTarget.value));
     panel.querySelector('[data-auto-sell]').onchange=event=>{
       autoSell=event.currentTarget.checked===true;
       economy.setAutoSell(autoSell);market.setAutoSell(autoSell);planner.resetSpecialization();
@@ -10596,8 +10800,32 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
       if(trainer.mode==='business'){++startCheck;checking=false;}
       trainer.setMainTrade(event.currentTarget.value);
       if(trainer.mode==='business')releaseLease();
-      try {localStorage.setItem(mainTradeKey,trainer.mainTrade);}
+      try {
+        localStorage.setItem(mainTradeKey,trainer.mainTrade);
+        localStorage.setItem(mainJobKey,JSON.stringify(trainer.mainJobId));
+        localStorage.setItem(mainMonsterKey,JSON.stringify(trainer.mainMonsterId));
+      }
       catch {trainer.log('主业已切换，但无法保存偏好；刷新后自动选择主业');}
+      render();
+    };
+    panel.querySelector('[data-main-job]').onchange=event=>{
+      const jobId=event.currentTarget.value===''?null:validMainJob(Number(event.currentTarget.value),trainer.mainTrade);
+      if(jobId===trainer.mainJobId)return;
+      if(trainer.mode==='business'){++startCheck;checking=false;}
+      trainer.setMainJob(jobId);
+      if(trainer.mode==='business')releaseLease();
+      try {localStorage.setItem(mainJobKey,JSON.stringify(trainer.mainJobId));}
+      catch {trainer.log('具体工作已切换，但无法保存；刷新后恢复原设置');}
+      render();
+    };
+    panel.querySelector('[data-main-monster]').onchange=event=>{
+      const monsterId=event.currentTarget.value===''?null:validMainMonster(Number(event.currentTarget.value),trainer.mainTrade);
+      if(monsterId===trainer.mainMonsterId)return;
+      if(trainer.mode==='business'){++startCheck;checking=false;}
+      trainer.setMainMonster(monsterId);
+      if(trainer.mode==='business')releaseLease();
+      try {localStorage.setItem(mainMonsterKey,JSON.stringify(trainer.mainMonsterId));}
+      catch {trainer.log('目标怪物已切换，但无法保存；刷新后恢复原设置');}
       render();
     };
     panel.querySelector('[data-profession]').onchange=event=>{
@@ -10611,6 +10839,7 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
       const body=panel.querySelector('.body'); body.hidden=!body.hidden;
       event.currentTarget.textContent=body.hidden?'+':'−';
       event.currentTarget.setAttribute('aria-label',body.hidden?'展开面板':'收起面板');
+      event.currentTarget.setAttribute('aria-expanded',String(!body.hidden));
     };
     panel.querySelector('[data-start]').onclick=async()=>{
       if (checking||trainer.active||trainer.recovery) return;
@@ -10632,10 +10861,10 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
     panel.querySelector('[data-equipment-details]').ontoggle=()=>{rendered='';render();};
     panel.querySelector('[data-export]').onclick=()=>{
       const report={version:SCRIPT_VERSION,exportedAt:new Date().toISOString(),client:GAME_DATA.client,
-        profession:trainer.style,mode:trainer.mode,mainTrade:trainer.mainTrade,autoSell,potionRestock,capacitySales,boss:trainer.boss.status(trainer.player),metrics:trainer.telemetry.summary(),history:trainer.history,rejections,
+        profession:trainer.style,mode:trainer.mode,mainTrade:trainer.mainTrade,mainJobId:trainer.mainJobId,mainMonsterId:trainer.mainMonsterId,farmingPreference:planner.farmingPreference(),autoSell,potionRestock,capacitySales,boss:trainer.boss.status(trainer.player),metrics:trainer.telemetry.summary(),history:trainer.history,rejections,
         goal:trainer.goal,waitingGoals:trainer.waitingGoals,blocked:trainer.blockedReasons,market:market.summary(),
         growth:trainer.player&&trainer.mode==='balanced'?planner.growthStatus(trainer.player,trainer.style,trainer.deferred):null,
-        specialization:trainer.player&&trainer.mode==='business'?planner.specializationStatus(trainer.player,trainer.style,trainer.mainTrade):null,
+        specialization:trainer.player&&trainer.mode==='business'?planner.specializationStatus(trainer.player,trainer.style,trainer.mainTrade,trainer.mainJobId,trainer.mainMonsterId):null,
         quests:trainer.player?planner.questRead(trainer.player):[],
         equipment:trainer.player?planner.equipmentStatus(trainer.player,trainer.style):null};
       const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));
@@ -10660,11 +10889,21 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
     const marketText=market.summary();
     const crops=p?planner.farmPlots(p):[], ready=crops.filter(c=>c.readyAt<=p.lastTick).length;
     const farming=p?planner.farmStatus(p):null;
-    const farmText=farming?`农田：已解锁 ${farming.fields} 块 · ${ready} 块成熟 · ${crops.length-ready} 块生长 · ${farming.empty} 块待种`+
-      (crops.length&&!ready?` · 最近约 ${Math.max(1,Math.ceil((Math.min(...crops.map(c=>c.readyAt))-p.lastTick)*GAME_DATA.tickMs/60000))} 分钟成熟`:'')+
-      `\n${trainer.mode==='assist'?'等已种田地全部成熟后合批收菜，只用现有种子补种；临时外出后继续玩家原队列。':farming.reason??''}`:'';
+    const preference=planner.farmingPreference(),choices=farmingChoices(p),selectedCrop=choices.find(j=>j.id===preference.jobId);
+    const farmText=farming?(crops.length&&!ready?`最近约 ${Math.max(1,Math.ceil((Math.min(...crops.map(c=>c.readyAt))-p.lastTick)*GAME_DATA.tickMs/60000))} 分钟成熟。`:'')+
+      (farming.reason??'等待下一次合批种收'):'登录角色后显示田地与种子库存。';
+    const farmingNote=(preference.mode==='auto'?'按原料需求与种植收益选种，缺种整批补充；辅助模式只用现有种子。':
+      !p?'登录角色后核对作物等级与种子库存。':
+      !selectedCrop?'未指定有效作物，等待重新选择。':selectedCrop.locked?`${selectedCrop.name}需农业 ${selectedCrop.level} 级；保留选择，解锁前暂停农田调度。`:
+      selectedCrop.seeds===0?'缺种：可收获成熟作物，空田等待指定种子，不改种其他作物。':`下次可播种时使用${selectedCrop.name}，不改种其他作物。`)+
+      (trainer.mode==='assist'?' 辅助模式只用现有或收回种子，不买种、不采种。':'')+' 所有策略共用；下次农活生效，已开始的收种先完成。不铲除正在生长的作物。';
     const growth=p&&trainer.mode==='balanced'?planner.growthStatus(p,trainer.style,trainer.deferred):null;
-    const business=p&&trainer.mode==='business'?planner.specializationStatus(p,trainer.style,trainer.mainTrade):null;
+    const business=p&&trainer.mode==='business'?planner.specializationStatus(p,trainer.style,trainer.mainTrade,trainer.mainJobId,trainer.mainMonsterId):null;
+    const mainJobs=GAME_DATA.jobs.filter(j=>!j.grow&&j.skill===trainer.mainTrade).sort((a,b)=>a.levelReq-b.levelReq||a.id-b.id)
+      .map(j=>({id:j.id,name:mainJobName(j),level:j.levelReq,locked:!p||lv[j.skill]<j.levelReq}));
+    const selectedMainJob=mainJobs.find(j=>j.id===trainer.mainJobId);
+    const mainMonsters=GAME_DATA.monsters.map(m=>({id:m.id,name:m.name,level:m.level})).sort((a,b)=>a.level-b.level||a.id-b.id);
+    const selectedMainMonster=mainMonsters.find(m=>m.id===trainer.mainMonsterId);
     const boss=trainer.boss.status(p);
     const mainTradeName=trainer.mainTrade==='combat'?`${PROFESSIONS[trainer.style]}战斗`:MAIN_TRADES[trainer.mainTrade];
     const buffs=p?activeBuffs(GAME_DATA,p):[];
@@ -10681,7 +10920,7 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
       p.activity==='walking'||p.path?.length?`行走中${work?`（${work}）`:''}`:
       p.activity==='working'?work||'工作中':`空闲${work?`（已安排${work}）`:''}`);
     const equipmentOpen=panel.querySelector('[data-equipment-details]').open;
-    const signature=JSON.stringify([updates.state,autoSell,potionRestock,capacitySales,review,metrics,farmText,marketText,growth,business,boss,buffs,quests,activity,equipmentOpen,checking,compatibilityMessage,trainer.style,trainer.mode,trainer.mainTrade,trainer.active,trainer.message,trainer.goal,trainer.plan?.label,trainer.plan?.reason,lv,trainer.history,trainer.blockedReasons,rejections,rejectionsSaved]);
+    const signature=JSON.stringify([updates.state,autoSell,potionRestock,capacitySales,review,metrics,farmText,farming,preference,choices,marketText,growth,business,mainJobs,trainer.mainJobId,mainMonsters,trainer.mainMonsterId,boss,buffs,quests,activity,equipmentOpen,checking,compatibilityMessage,trainer.style,trainer.mode,trainer.mainTrade,trainer.active,trainer.message,trainer.goal,trainer.plan?.label,trainer.plan?.reason,lv,trainer.history,trainer.blockedReasons,rejections,rejectionsSaved]);
     if (signature===rendered) return;
     rendered=signature;
     panel.querySelector('[data-update-status]').textContent=updates.state.checking?'正在检查脚本更新…':updates.state.message;
@@ -10693,7 +10932,39 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
     panel.querySelector('[data-mode]').value=trainer.mode;
     panel.querySelector('[data-main-trade-controls]').hidden=trainer.mode!=='business';
     panel.querySelector('[data-main-trade]').value=trainer.mainTrade;
+    panel.querySelector('[data-main-job-controls]').hidden=trainer.mode!=='business'||['auto','combat'].includes(trainer.mainTrade);
+    const mainJobSelect=panel.querySelector('[data-main-job]'),mainJobSignature=JSON.stringify(mainJobs);
+    if(mainJobSignature!==mainJobOptions) {
+      mainJobOptions=mainJobSignature;mainJobSelect.replaceChildren();
+      const automatic=document.createElement('option');automatic.value='';automatic.textContent='自动选择本业工作';mainJobSelect.append(automatic);
+      for(const job of mainJobs) {
+        const option=document.createElement('option');option.value=String(job.id);option.disabled=job.locked;
+        option.textContent=`${job.name} · ${job.level} 级${job.locked?' · 未解锁':''}`;mainJobSelect.append(option);
+      }
+    }
+    const mainJobValue=trainer.mainJobId==null?'':String(trainer.mainJobId);
+    if(mainJobSelect.value!==mainJobValue)mainJobSelect.value=mainJobValue;
+    panel.querySelector('[data-main-job-info]').textContent=(selectedMainJob?
+      selectedMainJob.locked?`${selectedMainJob.name}需${mainTradeName} ${selectedMainJob.level} 级；保留选择，不换其他工作。`:
+        `固定${selectedMainJob.name}；补料、换装、收菜或 Boss 后返回。`:'在本业内自动比较收益与经验效率。')+' 切换后暂停调度，点击开始应用。';
+    panel.querySelector('[data-main-monster-controls]').hidden=trainer.mode!=='business'||trainer.mainTrade!=='combat';
+    const monsterSelect=panel.querySelector('[data-main-monster]'),monsterSignature=JSON.stringify(mainMonsters);
+    if(monsterSignature!==mainMonsterOptions) {
+      mainMonsterOptions=monsterSignature;monsterSelect.replaceChildren();
+      const automatic=document.createElement('option');automatic.value='';automatic.textContent='自动选择战斗目标';monsterSelect.append(automatic);
+      for(const monster of mainMonsters) {
+        const option=document.createElement('option');option.value=String(monster.id);
+        option.textContent=`${monster.name} · ${monster.level} 级`;monsterSelect.append(option);
+      }
+    }
+    const monsterValue=trainer.mainMonsterId==null?'':String(trainer.mainMonsterId);
+    if(monsterSelect.value!==monsterValue)monsterSelect.value=monsterValue;
+    panel.querySelector('[data-main-monster-info]').textContent=(selectedMainMonster?`固定挑战 ${selectedMainMonster.name}；武器或食物不足以安全战斗时等待准备，不改打其他怪物。`:
+      '根据职业、装备与补给自动选择安全的战斗目标。')+' 切换后暂停调度，点击开始应用。';
     panel.querySelector('[data-heading]').textContent=TRAINING_MODE_LABELS[trainer.mode]+(trainer.mode==='assist'?'':' · 职业专精');
+    panel.querySelector('[data-settings-summary]').textContent=trainer.mode==='assist'?'仅辅助':PROFESSIONS[trainer.style];
+    panel.querySelector('[data-run-state]').textContent=checking?'检查中':trainer.recovery?'待恢复':trainer.active?'运行中':p?'已暂停':'待登录';
+    panel.querySelector('[data-run-state]').setAttribute('data-running',String(trainer.active));
     panel.querySelector('[data-auto-sell]').checked=autoSell;
     panel.querySelector('[data-potion-restock]').checked=potionRestock;
     panel.querySelector('[data-capacity-sales]').checked=capacitySales;
@@ -10703,6 +10974,7 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
       `自动打造换装 · ${autoSell?'比价出售与必要采购':capacitySales?'仅满仓清理普通盈余 · 必要采购':'不自动出售 · 必要采购'}。常规切换遵守背包／批次边界；世界 Boss 临时参与结束后继续原任务。`;
     for(const selector of ['[data-equipment-details]','[data-economy-details]','[data-market-details]','[data-buffs-details]','[data-quests-details]'])
       panel.querySelector(selector).hidden=trainer.mode==='assist';
+    panel.querySelector('[data-more-details]').hidden=trainer.mode==='assist';
     panel.querySelector('[data-equipment-policy]').textContent=trainer.mode==='balanced'?
       '穿戴等级、制作技能与供料技能分别检查。材料已解锁的有效提升会优先准备；尚缺前置技能的列出条件。':
       trainer.mode==='business'?'按主业需要和预计回本选择工具或战斗装备；这里也列出其它装备门槛，列出不代表立即制作。':
@@ -10725,14 +10997,14 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
       trainer.mode==='balanced'?'检查落后技能、阶段装备和供料，选择下一项成长任务':
       trainer.mode==='experience'?'比较当前可执行路线的总经验效率，选择下一批工作':
       trainer.mode==='assist'?'等待合批收菜或世界 Boss；玩家自行安排原队列':
-      trainer.mainTrade!=='auto'?`指定主业：${mainTradeName}；准备本业工作和必要供料`:'比较持续收入与市场需求，自动选择主业和必要供料';
+      trainer.mainTrade!=='auto'?`指定主业：${mainTradeName}${selectedMainJob?` · ${selectedMainJob.name}`:selectedMainMonster?` · ${selectedMainMonster.name}`:''}；准备本业工作和必要供料`:'比较持续收入与市场需求，自动选择主业和必要供料';
     panel.querySelector('[data-activity]').textContent=`当前：${activity}`;
     panel.querySelector('[data-growth]').textContent=growth?
       `当前阶段：${growth.stage??'等待条件'} 级\n待补齐：${growth.remaining.map(s=>`${NAMES[s.skill]} ${s.level}`).join('、')||'无'}`+
       (growth.deferred.length?`\n生长／条件等待：${growth.deferred.map(s=>NAMES[s.skill]).join('、')}`:'')+
       '\n防御／生命随战斗自然提升，不参与阶段对齐。强化目标 +5，逐次确认；预算不足或失败时暂缓。':
       trainer.mode==='experience'?'允许偏科；计入供料与旅行时间，以总经验效率选路线。农业仍在后台合批处理。':
-      trainer.mode==='business'?(trainer.mainTrade!=='auto'?`指定主业：${mainTradeName}\n`:'')+
+      trainer.mode==='business'?(trainer.mainTrade!=='auto'?`指定主业：${mainTradeName}${selectedMainJob?` · 指定工作：${selectedMainJob.name}`:selectedMainMonster?` · 指定怪物：${selectedMainMonster.name}`:''}\n`:'')+
         (business?.skill?`当前主业：${NAMES[business.skill]??business.skill}\n${business.reason??''}`:
           trainer.mainTrade!=='auto'?'等待开始或本业条件满足；不自动更换指定主业。':'主业待评估：开始后按可执行路线和市场买单选择。')+
         '\n市场报价为有限批次估算，不保证成交；保持主业稳定，必要时补料或换工具。':
@@ -10761,7 +11033,27 @@ function createUpdateChecker({version,fetch,distribution='github',now=()=>Date.n
     }
     panel.querySelector('[data-task]').textContent=trainer.plan?.label??'';
     panel.querySelector('[data-reason]').textContent=trainer.plan?.reason??'';
+    panel.querySelector('[data-task]').hidden=!trainer.plan?.label;
+    panel.querySelector('[data-reason]').hidden=!trainer.plan?.reason;
     panel.querySelector('[data-farm]').textContent=farmText;
+    panel.querySelector('[data-farm-fields]').textContent=farming?`${farming.fields} 块已解锁`:'等待田地状态';
+    panel.querySelector('[data-farm-ready]').textContent=farming?String(ready):'—';
+    panel.querySelector('[data-farm-growing]').textContent=farming?String(crops.length-ready):'—';
+    panel.querySelector('[data-farm-empty]').textContent=farming?String(farming.empty):'—';
+    panel.querySelector('[data-farming-mode]').value=preference.mode;
+    panel.querySelector('[data-farming-crop-controls]').hidden=preference.mode!=='manual';
+    panel.querySelector('[data-farming-note]').textContent=farmingNote;
+    const cropSelect=panel.querySelector('[data-farming-crop]'),optionsSignature=JSON.stringify(choices);
+    if(optionsSignature!==farmingOptions) {
+      farmingOptions=optionsSignature;cropSelect.replaceChildren();
+      for(const choice of choices) {
+        const option=document.createElement('option');option.value=String(choice.id);option.disabled=choice.locked;
+        option.textContent=`${choice.name} · ${choice.level} 级 · ${choice.locked?'未解锁':`种子 ${choice.seeds}`}`;
+        cropSelect.append(option);
+      }
+    }
+    const cropValue=preference.jobId==null?'':String(preference.jobId);
+    if(cropSelect.value!==cropValue)cropSelect.value=cropValue;
     const bossPhase={saving:'确认保留原任务和队列',ready:'准备出发',moving:'正在前往',attacking:'等待参战确认',
       fighting:boss.recentActivity?(boss.hit?'已命中，近期收到参战回报':'近期收到参战回报，等待有效命中'):
         (boss.hit?'曾命中，等待新的参战回报':'等待新的参战回报'),dead:'本轮已阵亡，保留贡献并等待结束',
