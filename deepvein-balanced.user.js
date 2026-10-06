@@ -12815,71 +12815,951 @@ function createPlanningClient(makeWorker,{timeout=8000,setTimer=setTimeout,clear
     host.style.cssText='position:fixed;right:12px;top:60px;z-index:2147483646;';
     panel=host.attachShadow({mode:'open'});
     panel.innerHTML=`<style>
-      :host{all:initial;color-scheme:dark;font:13px/1.6 "Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:#eee9dd}
-      *{box-sizing:border-box}section{display:flex;flex-direction:column;width:380px;max-width:calc(100vw - 24px);max-height:calc(100vh - 76px);max-height:calc(100dvh - 76px);background:#1c1b18;border:1px solid #494333;border-radius:14px;box-shadow:0 12px 36px #0005;overflow:hidden}
-      header{display:flex;align-items:center;gap:8px;padding:13px 14px 10px;flex-shrink:0}.brand{flex:1;min-width:0}.eyebrow{font-size:10px;letter-spacing:2px;color:#c1a96e}.brand strong{display:block;font-size:15px;font-weight:650;letter-spacing:.2px}
-      button,select,input{font:inherit}button,select{min-height:44px;border:1px solid #504b3d;border-radius:8px;background:#292721;color:#eee9dd}button{cursor:pointer;padding:8px 14px;font-weight:600}button:hover{background:#383328}button:disabled{opacity:.38;cursor:default}
-      :is(button,select,input,summary,a):focus-visible{outline:2px solid #e2c274;outline-offset:3px}a{color:#d8bd7e;text-underline-offset:3px}header a{font-size:11px;white-space:nowrap}[data-fold]{width:44px;flex-shrink:0;border-color:transparent;background:transparent;padding:0;font-size:22px;color:#bfb8a6}
-      .runbar{padding:0 14px 14px;border-bottom:1px solid #3b382f;flex-shrink:0}.run-state{display:flex;align-items:center;gap:8px;margin:0 0 8px}.run-state b{font-size:11px;font-weight:600;border:1px solid #5b523a;border-radius:5px;padding:1px 7px;color:#dac18b;white-space:nowrap}.run-state b[data-running="true"]{border-color:#657956;color:#b5d299}[data-status]{min-width:0;font-size:12px;color:#c6bead;max-height:3.2em;overflow:auto;margin:0}.buttons{display:flex;gap:8px}.buttons button{flex:1}[data-start]{background:#d4b36a;border-color:#d4b36a;color:#211d13}[data-start]:hover{background:#e1c381}
-      .body{padding:14px;min-height:0;overflow:auto;scrollbar-width:thin;scrollbar-color:#56503f transparent;overscroll-behavior:contain}[hidden]{display:none!important}p{margin:0 0 8px;overflow-wrap:anywhere}p:last-child{margin-bottom:0}.muted{color:#b7b0a0;font-size:12px}.label{font-size:10px;letter-spacing:1.5px;color:#c1a96e;margin-bottom:5px}.current{padding:0 1px 14px}[data-activity]{font-size:14px;font-weight:600}[data-task]{color:#ddc38d;font-size:12px}[data-goal],[data-reason]{font-size:12px;color:#b7b0a0}
-      .card{background:#23211c;border:1px solid #3d392f;border-radius:10px;padding:12px;margin-bottom:10px}.card-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:9px}.card-heading strong{font-size:13px;font-weight:600}.card-heading span{font-size:11px;color:#b7b0a0}.farm-counts{display:grid;grid-template-columns:repeat(3,1fr);padding:0 0 10px;margin-bottom:10px;border-bottom:1px solid #3d392f}.farm-counts span{color:#b7b0a0;font-size:11px}.farm-counts span+span{padding-left:12px;border-left:1px solid #3d392f}.farm-counts b{display:block;color:#eee9dd;font-size:21px;line-height:1.35;font-weight:500;font-variant-numeric:tabular-nums}[data-farm]{margin-bottom:12px;font-size:11px;line-height:1.65}[data-farming-note]{font-size:11px;color:#b7b0a0}
-      label{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;margin-bottom:8px;font-size:12px}select{min-width:0;max-width:75%;padding:8px 9px;cursor:pointer}label select{flex:1}input[type="checkbox"]{width:18px;height:18px;accent-color:#d4b36a;flex-shrink:0;margin:13px 0 13px 10px}input[type="number"]{width:150px;min-height:44px;padding:8px 9px;border:1px solid #504b3d;border-radius:8px;background:#292721;color:#eee9dd}.setting-note{padding:0 0 9px}.notice{padding:10px;border:1px solid #766044;border-radius:8px;color:#e1c494;margin:10px 0;font-size:11px}
-      details{border-top:1px solid #3d392f}summary{display:flex;align-items:center;justify-content:space-between;gap:10px;list-style:none;min-height:46px;padding:10px 1px;cursor:pointer;color:#d3cbbb;font-size:12px;font-weight:600}summary::-webkit-details-marker{display:none}summary::after{content:'+';color:#a79a7d;font-size:17px;font-weight:400}details[open]>summary::after{content:'−'}.detail-content{padding:1px 0 13px}.detail-content>details{margin:0 0 2px}.detail-content>details>summary{font-weight:400;color:#bfb6a3}.detail-content>details[open]{padding-bottom:12px}.detail-content>details>p,.detail-content>details>pre{padding:0 3px}
-      .levels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 14px;margin:12px 0}.levels span{display:flex;justify-content:space-between;font-size:12px}.levels b{font-weight:500;font-variant-numeric:tabular-nums}.low{color:#dbbd78}.excluded{color:#8e887c}ol{padding-left:19px;max-height:200px;overflow:auto;font-size:11px;color:#b7b0a0}li{margin:6px 0;overflow-wrap:anywhere}pre{margin:10px 0}[data-inventory],[data-enhancement],[data-equipment]{white-space:pre-wrap;font:inherit;font-size:11px;line-height:1.7;max-height:260px;overflow:auto;color:#b7b0a0}
-      [data-metrics],[data-farm],[data-market],[data-growth],[data-quests],[data-rejections],[data-buffs]{white-space:pre-line}.footer{display:flex;justify-content:space-between;gap:10px;padding-top:12px;border-top:1px solid #3d392f;color:#968e7b;font-size:10px;letter-spacing:.2px}.update-actions{display:flex;align-items:center;gap:16px;margin:9px 0}.update-actions a{display:flex;align-items:center;min-height:44px}.fine-print{font-size:11px;color:#999281}
-      .compact-label{display:none}section[data-folded="true"]{width:260px;flex-direction:row;align-items:center;border-radius:10px}section[data-folded="true"] header{order:1;padding:0;gap:0}section[data-folded="true"] .brand,section[data-folded="true"] [data-status],section[data-folded="true"] .full-label{display:none}section[data-folded="true"] .runbar{display:flex;align-items:center;gap:8px;flex:1;min-width:0;padding:3px 0 3px 10px;border:0}section[data-folded="true"] .run-state{flex:1;min-width:0;gap:6px;margin:0}section[data-folded="true"] .run-state::before{content:'助手';color:#c6bead;font-size:12px;white-space:nowrap}section[data-folded="true"] .run-state b{border:0;padding:0;font-size:12px}section[data-folded="true"] .buttons button{padding:6px 12px}section[data-folded="true"] .compact-label{display:inline}section[data-folded="true"][data-running="true"] [data-start],section[data-folded="true"][data-running="false"] [data-pause]{display:none}section[data-folded="true"] [data-update-badge]{font-size:0;padding:0 4px;min-height:44px;display:flex;align-items:center}section[data-folded="true"] [data-update-badge]::after{content:'更新';font-size:11px}
-      section[data-folded="true"] .run-state{align-self:stretch;cursor:grab;touch-action:none;user-select:none}section[data-dragging="true"] .run-state{cursor:grabbing}
-      [data-compact-target]{display:none;min-width:0;font-size:11px;line-height:1.65;font-variant-numeric:tabular-nums}[data-compact-target-name]{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#ddc38d}[data-compact-target-count]{white-space:nowrap}section[data-folded="true"][data-target="true"] .run-state::before,section[data-folded="true"][data-target="true"] [data-run-state]{display:none}section[data-folded="true"] [data-compact-target]{display:block}
-      [data-item-target-search]{width:100%;min-width:0;min-height:44px;padding:8px 9px;border:1px solid #504b3d;border-radius:8px;background:#292721;color:#eee9dd;margin-bottom:8px}
-      @media(max-width:480px){:host(:not([data-positioned])){top:12px!important;right:8px!important}section{width:380px;max-width:calc(100vw - 16px);max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px)}header{padding-top:11px}.brand strong{font-size:14px}}
+      :host {
+        all: initial;
+        color-scheme: dark;
+        --dv-bg-base: #0f1115;
+        --dv-bg-panel: #151821;
+        --dv-bg-card: #1a1e29;
+        --dv-bg-card-subtle: #161922;
+        --dv-bg-input: #101218;
+        --dv-border: #2c3242;
+        --dv-border-subtle: #212633;
+        --dv-border-focus: #22d3ee;
+        --dv-text-main: #f0f3f8;
+        --dv-text-muted: #9aa3b4;
+        --dv-text-dim: #636b7c;
+        --dv-accent-cyan: #22d3ee;
+        --dv-accent-cyan-dim: #0891b2;
+        --dv-accent-amber: #f59e0b;
+        --dv-accent-amber-dim: #b45309;
+        --dv-accent-green: #10b981;
+        --dv-accent-red: #ef4444;
+        --dv-radius-sm: 4px;
+        --dv-radius-md: 8px;
+        --dv-radius-lg: 12px;
+        --dv-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+        --dv-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        --dv-trans: 180ms ease;
+        font: 13px/1.6 var(--dv-font-sans);
+        color: var(--dv-text-main);
+      }
+      @media (prefers-color-scheme: light) {
+        :host {
+          --dv-bg-base: #f3f4f8;
+          --dv-bg-panel: #ffffff;
+          --dv-bg-card: #f8f9fb;
+          --dv-bg-card-subtle: #eff1f6;
+          --dv-bg-input: #ffffff;
+          --dv-border: #d0d5e2;
+          --dv-border-subtle: #e2e6f0;
+          --dv-border-focus: #0284c7;
+          --dv-text-main: #14161d;
+          --dv-text-muted: #586174;
+          --dv-text-dim: #8b95a8;
+          --dv-accent-cyan: #0284c7;
+          --dv-accent-cyan-dim: #0369a1;
+          --dv-accent-amber: #d97706;
+          --dv-accent-amber-dim: #92400e;
+          --dv-accent-green: #059669;
+          --dv-accent-red: #dc2626;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        :host { --dv-trans: 0ms !important; }
+        * { transition-duration: 0ms !important; animation-duration: 0ms !important; }
+      }
+      * { box-sizing: border-box; }
+      section {
+        display: flex;
+        flex-direction: column;
+        width: 390px;
+        max-width: calc(100vw - 24px);
+        max-height: calc(100vh - 76px);
+        max-height: calc(100dvh - 76px);
+        background: var(--dv-bg-base);
+        border: 1px solid var(--dv-border);
+        border-radius: var(--dv-radius-lg);
+        box-shadow: 0 16px 40px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.03);
+        overflow: hidden;
+        transition: width var(--dv-trans), border-radius var(--dv-trans);
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px 8px;
+        background: var(--dv-bg-panel);
+        border-bottom: 1px solid var(--dv-border-subtle);
+        flex-shrink: 0;
+      }
+      .brand { flex: 1; min-width: 0; }
+      .eyebrow {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        color: var(--dv-accent-cyan);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .eyebrow::before {
+        content: '';
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--dv-accent-cyan);
+        display: inline-block;
+      }
+      .brand strong {
+        display: block;
+        font-size: 14px;
+        font-weight: 650;
+        letter-spacing: .2px;
+        color: var(--dv-text-main);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      [data-update-badge] {
+        font-size: 11px;
+        font-weight: 600;
+        color: #121316;
+        background: var(--dv-accent-amber);
+        border-radius: var(--dv-radius-sm);
+        padding: 2px 7px;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: opacity var(--dv-trans);
+      }
+      [data-update-badge]:hover { opacity: .9; }
+      [data-fold] {
+        width: 32px;
+        height: 32px;
+        min-height: 32px;
+        flex-shrink: 0;
+        border: 1px solid var(--dv-border);
+        background: var(--dv-bg-card);
+        border-radius: var(--dv-radius-md);
+        padding: 0;
+        font-size: 18px;
+        line-height: 1;
+        color: var(--dv-text-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background var(--dv-trans), color var(--dv-trans), border-color var(--dv-trans);
+      }
+      [data-fold]:hover { background: var(--dv-border); color: var(--dv-text-main); }
+      .runbar {
+        padding: 10px 14px;
+        background: var(--dv-bg-panel);
+        border-bottom: 1px solid var(--dv-border);
+        flex-shrink: 0;
+        display: flex;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .run-state {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 1;
+        min-width: 0;
+      }
+      .status-line {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+      }
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 8px;
+        background: var(--dv-bg-card);
+        border: 1px solid var(--dv-border);
+        border-radius: 12px;
+        flex-shrink: 0;
+      }
+      .status-led {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--dv-text-dim);
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+        transition: background var(--dv-trans), box-shadow var(--dv-trans);
+      }
+      [data-running="true"] .status-led, [data-state="running"] .status-led {
+        background: var(--dv-accent-green);
+        box-shadow: 0 0 6px var(--dv-accent-green);
+      }
+      [data-state="paused"] .status-led {
+        background: var(--dv-accent-amber);
+        box-shadow: 0 0 6px var(--dv-accent-amber);
+      }
+      [data-state="checking"] .status-led {
+        background: var(--dv-accent-cyan);
+        box-shadow: 0 0 6px var(--dv-accent-cyan);
+      }
+      [data-state="recovery"] .status-led {
+        background: #818cf8;
+        box-shadow: 0 0 6px #818cf8;
+      }
+      [data-state="idle"] .status-led {
+        background: var(--dv-text-dim);
+        box-shadow: none;
+      }
+      .run-state b {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--dv-text-main);
+        white-space: nowrap;
+      }
+      [data-status] {
+        flex: 1;
+        min-width: 0;
+        font-size: 12px;
+        color: var(--dv-text-muted);
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .buttons {
+        display: flex;
+        gap: 8px;
+        flex-shrink: 0;
+        align-items: center;
+      }
+      .buttons button {
+        min-height: 36px;
+        padding: 6px 14px;
+        border-radius: var(--dv-radius-md);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--dv-trans);
+      }
+      [data-start] {
+        background: var(--dv-accent-amber);
+        border: 1px solid var(--dv-accent-amber);
+        color: #1a1711;
+      }
+      [data-start]:hover:not(:disabled) {
+        background: #fbb02c;
+        box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+      }
+      [data-pause] {
+        background: var(--dv-bg-card);
+        border: 1px solid var(--dv-border);
+        color: var(--dv-text-main);
+      }
+      [data-pause]:hover:not(:disabled) {
+        background: var(--dv-border);
+      }
+      button:disabled { opacity: .38; cursor: default; }
+      [data-compact-target] {
+        width: 100%;
+        padding: 5px 8px;
+        background: var(--dv-bg-card-subtle);
+        border: 1px solid var(--dv-border-subtle);
+        border-radius: var(--dv-radius-md);
+        font-size: 11px;
+        font-variant-numeric: tabular-nums;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .compact-target-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+      }
+      [data-compact-target-name] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--dv-accent-cyan);
+        font-weight: 600;
+      }
+      [data-compact-target-count] {
+        white-space: nowrap;
+        color: var(--dv-text-muted);
+        font-family: var(--dv-font-mono);
+      }
+      .compact-target-bar {
+        height: 3px;
+        background: var(--dv-border);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .compact-target-fill {
+        height: 100%;
+        background: var(--dv-accent-cyan);
+        width: var(--target-pct, 0%);
+        transition: width var(--dv-trans);
+      }
+      .compact-label { display: none; }
+      section[data-folded="true"] {
+        width: auto;
+        min-width: 310px;
+        max-width: 440px;
+        height: 44px;
+        flex-direction: row;
+        align-items: center;
+        border-radius: 22px;
+        padding: 0 6px 0 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
+      }
+      section[data-folded="true"] header {
+        order: 2;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        gap: 6px;
+        margin-left: 6px;
+      }
+      section[data-folded="true"] .brand,
+      section[data-folded="true"] .full-label {
+        display: none !important;
+      }
+      section[data-folded="true"] .runbar {
+        order: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+        padding: 0;
+        background: transparent;
+        border: 0;
+      }
+      section[data-folded="true"] .run-state {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex: 1;
+        min-width: 0;
+        cursor: grab;
+        touch-action: none;
+        user-select: none;
+        gap: 6px;
+      }
+      section[data-dragging="true"] .run-state { cursor: grabbing; }
+      section[data-folded="true"] .status-line {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex: 1;
+        min-width: 0;
+      }
+      section[data-folded="true"] .status-pill { padding: 2px 6px; }
+      section[data-folded="true"] [data-status] {
+        max-width: 140px;
+        font-size: 11px;
+      }
+      section[data-folded="true"][data-target="true"] [data-status] {
+        max-width: 90px;
+      }
+      section[data-folded="true"] [data-compact-target] {
+        padding: 2px 6px;
+        border: 0;
+        background: transparent;
+        max-width: 130px;
+        flex-shrink: 0;
+      }
+      section[data-folded="true"] .compact-target-bar { display: none; }
+      section[data-folded="true"] .buttons button {
+        min-height: 30px;
+        padding: 4px 10px;
+        border-radius: 15px;
+      }
+      section[data-folded="true"] .compact-label { display: inline; }
+      section[data-folded="true"][data-running="true"] [data-start],
+      section[data-folded="true"][data-running="false"] [data-pause] {
+        display: none;
+      }
+      section[data-folded="true"] [data-fold] {
+        width: 28px;
+        height: 28px;
+        min-height: 28px;
+        border-radius: 14px;
+        font-size: 16px;
+      }
+      section[data-folded="true"] [data-update-badge] {
+        font-size: 0;
+        padding: 0 4px;
+        min-height: 28px;
+        display: flex;
+        align-items: center;
+      }
+      section[data-folded="true"] [data-update-badge]::after { content: '更新'; font-size: 10px; }
+      .body {
+        padding: 0;
+        min-height: 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      [hidden] { display: none !important; }
+      .tab-strip {
+        display: flex;
+        gap: 4px;
+        padding: 6px 12px;
+        background: var(--dv-bg-panel);
+        border-bottom: 1px solid var(--dv-border);
+        overflow-x: auto;
+        scrollbar-width: none;
+        flex-shrink: 0;
+      }
+      .tab-strip::-webkit-scrollbar { display: none; }
+      [role="tab"] {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: var(--dv-radius-md);
+        color: var(--dv-text-muted);
+        font-size: 12px;
+        font-weight: 500;
+        padding: 5px 10px;
+        cursor: pointer;
+        white-space: nowrap;
+        min-height: 30px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: all var(--dv-trans);
+      }
+      [role="tab"]:hover {
+        background: rgba(255,255,255,0.04);
+        color: var(--dv-text-main);
+      }
+      [role="tab"][aria-selected="true"] {
+        background: var(--dv-bg-card);
+        border-color: var(--dv-border);
+        color: var(--dv-accent-cyan);
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      }
+      [role="tab"][data-has-update="true"]::after {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--dv-accent-amber);
+      }
+      .panels-container {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 12px 14px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--dv-border) transparent;
+        overscroll-behavior: contain;
+      }
+      [role="tabpanel"] {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .card {
+        background: var(--dv-bg-card);
+        border: 1px solid var(--dv-border-subtle);
+        border-radius: var(--dv-radius-md);
+        padding: 12px;
+      }
+      .card-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--dv-text-main);
+      }
+      .card-heading span {
+        font-size: 11px;
+        font-weight: normal;
+        color: var(--dv-text-muted);
+        font-family: var(--dv-font-mono);
+      }
+      .farm-counts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        padding: 8px 0 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid var(--dv-border-subtle);
+      }
+      .farm-count-item {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .farm-count-item b {
+        display: block;
+        font-family: var(--dv-font-mono);
+        font-size: 20px;
+        line-height: 1.2;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+        color: var(--dv-accent-cyan);
+      }
+      .farm-count-item span {
+        font-size: 10px;
+        color: var(--dv-text-dim);
+        text-transform: uppercase;
+      }
+      .current {
+        background: var(--dv-bg-card);
+        border: 1px solid var(--dv-border-subtle);
+        border-left: 3px solid var(--dv-accent-cyan);
+        border-radius: var(--dv-radius-md);
+        padding: 10px 12px;
+      }
+      .label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--dv-accent-cyan);
+        margin: 0 0 4px;
+      }
+      [data-activity] {
+        font-size: 14px;
+        font-weight: 650;
+        color: var(--dv-text-main);
+        margin: 0 0 4px;
+      }
+      [data-task] {
+        color: var(--dv-accent-amber);
+        font-size: 12px;
+        font-weight: 500;
+        margin: 0 0 2px;
+      }
+      [data-goal], [data-reason] {
+        font-size: 12px;
+        color: var(--dv-text-muted);
+        margin: 0 0 2px;
+      }
+      p { margin: 0 0 8px; overflow-wrap: anywhere; }
+      p:last-child { margin-bottom: 0; }
+      .levels {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px 8px;
+        margin: 10px 0;
+      }
+      .levels span {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 8px;
+        background: var(--dv-bg-input);
+        border: 1px solid var(--dv-border-subtle);
+        border-radius: var(--dv-radius-sm);
+        font-size: 11px;
+      }
+      .levels b {
+        font-family: var(--dv-font-mono);
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+        color: var(--dv-accent-cyan);
+      }
+      .levels span.low {
+        border-color: var(--dv-accent-amber-dim);
+        background: rgba(245, 158, 11, 0.08);
+      }
+      .levels span.low b { color: var(--dv-accent-amber); }
+      .levels span.excluded { opacity: .55; color: var(--dv-text-dim); }
+      .levels span.excluded b { color: var(--dv-text-dim); }
+      details {
+        background: var(--dv-bg-card);
+        border: 1px solid var(--dv-border-subtle);
+        border-radius: var(--dv-radius-md);
+        overflow: hidden;
+      }
+      details + details { margin-top: 8px; }
+      summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        list-style: none;
+        min-height: 40px;
+        padding: 8px 12px;
+        cursor: pointer;
+        color: var(--dv-text-main);
+        font-size: 12px;
+        font-weight: 600;
+        background: var(--dv-bg-card);
+        user-select: none;
+        transition: background var(--dv-trans);
+      }
+      summary::-webkit-details-marker { display: none; }
+      summary:hover { background: rgba(255,255,255,0.03); }
+      summary::after {
+        content: '+';
+        color: var(--dv-text-dim);
+        font-size: 16px;
+        font-weight: 400;
+      }
+      details[open] > summary::after { content: '−'; }
+      .detail-content {
+        padding: 10px 12px 12px;
+        border-top: 1px solid var(--dv-border-subtle);
+        background: var(--dv-bg-panel);
+      }
+      .detail-content > details {
+        margin-top: 6px;
+        border-color: var(--dv-border-subtle);
+        background: var(--dv-bg-card-subtle);
+      }
+      .detail-content > details > summary {
+        font-weight: 500;
+        font-size: 11px;
+        min-height: 36px;
+        padding: 6px 10px;
+        color: var(--dv-text-muted);
+        background: transparent;
+      }
+      .detail-content > details[open] > .detail-content,
+      .detail-content > details > p,
+      .detail-content > details > pre {
+        padding: 8px 10px;
+      }
+      label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        min-height: 40px;
+        margin-bottom: 8px;
+        font-size: 12px;
+        color: var(--dv-text-muted);
+      }
+      select, input[type="number"], input[type="search"] {
+        min-height: 36px;
+        padding: 6px 10px;
+        border: 1px solid var(--dv-border);
+        border-radius: var(--dv-radius-md);
+        background: var(--dv-bg-input);
+        color: var(--dv-text-main);
+        font: inherit;
+        transition: border-color var(--dv-trans);
+      }
+      select { cursor: pointer; max-width: 65%; flex: 1; }
+      input[type="number"] { width: 130px; font-family: var(--dv-font-mono); }
+      input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--dv-accent-amber);
+        flex-shrink: 0;
+        margin: 8px 0 8px 8px;
+        cursor: pointer;
+      }
+      [data-item-target-search] {
+        width: 100%;
+        min-height: 38px;
+        padding: 8px 12px;
+        border: 1px solid var(--dv-border);
+        border-radius: var(--dv-radius-md);
+        background: var(--dv-bg-input);
+        color: var(--dv-text-main);
+        margin-bottom: 8px;
+      }
+      :is(button, select, input, summary, a, [role="tab"], [role="tabpanel"]):focus-visible {
+        outline: 2px solid var(--dv-border-focus);
+        outline-offset: 2px;
+      }
+      .notice {
+        padding: 10px 12px;
+        border: 1px solid var(--dv-accent-amber-dim);
+        background: rgba(245, 158, 11, 0.08);
+        border-radius: var(--dv-radius-md);
+        color: var(--dv-accent-amber);
+        margin: 8px 0;
+        font-size: 11px;
+      }
+      .fine-print {
+        font-size: 11px;
+        line-height: 1.5;
+        color: var(--dv-text-dim);
+        margin-top: 6px;
+      }
+      .muted { color: var(--dv-text-muted); font-size: 12px; }
+      .setting-note { padding: 0 0 8px; }
+      pre {
+        margin: 8px 0;
+        padding: 8px 10px;
+        background: var(--dv-bg-input);
+        border: 1px solid var(--dv-border-subtle);
+        border-radius: var(--dv-radius-md);
+        font-family: var(--dv-font-mono);
+        font-size: 11px;
+        line-height: 1.6;
+        max-height: 240px;
+        overflow-y: auto;
+        color: var(--dv-text-muted);
+        white-space: pre-wrap;
+      }
+      [data-metrics],[data-farm],[data-market],[data-growth],[data-quests],[data-rejections],[data-buffs]{ white-space: pre-line; }
+      ol {
+        margin: 0 0 10px;
+        padding: 8px 10px;
+        background: var(--dv-bg-input);
+        border: 1px solid var(--dv-border-subtle);
+        border-radius: var(--dv-radius-md);
+        font-family: var(--dv-font-mono);
+        max-height: 200px;
+        overflow-y: auto;
+        font-size: 11px;
+        color: var(--dv-text-muted);
+        list-style: none;
+      }
+      li {
+        padding: 3px 0;
+        border-bottom: 1px dashed rgba(255,255,255,0.05);
+        overflow-wrap: anywhere;
+      }
+      li:last-child { border-bottom: 0; }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 8px 14px;
+        background: var(--dv-bg-panel);
+        border-top: 1px solid var(--dv-border-subtle);
+        color: var(--dv-text-dim);
+        font-size: 10px;
+        letter-spacing: .3px;
+        flex-shrink: 0;
+      }
+      .update-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 10px 0;
+      }
+      .update-actions a {
+        display: flex;
+        align-items: center;
+        min-height: 36px;
+        color: var(--dv-accent-amber);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        font-size: 12px;
+      }
+      @media(max-width: 480px) {
+        :host(:not([data-positioned])) {
+          top: 12px !important;
+          right: 8px !important;
+        }
+        section {
+          width: 380px;
+          max-width: calc(100vw - 16px);
+          max-height: calc(100vh - 24px);
+          max-height: calc(100dvh - 24px);
+        }
+        header { padding-top: 10px; }
+        .brand strong { font-size: 13px; }
+      }
     </style><section aria-label="自给成长与职业助手">
-      <header><div class="brand"><div class="eyebrow">DEEP VEIN · 助手</div><strong data-heading>均衡成长 · 职业专精</strong></div><a data-update-badge hidden target="_blank" rel="noopener noreferrer">有更新</a><button data-fold aria-label="收起面板" aria-expanded="true">−</button></header>
-      <div class="runbar"><div class="run-state"><b data-run-state>待机</b><div data-compact-target hidden role="progressbar" aria-label="本次物品目标" aria-valuemin="0"><span data-compact-target-name></span><span data-compact-target-count></span></div><p data-status role="status">等待游戏状态…</p></div><div class="buttons"><button data-start><span class="full-label">开始调度</span><span class="compact-label">开始</span></button><button data-pause disabled><span class="full-label">暂停调度</span><span class="compact-label">暂停</span></button></div></div>
-      <div class="body">
-        <div class="current"><p class="label">当前任务</p><p data-activity>等待游戏状态</p><p data-task></p><p data-goal></p><p data-reason></p></div>
-        <div class="card"><div class="card-heading"><strong>农田</strong><span data-farm-fields>等待田地状态</span></div>
-          <div class="farm-counts"><span><b data-farm-ready>—</b>待收获</span><span><b data-farm-growing>—</b>生长中</span><span><b data-farm-empty>—</b>空田</span></div>
-          <p data-farm class="muted"></p>
-          <label>种植方式<select data-farming-mode aria-label="种植方式"><option value="auto">自动选择</option><option value="manual">指定作物</option></select></label>
-          <label data-farming-crop-controls hidden>指定作物<select data-farming-crop aria-label="指定作物"></select></label>
-          <p data-farming-note></p>
+      <header>
+        <div class="brand">
+          <div class="eyebrow">DEEP VEIN · 控制台</div>
+          <strong data-heading>均衡成长 · 职业专精</strong>
         </div>
-        <div class="card"><div class="card-heading"><strong>世界 Boss</strong><span>临时参与 · 原队列保留</span></div><p data-boss class="muted"></p><label>参战方式<select data-boss-participation aria-label="世界 Boss 参战方式"><option value="full">全程打到结束</option><option value="tag">确认有效伤害后离开</option></select></label><p class="fine-print">离开模式须收到服务器确认的本人有效伤害。按游戏说明，命中过即可参与分配，金币随贡献变化；实际奖励以结束后的掉落记录为准。仅控制助手发起的参战。</p></div>
-        <p data-last-rejection class="notice" hidden></p>
-        <details data-settings-details><summary>成长设置<span data-settings-summary class="muted"></span></summary><div class="detail-content">
-          <label>成长策略<select data-mode aria-label="成长策略">${Object.entries(TRAINING_MODE_LABELS).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label>
-          <p data-mode-info class="muted setting-note"></p>
-          <div data-main-trade-controls hidden><label>主业<select data-main-trade aria-label="主业">${Object.entries(MAIN_TRADES).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label><div data-main-job-controls hidden><label>具体工作<select data-main-job aria-label="具体工作"></select></label><p data-main-job-info class="muted setting-note"></p></div><div data-main-monster-controls hidden><label>目标怪物<select data-main-monster aria-label="目标怪物"></select></label><p data-main-monster-info class="muted setting-note"></p></div><p class="muted setting-note">农业继续后台合批种收；强化随有用装备升级。手选主业不会被更赚钱的其它技能替换。</p></div>
-          <label>战斗职业<select data-profession aria-label="战斗职业">${Object.entries(PROFESSIONS).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label>
-          <p data-profession-info class="muted"></p><p data-training-policy class="muted"></p>
-          <p class="fine-print">切换成长策略／职业后点击“开始”。开始后断线或本页刷新自动恢复；暂停取消恢复。保持电脑运行和标签页打开。</p>
-        </div></details>
-        <details data-item-target-details><summary>物品目标<span data-item-target-summary class="muted">未设置</span></summary><div class="detail-content">
-          <input data-item-target-search type="search" aria-label="搜索目标物品" placeholder="搜索物品名称（中文／英文）" autocomplete="off" aria-describedby="item-target-search-results">
-          <p id="item-target-search-results" data-item-target-results class="muted" role="status" hidden></p>
-          <label>目标物品<select data-item-target-item aria-label="目标物品"></select></label>
-          <label>另外获得<input data-item-target-quantity aria-label="另外获得数量" type="number" min="1" max="1000000" step="1" value="100"></label>
-          <p data-item-target-status class="muted" role="status"></p>
-          <div class="buttons"><button data-item-target-start>开始目标</button><button data-item-target-cancel disabled>取消目标</button></div>
-          <p class="fine-print">仅普通品质；原库存不计，采购计新增，完成继续原策略。顺路收菜不额外补料，种子目标暂停播种；Boss 可能消耗目标食物时暂缓。暂停保留目标，切换策略、主业或职业取消；不接管玩家队列。</p>
-        </div></details>
-        <details data-progress-details><summary>等级与运行收益</summary><div class="detail-content"><p data-growth class="muted"></p><div class="levels"></div><p data-blocked class="muted"></p><p data-metrics class="muted"></p><p class="fine-print">只统计已观察到的在线区间；离线奖励不用于估算战斗效率。</p></div></details>
-        <details data-more-details><summary>任务、装备与物资</summary><div class="detail-content">
-          <details data-quests-details><summary>日常／周常任务</summary><p data-quests class="muted"></p><p class="fine-print">短且收益合算的任务优先，长任务顺路推进；完成后自动领奖，不停止当前工作。击杀任务经验按领奖时的武器职业发放。</p></details>
-          <details data-equipment-details><summary>当前与下一档装备</summary><p data-equipment-policy class="muted"></p><pre data-equipment></pre></details>
-          <details data-housing-details><summary>房屋扩建与升级</summary><pre data-housing></pre></details>
-          <details data-economy-details><summary>物资保留与强化预算</summary><pre data-inventory></pre><pre data-enhancement></pre>
-            <details><summary>预算规则</summary><p class="fine-print">保留计划用料、关键种子和装备；在用装备以 +5 为基线，每次尝试一级并确认。后续强化单次只用现有金币与最多 25% 自由碎片；同装备每阶段最多五次，失败停止本阶段重试。临近换代先换装，中间一级属性取整不变但 +5 有提升时可继续。</p><p class="fine-print">强化报价按基础属性估算，是否执行由策略决定；高阶失败可能回到 +0。售价有最低报价保护，未知物品和稀有装备保留。</p></details>
-          </details>
-          <details data-market-details><summary>市场采购与出售</summary><label>按收益采购<input type="checkbox" data-purchase-enabled aria-label="按收益采购"></label><p class="fine-print">制作先用现货，缺口优先比较市场供料；缺货、过贵或买不起再自备。按整批原料的价格、数量与省下的时间选择配方，不设固定金币底线或每小时限额，保留任务必需开销。背包、仓库同品质原料合批制作；稀有材料保留，已被完全替代的品质／强化装备仅按实际品级卖市场。</p><p class="fine-print">自主发展／经验优先练采矿、伐木时，可在原地清理不需要的普通主产物，省下的往返时间须超过产物价值；钓鱼、偷窃不自动丢。保留至少 50 件周转物资、计划材料、所有稀有物及副产物，不启用游戏的一键丢弃采集物。</p><label>自动出售多余物品<input type="checkbox" data-auto-sell aria-label="自动出售多余物品"></label><label>满仓时出售普通盈余<input type="checkbox" data-capacity-sales aria-label="满仓时出售普通盈余"></label><p data-market class="muted"></p>
-            <details><summary>出售范围与保护</summary><p class="fine-print">日常出售默认关闭，满仓清理默认开启。扣除计划用量后处理普通盈余和淘汰装备。品质／强化装备只有已有可穿戴且属性全面更好的替代品、没有在用或套装／目标引用时才可卖；按同品质同强化近 2 小时成交中位价参考，最多下浮 10%，没有可靠行情或需求不足则保留，绝不转系统回收。所有坐骑、宠物、低概率掉落（含白色）、稀有材料、种子、药水、食物储备和装备方案均保留。保护也覆盖旧版脚本挂单，未成交的会撤回，不动玩家手动单。优先成交税后更划算的买单；挂售量参考近 2 小时可见成交和排队卖量。满仓且最新有效记录显示滞销的普通盈余可直接系统回收；其他仍需挂售至少 2 小时并重新定价。查询失败、历史缺失或挂单槽满不会触发直接回收。不自动捐赠。</p></details>
-          </details>
-          <details data-buffs-details><summary>药水与食物</summary><p data-buffs class="muted"></p><label>比价自动补药水<input type="checkbox" data-potion-restock aria-label="比价自动补药水"></label><p class="fine-print">药效余量 ≤ 6 小时时按需补至约 20 小时；过期先用现货，正常存仓时可顺路买药，补完恢复原任务。按价格／效果选择品质，不专程返仓。</p>
-            <details><summary>补给预算与药效说明</summary><p class="fine-print">各品质药水每瓶同为 1 小时，效果倍率依次为 1、1.3、1.6、2.2、3；单次最多 20 瓶，高品质药效先计时。有近期报价才考虑使用稀有盈余，目标物品和配方原料保留。采购按价格与效果核算，单瓶价格不得超过普通基础估值 × 药效倍率 × 3。熟食按有效治疗／价格比较，遵守游戏自动进食品质上限。缺货、价格不合适或金币不足则继续自给。</p><p class="fine-print">采集：采矿、钓鱼、伐木、盗窃经验 +10%；灵药：普通工作与战斗经验 +10%。猎人：提高产物、掉落及收菜返种品质。战士：命中 +10、最大伤害 +10%，法师也适用。疾行：新路程速度 +20%；急速：攻击速度 +20%；滋养：食物治疗 +25%；深渊：普通怪金币 +25%。以上为普通品质数值。</p><p class="fine-print">不保证断货或离仓时药效不断。富余作物按收益补战斗减伤；临时增益不降低安全携粮量。</p></details>
-          </details>
-        </div></details>
-        <details data-diagnostics-details><summary>运行记录与诊断</summary><div class="detail-content"><ol></ol><button data-export>导出运行记录</button><details data-rejection-details hidden><summary>服务器拒绝记录</summary><p data-rejections class="muted"></p><button data-export-rejections>导出故障记录</button><p class="fine-print">最近 10 次仅保存在本机，刷新保留。公会提示不打断练级；同期操作仅作排查线索。记录不触发重试，未知错误仍会暂停。</p></details><p data-client class="fine-print"></p></div></details>
-        <details data-update-details><summary>脚本更新<span class="muted">v${SCRIPT_VERSION}</span></summary><div class="detail-content"><p data-update-status role="status" class="muted"></p><div class="update-actions"><button data-update-check title="每分钟最多检查一次">检查更新</button><a data-update-install target="_blank" rel="noopener noreferrer">安装／更新</a></div><p class="fine-print">油猴可按自身设置自动更新；已打开的游戏页需刷新才能运行新版，不强制刷新或打断任务。</p></div></details>
+        <a data-update-badge hidden target="_blank" rel="noopener noreferrer">有更新</a>
+        <button data-fold aria-label="收起面板" aria-expanded="true">−</button>
+      </header>
+      <div class="runbar">
+        <div class="run-state">
+          <div class="status-line">
+            <span class="status-pill"><span class="status-led" aria-hidden="true"></span><b data-run-state>待机</b></span>
+            <p data-status role="status">等待游戏状态…</p>
+          </div>
+          <div data-compact-target hidden role="progressbar" aria-label="本次物品目标" aria-valuemin="0">
+            <div class="compact-target-header">
+              <span data-compact-target-name></span>
+              <span data-compact-target-count></span>
+            </div>
+            <div class="compact-target-bar"><div class="compact-target-fill"></div></div>
+          </div>
+        </div>
+        <div class="buttons">
+          <button data-start><span class="full-label">开始调度</span><span class="compact-label">开始</span></button>
+          <button data-pause disabled><span class="full-label">暂停调度</span><span class="compact-label">暂停</span></button>
+        </div>
+      </div>
+      <div class="body">
+        <div class="tab-strip" role="tablist" aria-label="控制台分区标签">
+          <button role="tab" id="dv-tab-overview" aria-controls="dv-panel-overview" aria-selected="true" tabindex="0">总览</button>
+          <button role="tab" id="dv-tab-strategy" aria-controls="dv-panel-strategy" aria-selected="false" tabindex="-1">策略</button>
+          <button role="tab" id="dv-tab-target" aria-controls="dv-panel-target" aria-selected="false" tabindex="-1">目标</button>
+          <button role="tab" id="dv-tab-stats" aria-controls="dv-panel-stats" aria-selected="false" tabindex="-1">数据</button>
+          <button role="tab" id="dv-tab-supplies" aria-controls="dv-panel-supplies" aria-selected="false" tabindex="-1">物资</button>
+          <button role="tab" id="dv-tab-logs" aria-controls="dv-panel-logs" aria-selected="false" tabindex="-1">诊断</button>
+          <button role="tab" id="dv-tab-update" aria-controls="dv-panel-update" aria-selected="false" tabindex="-1">更新</button>
+        </div>
+        <div class="panels-container">
+          <div role="tabpanel" id="dv-panel-overview" aria-labelledby="dv-tab-overview" tabindex="0">
+            <div class="current">
+              <p class="label">当前任务</p>
+              <p data-activity>等待游戏状态</p>
+              <p data-task></p>
+              <p data-goal></p>
+              <p data-reason></p>
+            </div>
+            <div class="card">
+              <div class="card-heading"><strong>农田</strong><span data-farm-fields>等待田地状态</span></div>
+              <div class="farm-counts">
+                <div class="farm-count-item"><b data-farm-ready>—</b><span>待收获</span></div>
+                <div class="farm-count-item"><b data-farm-growing>—</b><span>生长中</span></div>
+                <div class="farm-count-item"><b data-farm-empty>—</b><span>空田</span></div>
+              </div>
+              <p data-farm class="muted"></p>
+              <label>种植方式<select data-farming-mode aria-label="种植方式"><option value="auto">自动选择</option><option value="manual">指定作物</option></select></label>
+              <label data-farming-crop-controls hidden>指定作物<select data-farming-crop aria-label="指定作物"></select></label>
+              <p data-farming-note></p>
+            </div>
+            <div class="card">
+              <div class="card-heading"><strong>世界 Boss</strong><span>临时参与 · 原队列保留</span></div>
+              <p data-boss class="muted"></p>
+              <label>参战方式<select data-boss-participation aria-label="世界 Boss 参战方式"><option value="full">全程打到结束</option><option value="tag">确认有效伤害后离开</option></select></label>
+              <p class="fine-print">离开模式须收到服务器确认的本人有效伤害。按游戏说明，命中过即可参与分配，金币随贡献变化；实际奖励以结束后的掉落记录为准。仅控制助手发起的参战。</p>
+            </div>
+            <p data-last-rejection class="notice" hidden></p>
+          </div>
+
+          <div role="tabpanel" id="dv-panel-strategy" aria-labelledby="dv-tab-strategy" tabindex="0" hidden>
+            <details data-settings-details open>
+              <summary>成长设置<span data-settings-summary class="muted"></span></summary>
+              <div class="detail-content">
+                <label>成长策略<select data-mode aria-label="成长策略">${Object.entries(TRAINING_MODE_LABELS).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label>
+                <p data-mode-info class="muted setting-note"></p>
+                <div data-main-trade-controls hidden>
+                  <label>主业<select data-main-trade aria-label="主业">${Object.entries(MAIN_TRADES).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label>
+                  <div data-main-job-controls hidden>
+                    <label>具体工作<select data-main-job aria-label="具体工作"></select></label>
+                    <p data-main-job-info class="muted setting-note"></p>
+                  </div>
+                  <div data-main-monster-controls hidden>
+                    <label>目标怪物<select data-main-monster aria-label="目标怪物"></select></label>
+                    <p data-main-monster-info class="muted setting-note"></p>
+                  </div>
+                  <p class="muted setting-note">农业继续后台合批种收；强化随有用装备升级。手选主业不会被更赚钱的其它技能替换。</p>
+                </div>
+                <label>战斗职业<select data-profession aria-label="战斗职业">${Object.entries(PROFESSIONS).map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}</select></label>
+                <p data-profession-info class="muted"></p>
+                <p data-training-policy class="muted"></p>
+                <p class="fine-print">切换成长策略／职业后点击“开始”。开始后断线或本页刷新自动恢复；暂停取消恢复。保持电脑运行和标签页打开。</p>
+              </div>
+            </details>
+          </div>
+
+          <div role="tabpanel" id="dv-panel-target" aria-labelledby="dv-tab-target" tabindex="0" hidden>
+            <details data-item-target-details open>
+              <summary>物品目标<span data-item-target-summary class="muted">未设置</span></summary>
+              <div class="detail-content">
+                <input data-item-target-search type="search" aria-label="搜索目标物品" placeholder="搜索物品名称（中文／英文）" autocomplete="off" aria-describedby="item-target-search-results">
+                <p id="item-target-search-results" data-item-target-results class="muted" role="status" hidden></p>
+                <label>目标物品<select data-item-target-item aria-label="目标物品"></select></label>
+                <label>另外获得<input data-item-target-quantity aria-label="另外获得数量" type="number" min="1" max="1000000" step="1" value="100"></label>
+                <p data-item-target-status class="muted" role="status"></p>
+                <div class="buttons">
+                  <button data-item-target-start>开始目标</button>
+                  <button data-item-target-cancel disabled>取消目标</button>
+                </div>
+                <p class="fine-print">仅普通品质；原库存不计，采购计新增，完成继续原策略。顺路收菜不额外补料，种子目标暂停播种；Boss 可能消耗目标食物时暂缓。暂停保留目标，切换策略、主业或职业取消；不接管玩家队列。</p>
+              </div>
+            </details>
+          </div>
+
+          <div role="tabpanel" id="dv-panel-stats" aria-labelledby="dv-tab-stats" tabindex="0" hidden>
+            <details data-progress-details open>
+              <summary>等级与运行收益</summary>
+              <div class="detail-content">
+                <p data-growth class="muted"></p>
+                <div class="levels"></div>
+                <p data-blocked class="muted"></p>
+                <p data-metrics class="muted"></p>
+                <p class="fine-print">只统计已观察到的在线区间；离线奖励不用于估算战斗效率。</p>
+              </div>
+            </details>
+          </div>
+
+          <div role="tabpanel" id="dv-panel-supplies" aria-labelledby="dv-tab-supplies" tabindex="0" hidden>
+            <details data-more-details open>
+              <summary>任务、装备与物资</summary>
+              <div class="detail-content">
+                <details data-quests-details open><summary>日常／周常任务</summary><p data-quests class="muted"></p><p class="fine-print">短且收益合算的任务优先，长任务顺路推进；完成后自动领奖，不停止当前工作。击杀任务经验按领奖时的武器职业发放。</p></details>
+                <details data-equipment-details><summary>当前与下一档装备</summary><p data-equipment-policy class="muted"></p><pre data-equipment></pre></details>
+                <details data-housing-details><summary>房屋扩建与升级</summary><pre data-housing></pre></details>
+                <details data-economy-details><summary>物资保留与强化预算</summary><pre data-inventory></pre><pre data-enhancement></pre>
+                  <details><summary>预算规则</summary><p class="fine-print">保留计划用料、关键种子和装备；在用装备以 +5 为基线，每次尝试一级并确认。后续强化单次只用现有金币与最多 25% 自由碎片；同装备每阶段最多五次，失败停止本阶段重试。临近换代先换装，中间一级属性取整不变但 +5 有提升时可继续。</p><p class="fine-print">强化报价按基础属性估算，是否执行由策略决定；高阶失败可能回到 +0。售价有最低报价保护，未知物品和稀有装备保留。</p></details>
+                </details>
+                <details data-market-details><summary>市场采购与出售</summary>
+                  <label>按收益采购<input type="checkbox" data-purchase-enabled aria-label="按收益采购"></label>
+                  <p class="fine-print">制作先用现货，缺口优先比较市场供料；缺货、过贵或买不起再自备。按整批原料的价格、数量与省下的时间选择配方，不设固定金币底线或每小时限额，保留任务必需开销。背包、仓库同品质原料合批制作；稀有材料保留，已被完全替代的品质／强化装备仅按实际品级卖市场。</p>
+                  <p class="fine-print">自主发展／经验优先练采矿、伐木时，可在原地清理不需要的普通主产物，省下的往返时间须超过产物价值；钓鱼、偷窃不自动丢。保留至少 50 件周转物资、计划材料、所有稀有物及副产物，不启用游戏的一键丢弃采集物。</p>
+                  <label>自动出售多余物品<input type="checkbox" data-auto-sell aria-label="自动出售多余物品"></label>
+                  <label>满仓时出售普通盈余<input type="checkbox" data-capacity-sales aria-label="满仓时出售普通盈余"></label>
+                  <p data-market class="muted"></p>
+                  <details><summary>出售范围与保护</summary><p class="fine-print">日常出售默认关闭，满仓清理默认开启。扣除计划用量后处理普通盈余和淘汰装备。品质／强化装备只有已有可穿戴且属性全面更好的替代品、没有在用或套装／目标引用时才可卖；按同品质同强化近 2 小时成交中位价参考，最多下浮 10%，没有可靠行情或需求不足则保留，绝不转系统回收。所有坐骑、宠物、低概率掉落（含白色）、稀有材料、种子、药水、食物储备和装备方案均保留。保护也覆盖旧版脚本挂单，未成交的会撤回，不动玩家手动单。优先成交税后更划算的买单；挂售量参考近 2 小时可见成交和排队卖量。满仓且最新有效记录显示滞销的普通盈余可直接系统回收；其他仍需挂售至少 2 小时并重新定价。查询失败、历史缺失或挂单槽满不会触发直接回收。不自动捐赠。</p></details>
+                </details>
+                <details data-buffs-details><summary>药水与食物</summary>
+                  <p data-buffs class="muted"></p>
+                  <label>比价自动补药水<input type="checkbox" data-potion-restock aria-label="比价自动补药水"></label>
+                  <p class="fine-print">药效余量 ≤ 6 小时时按需补至约 20 小时；过期先用现货，正常存仓时可顺路买药，补完恢复原任务。按价格／效果选择品质，不专程返仓。</p>
+                  <details><summary>补给预算与药效说明</summary><p class="fine-print">各品质药水每瓶同为 1 小时，效果倍率依次为 1、1.3、1.6、2.2、3；单次最多 20 瓶，高品质药效先计时。有近期报价才考虑使用稀有盈余，目标物品和配方原料保留。采购按价格与效果核算，单瓶价格不得超过普通基础估值 × 药效倍率 × 3。熟食按有效治疗／价格比较，遵守游戏自动进食品质上限。缺货、价格不合适或金币不足则继续自给。</p><p class="fine-print">采集：采矿、钓鱼、伐木、盗窃经验 +10%；灵药：普通工作与战斗经验 +10%。猎人：提高产物、掉落及收菜返种品质。战士：命中 +10、最大伤害 +10%，法师也适用。疾行：新路程速度 +20%；急速：攻击速度 +20%；滋养：食物治疗 +25%；深渊：普通怪金币 +25%。以上为普通品质数值。</p><p class="fine-print">不保证断货或离仓时药效不断。富余作物按收益补战斗减伤；临时增益不降低安全携粮量。</p></details>
+                </details>
+              </div>
+            </details>
+            <p class="muted setting-note" data-supplies-assist hidden>辅助模式下无需配置物资、装备与市场，助手不会安排相关任务。</p>
+          </div>
+
+          <div role="tabpanel" id="dv-panel-logs" aria-labelledby="dv-tab-logs" tabindex="0" hidden>
+            <details data-diagnostics-details open>
+              <summary>运行记录与诊断</summary>
+              <div class="detail-content">
+                <ol></ol>
+                <button data-export>导出运行记录</button>
+                <details data-rejection-details hidden>
+                  <summary>服务器拒绝记录</summary>
+                  <p data-rejections class="muted"></p>
+                  <button data-export-rejections>导出故障记录</button>
+                  <p class="fine-print">最近 10 次仅保存在本机，刷新保留。公会提示不打断练级；同期操作仅作排查线索。记录不触发重试，未知错误仍会暂停。</p>
+                </details>
+                <p data-client class="fine-print"></p>
+              </div>
+            </details>
+          </div>
+
+          <div role="tabpanel" id="dv-panel-update" aria-labelledby="dv-tab-update" tabindex="0" hidden>
+            <details data-update-details open>
+              <summary>脚本更新<span class="muted">v${SCRIPT_VERSION}</span></summary>
+              <div class="detail-content">
+                <p data-update-status role="status" class="muted"></p>
+                <div class="update-actions">
+                  <button data-update-check title="每分钟最多检查一次">检查更新</button>
+                  <a data-update-install target="_blank" rel="noopener noreferrer">安装／更新</a>
+                </div>
+                <p class="fine-print">油猴可按自身设置自动更新；已打开的游戏页需刷新才能运行新版，不强制刷新或打断任务。</p>
+              </div>
+            </details>
+          </div>
+        </div>
         <div class="footer"><span>DEEP VEIN IDLE</span><span>成长策略 · 物资预算 · v${SCRIPT_VERSION}</span></div>
       </div>
     </section>`;
@@ -13046,6 +13926,45 @@ function createPlanningClient(makeWorker,{timeout=8000,setTimer=setTimeout,clear
       const url=URL.createObjectURL(new Blob([JSON.stringify({version:SCRIPT_VERSION,rejections},null,2)],{type:'application/json'}));
       const link=document.createElement('a');link.href=url;link.download='deepvein-rejections.json';link.click();URL.revokeObjectURL(url);
     };
+    const tabKey='deepvein-helper-ui-tab-v1';
+    const tabs=Array.from(panel.querySelectorAll('[role="tab"]'));
+    const tabpanels=Array.from(panel.querySelectorAll('[role="tabpanel"]'));
+    function switchTab(targetId,focus=false) {
+      const targetTab=panel.querySelector(`#${targetId}`)||tabs[0];
+      if(!targetTab)return;
+      for(const tab of tabs) {
+        const isSelected=tab===targetTab;
+        tab.setAttribute('aria-selected',String(isSelected));
+        tab.setAttribute('tabindex',isSelected?'0':'-1');
+        if(isSelected&&focus)tab.focus();
+      }
+      const targetPanelId=targetTab.getAttribute('aria-controls');
+      for(const p of tabpanels) p.hidden=p.id!==targetPanelId;
+      try{localStorage.setItem(tabKey,targetTab.id);}catch{}
+    }
+    let savedTab=null;
+    try{savedTab=localStorage.getItem(tabKey);}catch{}
+    switchTab(savedTab||'dv-tab-overview');
+    const tablist=panel.querySelector('[role="tablist"]');
+    tablist.onclick=event=>{
+      const tab=event.target.closest('[role="tab"]');
+      if(tab)switchTab(tab.id);
+    };
+    tablist.onkeydown=event=>{
+      const tab=event.target.closest('[role="tab"]');
+      if(!tab)return;
+      const index=tabs.indexOf(tab);
+      if(index===-1)return;
+      let nextIndex=null;
+      if(event.key==='ArrowRight'||event.key==='ArrowDown') nextIndex=(index+1)%tabs.length;
+      else if(event.key==='ArrowLeft'||event.key==='ArrowUp') nextIndex=(index-1+tabs.length)%tabs.length;
+      else if(event.key==='Home') nextIndex=0;
+      else if(event.key==='End') nextIndex=tabs.length-1;
+      if(nextIndex!==null){
+        event.preventDefault();
+        switchTab(tabs[nextIndex].id,true);
+      }
+    };
     render();
     updates.check();
     prepareData().then(()=>{if(trainer.recovery||trainer.active)pump();});
@@ -13103,6 +14022,8 @@ function createPlanningClient(makeWorker,{timeout=8000,setTimer=setTimeout,clear
     for(const selector of ['[data-update-badge]','[data-update-install]'])panel.querySelector(selector).href=updates.state.installUrl;
     panel.querySelector('[data-update-badge]').hidden=!updates.state.available;
     panel.querySelector('[data-update-badge]').textContent=updates.state.available?`新版 ${updates.state.available}`:'';
+    const updateTab=panel.querySelector('#dv-tab-update');
+    if(updateTab) updateTab.setAttribute('data-has-update',String(!!updates.state.available));
     const trained=planner.trainedSkills(trainer.style);
     panel.querySelector('[data-mode]').value=trainer.mode;
     const identity=itemTarget?`${itemTarget.playerId}:${itemTarget.itemId}:${itemTarget.quantity}`:'';
@@ -13172,6 +14093,9 @@ function createPlanningClient(makeWorker,{timeout=8000,setTimer=setTimeout,clear
     panel.querySelector('[data-settings-summary]').textContent=trainer.mode==='assist'?'仅辅助':PROFESSIONS[trainer.style];
     panel.querySelector('[data-run-state]').textContent=checking?'检查中':trainer.recovery?'待恢复':trainer.active?'运行中':p?'已暂停':'待登录';
     panel.querySelector('[data-run-state]').setAttribute('data-running',String(trainer.active));
+    const stateCode=checking?'checking':trainer.recovery?'recovery':trainer.active?'running':p?'paused':'idle';
+    panel.querySelector('[data-run-state]').setAttribute('data-state',stateCode);
+    panel.querySelector('section').setAttribute('data-state',stateCode);
     panel.querySelector('[data-boss-participation]').value=boss.participation;
     const targetActive=!!itemTarget&&!itemTarget.completed,compactTarget=panel.querySelector('[data-compact-target]');
     panel.querySelector('section').setAttribute('data-target',String(targetActive));compactTarget.hidden=!targetActive;
@@ -13183,6 +14107,9 @@ function createPlanningClient(makeWorker,{timeout=8000,setTimer=setTimeout,clear
       compactTarget.setAttribute('aria-valuemax',String(itemTarget.quantity));compactTarget.setAttribute('aria-valuenow',String(gained));
       compactTarget.setAttribute('aria-valuetext',`${name}：${count}`);
       compactTarget.title=`${trainer.active?'运行中':'已暂停'} · ${name}：本次新增 ${gained} / ${itemTarget.quantity}；${translateGameText(trainer.message)}`;
+      compactTarget.style.setProperty('--target-pct',`${percent}%`);
+    } else {
+      compactTarget.style.setProperty('--target-pct','0%');
     }
     panel.querySelector('[data-auto-sell]').checked=autoSell;
     panel.querySelector('[data-potion-restock]').checked=potionRestock;
@@ -13194,6 +14121,8 @@ function createPlanningClient(makeWorker,{timeout=8000,setTimer=setTimeout,clear
     for(const selector of ['[data-equipment-details]','[data-economy-details]','[data-market-details]','[data-buffs-details]','[data-quests-details]'])
       panel.querySelector(selector).hidden=trainer.mode==='assist';
     panel.querySelector('[data-more-details]').hidden=trainer.mode==='assist';
+    const suppliesAssist=panel.querySelector('[data-supplies-assist]');
+    if(suppliesAssist) suppliesAssist.hidden=trainer.mode!=='assist';
     panel.querySelector('[data-equipment-policy]').textContent=trainer.mode==='balanced'?
       '先准备当前发展计划需要的工具与装备，再连续工作；全装备列表供参考，不代表同时制作。穿戴、制作与供料门槛分别检查。':
       trainer.mode==='business'?'按主业需要和预计回本选择工具或战斗装备；这里也列出其它装备门槛，列出不代表立即制作。':
